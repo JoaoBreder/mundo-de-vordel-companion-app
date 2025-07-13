@@ -1,43 +1,64 @@
-// @ts-check
-const eslint = require("@eslint/js");
-const tseslint = require("typescript-eslint");
-const angular = require("angular-eslint");
+import { defineConfig, globalIgnores } from 'eslint/config';
+import tseslint from 'typescript-eslint';
+import eslint from '@eslint/js';
+import angular from 'angular-eslint';
+import prettierPlugin from 'eslint-plugin-prettier';
 
-module.exports = tseslint.config(
-  {
-    files: ["**/*.ts"],
-    extends: [
-      eslint.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.stylistic,
-      ...angular.configs.tsRecommended,
-    ],
-    processor: angular.processInlineTemplates,
-    rules: {
-      "@angular-eslint/directive-selector": [
-        "error",
-        {
-          type: "attribute",
-          prefix: "app",
-          style: "camelCase",
+export default defineConfig([
+    {
+        files: ['**/*.ts'],
+        extends: [eslint.configs.recommended, ...tseslint.configs.recommended, ...tseslint.configs.stylistic, ...angular.configs.tsRecommended],
+        plugins: {
+            prettier: prettierPlugin,
         },
-      ],
-      "@angular-eslint/component-selector": [
-        "error",
-        {
-          type: "element",
-          prefix: "app",
-          style: "kebab-case",
+        processor: angular.processInlineTemplates,
+        rules: {
+            '@angular-eslint/directive-selector': [
+                'error',
+                {
+                    type: 'attribute',
+                    prefix: 'app',
+                    style: 'camelCase',
+                },
+            ],
+            '@angular-eslint/component-selector': [
+                'error',
+                {
+                    type: 'element',
+                    prefix: 'app',
+                    style: 'kebab-case',
+                },
+            ],
         },
-      ],
     },
-  },
-  {
-    files: ["**/*.html"],
-    extends: [
-      ...angular.configs.templateRecommended,
-      ...angular.configs.templateAccessibility,
-    ],
-    rules: {},
-  }
-);
+    {
+        files: ['**/*.html'],
+        extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
+        plugins: {
+            prettier: prettierPlugin,
+        },
+        rules: { 'prettier/prettier': ['error', { parser: 'angular' }] },
+    },
+    globalIgnores([
+        '/dist',
+        '/tmp',
+        '/out-tsc',
+        '/node_modules',
+        'package-lock.json',
+        'yarn.lock',
+        '/.angular/cache',
+        '/.firebase/**',
+        '/.sass-cache',
+        '/connect.lock',
+        '/coverage',
+        '/libpeerconnection.log',
+        'npm-debug.log',
+        'yarn-error.log',
+        'testem.log',
+        '/typings',
+        '*.*.cache',
+        'firebase-debug.log',
+        '.DS_Store',
+        'Thumbs.db',
+    ]),
+]);
