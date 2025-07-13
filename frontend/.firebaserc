@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "mundo-de-vordel-companion-app"
+  },
+  "targets": {
+    "mundo-de-vordel-companion-app": {
+      "hosting": {
+        "mundo-de-vordel-companion-app": [
+          "mundo-de-vordel-companion-app"
+        ]
+      }
+    }
+  }
+}

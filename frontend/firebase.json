@@ -1,0 +1,20 @@
+{
+	"functions": {
+		"source": "functions"
+	},
+	"firestore": {
+		"rules": "firestore.rules",
+		"indexes": "firestore.indexes.json"
+	},
+	"hosting": [
+		{
+			"public": "public",
+			"ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+		},
+		{
+			"target": "mundo-de-vordel-companion-app",
+			"source": ".",
+			"frameworksBackend": {}
+		}
+	]
+}
