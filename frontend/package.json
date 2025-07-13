@@ -17,6 +17,7 @@
         "@angular/common": "^16.2.0",
         "@angular/compiler": "^16.2.0",
         "@angular/core": "^16.2.0",
+        "@angular/fire": "^7.6.1",
         "@angular/forms": "^16.2.0",
         "@angular/material": "^16.2.14",
         "@angular/platform-browser": "^16.2.0",
@@ -28,7 +29,7 @@
         "rxjs": "~7.8.0",
         "rxjs-sub-manager": "^1.0.13",
         "tslib": "^2.3.0",
-        "zone.js": "~0.15.0"
+        "zone.js": "^0.13.0"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "^16.2.12",
