@@ -1,0 +1,203 @@
+app-login {
+    .page-layout {
+        display: flex;
+
+        height: 100%;
+        width: 100%;
+
+        position: relative;
+        overflow: hidden;
+    }
+
+    .page-layout::before {
+        content: '';
+        position: absolute;
+        top: -10%;
+        right: 0;
+
+        width: 60vw;
+        height: 120%;
+
+        background-image: url('../../../../assets/images/login-screen-background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        opacity: 0.35;
+        z-index: -1;
+
+        pointer-events: none;
+
+        animation: backgroundPulse 12s ease-in-out infinite;
+    }
+
+    .login-form-wrapper {
+        display: flex;
+        align-items: center;
+
+        width: 50%;
+        padding: 0 8vw;
+
+        background-color: theme('colors.black-palette.500');
+        box-shadow: 15px 0px 10px rgba(0, 0, 0, 0.5);
+
+        .text-wrapper {
+            margin-bottom: 5rem;
+
+            h1 {
+                font-size: 3.8rem;
+                margin-bottom: 1rem;
+            }
+
+            span {
+                color: theme('colors.black-palette.100');
+                font-size: 1.8rem;
+            }
+        }
+
+        .input-wrapper {
+            display: flex;
+            flex-direction: column;
+
+            width: 100%;
+
+            margin-bottom: 3rem;
+
+            mat-label {
+                margin-bottom: 1rem;
+            }
+
+            .mostrar-senha {
+                margin-right: 1rem;
+                cursor: pointer;
+            }
+        }
+
+        a {
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 1;
+                transition: 300ms;
+            }
+        }
+    }
+
+    .logo-container {
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
+
+        width: 50%;
+
+        .svg-imagem {
+            width: 30vw;
+            height: auto;
+        }
+    }
+
+    .fade-slide-in {
+        opacity: 0;
+        animation: fadeSlideIn 0.6s ease forwards;
+    }
+
+    .delay-animacao-0 {
+        animation-delay: 0.1s;
+    }
+    .delay-animacao-1 {
+        animation-delay: 0.2s;
+    }
+    .delay-animacao-2 {
+        animation-delay: 0.3s;
+    }
+    .delay-animacao-3 {
+        animation-delay: 0.4s;
+    }
+    .delay-animacao-4 {
+        animation-delay: 0.5s;
+    }
+    .delay-animacao-5 {
+        animation-delay: 0.6s;
+    }
+
+    @media (max-width: 1000px) {
+        .login-form-wrapper {
+            padding: 0 4vw;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .page-layout {
+            flex-direction: column-reverse;
+
+            justify-content: center;
+            align-items: center;
+
+            gap: 2rem;
+        }
+
+        .page-layout::before {
+            left: 0;
+            width: 100vw;
+            animation: none;
+        }
+
+        .logo-container {
+            width: 100%;
+
+            .svg-imagem {
+                width: 50vw;
+            }
+        }
+
+        .login-form-wrapper {
+            width: 80vw;
+            padding: 4vh 4vw;
+            border-radius: 1rem;
+            box-shadow: none;
+
+            .text-wrapper {
+                h1 {
+                    font-size: 3.6rem;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 425px) {
+        .login-form-wrapper {
+            width: 100vw;
+            padding: 4vh 6vw;
+            border-radius: 0;
+
+            .text-wrapper {
+                h1 {
+                    font-size: 3rem;
+                    margin-bottom: 0.5rem;
+                }
+
+                span {
+                    font-size: 1.6rem;
+                }
+            }
+        }
+    }
+}
+
+@keyframes backgroundPulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

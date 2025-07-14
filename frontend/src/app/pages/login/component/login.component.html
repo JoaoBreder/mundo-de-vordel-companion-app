@@ -1,0 +1,66 @@
+<div class="page-layout">
+    <div class="login-form-wrapper">
+        <div class="w-full">
+            <div class="text-wrapper">
+                <h1 class="fade-slide-in delay-animacao-0">Bem-vindo a Vordel!</h1>
+                <span class="fade-slide-in delay-animacao-1">Entre com suas informações de login</span>
+            </div>
+
+            <form [formGroup]="loginForm">
+                <div class="input-wrapper fade-slide-in delay-animacao-2">
+                    <mat-label>E-mail</mat-label>
+                    <mat-form-field appearance="fill" color="accent">
+                        <input matInput [formControl]="emailFormControl" />
+                        <mat-error *ngIf="emailFormControl.hasError('required')"> E-mail obrigatório. </mat-error>
+                        <mat-error *ngIf="!emailFormControl.hasError('required') && emailFormControl.hasError('email')"> E-mail inválido </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="input-wrapper fade-slide-in delay-animacao-3">
+                    <mat-label>Senha</mat-label>
+                    <mat-form-field appearance="fill" color="accent">
+                        <input
+                            matInput
+                            [type]="tipoInputSenha"
+                            [formControl]="senhaFormControl"
+                            (focus)="mostrarPrefixSufix(true)"
+                            (blur)="mostrarPrefixSufix(false)"
+                            class="mostrar-senha" />
+
+                        <ng-icon
+                            *ngIf="mostrarPrefixSufixSenha"
+                            (click)="mostrarSenha()"
+                            matSuffix
+                            [name]="tipoInputSenha === 'password' ? 'bootstrapEyeFill' : 'bootstrapEyeSlashFill'"
+                            name="bootstrapAt"
+                            [size]="'22px'"
+                            class="mostrar-senha">
+                        </ng-icon>
+
+                        <mat-error> Senha obrigatória </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="flex flex-col mb-[1.5rem] text-end fade-slide-in delay-animacao-4">
+                    <a (click)="esqueciMinhaSenha()" class="cursor-pointer underline">Esqueci minha senha</a>
+                </div>
+
+                <button
+                    mat-raised-button
+                    class="w-full fade-slide-in delay-animacao-5"
+                    color="accent"
+                    [disabled]="loginForm.invalid || (loading$ | async)"
+                    (click)="entrarNaPlataforma()"
+                    (keydown.enter)="entrarNaPlataforma()">
+                    <span *ngIf="(loading$ | async) === false">Entrar na plataforma</span>
+                    <mat-spinner *ngIf="loading$ | async" [diameter]="20" color="accent"></mat-spinner>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="logo-container">
+        <div class="fade-slide-in delay-animacao-0">
+            <img src="assets/svg/mundo-de-vordel-logo-branca.svg" alt="Logo Branca Mundo de Vordel" class="svg-imagem" />
+        </div>
+    </div>
+</div>
