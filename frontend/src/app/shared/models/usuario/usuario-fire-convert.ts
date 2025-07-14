@@ -1,4 +1,3 @@
-
 import { Timestamp } from '@angular/fire/firestore';
 import { Usuario, UsuarioBase } from '.';
 

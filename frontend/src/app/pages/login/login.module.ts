@@ -15,21 +15,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-	declarations: [LoginComponent],
-	imports: [
-		CommonModule,
-		LoginRoutingModule,
+    declarations: [LoginComponent],
+    imports: [
+        CommonModule,
+        LoginRoutingModule,
 
-		FormsModule,
-		ReactiveFormsModule,
+        FormsModule,
+        ReactiveFormsModule,
 
-		NgIconsModule,
-		NgIconsModule.withIcons({ bootstrapEyeFill, bootstrapEyeSlashFill }),
+        NgIconsModule,
+        NgIconsModule.withIcons({ bootstrapEyeFill, bootstrapEyeSlashFill }),
 
-		MatInputModule,
-		MatFormFieldModule,
-		MatButtonModule,
-		MatProgressSpinnerModule,
-	],
+        MatInputModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+    ],
 })
 export class LoginModule {}
