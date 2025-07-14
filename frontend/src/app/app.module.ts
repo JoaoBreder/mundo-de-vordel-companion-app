@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,6 +8,8 @@ import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
+import { ToastrModule } from 'ngx-toastr';
+import { AuthService } from './shared/services/auth.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -19,8 +21,19 @@ import { provideFunctions, getFunctions } from '@angular/fire/functions';
 
         BrowserModule,
         AppRoutingModule,
+
+        ToastrModule.forRoot(),
     ],
-    providers: [],
+    providers: [
+        {
+            provide: APP_INITIALIZER,
+            useFactory: (authService: AuthService) => {
+                return async () => await authService.observarAuthState();
+            },
+            deps: [AuthService],
+            multi: true,
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,28 +1,29 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
-// import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard {
-	rotasAutenticacao = ['login'];
+    rotasAutenticacao = ['login'];
 
-	constructor(
-		private router: Router,
-		// private authService: AuthService
-	) {}
+    constructor(
+        private router: Router,
+        private authService: AuthService
+    ) {}
 
-	public async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
-		const rotaAtual: string = route.url[0].path;
-    const usuarioConectado = /*this.authService.usuarioPermitido &&*/ this.rotasAutenticacao.includes(rotaAtual);
+    public async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
+        const rotaAtual: string = route.url[0].path;
 
-		if (usuarioConectado) {
-			await this.router.navigateByUrl('/ficha-de-personagem');
-		}
+        if (this.authService.usuarioPermitido && this.rotasAutenticacao.includes(rotaAtual)) {
+            await this.router.navigateByUrl('/ficha-de-personagem');
+            return false;
+        }
 
-    if (!usuarioConectado) {
-			await this.router.navigateByUrl('/login');
-		}
+        if (!this.authService.usuarioPermitido && !this.rotasAutenticacao.includes(rotaAtual)) {
+            await this.router.navigateByUrl('/login');
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 }
