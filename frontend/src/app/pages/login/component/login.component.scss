@@ -28,7 +28,10 @@ app-login {
 
         pointer-events: none;
 
-        animation: backgroundPulse 12s ease-in-out infinite;
+        animation:
+            backgroundFade 1s ease-in-out forwards,
+            shrinkBackground 1s ease-out forwards,
+            backgroundPulse 20s ease-in-out 2s infinite;
     }
 
     .login-form-wrapper {
@@ -40,6 +43,8 @@ app-login {
 
         background-color: theme('colors.black-palette.500');
         box-shadow: 15px 0px 10px rgba(0, 0, 0, 0.5);
+
+        animation: slideInFromLeft 0.4s ease-out forwards;
 
         .text-wrapper {
             margin-bottom: 5rem;
@@ -103,22 +108,22 @@ app-login {
     }
 
     .delay-animacao-0 {
-        animation-delay: 0.1s;
+        animation-delay: 500ms;
     }
     .delay-animacao-1 {
-        animation-delay: 0.2s;
+        animation-delay: 600ms;
     }
     .delay-animacao-2 {
-        animation-delay: 0.3s;
+        animation-delay: 700ms;
     }
     .delay-animacao-3 {
-        animation-delay: 0.4s;
+        animation-delay: 800ms;
     }
     .delay-animacao-4 {
-        animation-delay: 0.5s;
+        animation-delay: 900ms;
     }
     .delay-animacao-5 {
-        animation-delay: 0.6s;
+        animation-delay: 1000ms;
     }
 
     @media (max-width: 1000px) {
@@ -185,10 +190,48 @@ app-login {
     }
 }
 
+@keyframes backgroundFade {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.125;
+    }
+    100% {
+        opacity: 0.35;
+    }
+}
+
+@keyframes shrinkBackground {
+    0% {
+        width: 100vw;
+    }
+    100% {
+        width: 60vw;
+    }
+}
+
 @keyframes backgroundPulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.1); }
-  100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 @keyframes fadeSlideIn {

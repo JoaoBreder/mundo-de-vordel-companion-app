@@ -9,7 +9,7 @@
             <form [formGroup]="loginForm">
                 <div class="input-wrapper fade-slide-in delay-animacao-2">
                     <mat-label>E-mail</mat-label>
-                    <mat-form-field appearance="fill" color="accent">
+                    <mat-form-field appearance="outline" color="accent">
                         <input matInput [formControl]="emailFormControl" />
                         <mat-error *ngIf="emailFormControl.hasError('required')"> E-mail obrigatório. </mat-error>
                         <mat-error *ngIf="!emailFormControl.hasError('required') && emailFormControl.hasError('email')"> E-mail inválido </mat-error>
@@ -18,7 +18,7 @@
 
                 <div class="input-wrapper fade-slide-in delay-animacao-3">
                     <mat-label>Senha</mat-label>
-                    <mat-form-field appearance="fill" color="accent">
+                    <mat-form-field appearance="outline" color="accent">
                         <input
                             matInput
                             [type]="tipoInputSenha"
