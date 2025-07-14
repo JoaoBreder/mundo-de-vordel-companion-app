@@ -9,10 +9,10 @@ export class UsuarioFirestoreData implements UsuarioBase {
     nome: string;
     identificacao: string;
 
-    data_cadastro: Timestamp;
+    dataCadastro: Timestamp;
 
     constructor(usuarioFirestore: Partial<UsuarioFirestoreData>) {
-        const { uid, email, nome, identificacao, data_cadastro } = usuarioFirestore;
+        const { uid, email, nome, identificacao, dataCadastro } = usuarioFirestore;
 
         this.uid = uid ?? '';
         this.email = email ?? '';
@@ -20,7 +20,7 @@ export class UsuarioFirestoreData implements UsuarioBase {
         this.nome = nome ?? '';
         this.identificacao = identificacao ?? '';
 
-        this.data_cadastro = data_cadastro ?? Timestamp.fromDate(new Date());
+        this.dataCadastro = dataCadastro ?? Timestamp.fromDate(new Date());
     }
 }
 
@@ -31,7 +31,7 @@ export abstract class UsuarioFireConvert {
             email: data.email,
             nome: data.nome,
             identificacao: data.identificacao,
-            data_cadastro: data.data_cadastro.toDate(),
+            dataCadastro: data.dataCadastro.toDate(),
             token: token,
         });
     }
@@ -42,7 +42,7 @@ export abstract class UsuarioFireConvert {
             email: usuario.email,
             nome: usuario.nome,
             identificacao: usuario.identificacao,
-            data_cadastro: Timestamp.fromDate(usuario.data_cadastro),
+            dataCadastro: Timestamp.fromDate(usuario.dataCadastro),
         };
     }
 }

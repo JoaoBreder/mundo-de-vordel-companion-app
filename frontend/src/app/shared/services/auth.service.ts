@@ -48,7 +48,7 @@ export class AuthService {
 
             if (error instanceof FirebaseError) {
                 switch (error.code) {
-                    case 'auth/wrong-password':
+                    case 'auth/invalid-login-credentials':
                         tipo = 'warning';
                         mensagem = 'E-mail ou senha inválidos.';
                         break;

@@ -3,7 +3,7 @@ export interface UsuarioBase {
 	email: string;
 	nome: string;
 	identificacao: string;
-	data_cadastro: any;
+	dataCadastro: any;
 }
 
 export class Usuario implements UsuarioBase {
@@ -14,10 +14,10 @@ export class Usuario implements UsuarioBase {
 	nome: string;
 	identificacao: string;
 
-	data_cadastro: Date;
+	dataCadastro: Date;
 
 	constructor(usuario: Partial<Usuario>) {
-		const { uid, email, token, nome, identificacao, data_cadastro } = usuario;
+		const { uid, email, token, nome, identificacao, dataCadastro } = usuario;
 
 		this.uid = uid ?? '';
 		this.email = email ?? '';
@@ -26,6 +26,6 @@ export class Usuario implements UsuarioBase {
 		this.nome = nome ?? '';
 		this.identificacao = identificacao ?? '';
 
-		this.data_cadastro = data_cadastro ?? new Date();
+		this.dataCadastro = dataCadastro ?? new Date();
 	}
 }
