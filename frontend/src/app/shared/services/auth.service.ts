@@ -32,11 +32,14 @@ export class AuthService {
     // @ Métodos públicos
     // -----------------------------------------------------------------------------------------------------
 
-    async signIn(email: string, senha: string): Promise<RetornoSucessoErro> {
+    async signIn(email: string, senha: string, animationFadeOut: Element): Promise<RetornoSucessoErro> {
         try {
             await signInWithEmailAndPassword(this.firebaseAuth, email, senha);
             await firstValueFrom(this.aguardarAutenticacao.pipe(take(1)));
-            await this.router.navigateByUrl('/ficha-de-personagem');
+
+            animationFadeOut.addEventListener('animationend', async () => {
+                await this.router.navigateByUrl('/ficha-de-personagem');
+            });
 
             return {
                 sucesso: true,
@@ -79,11 +82,18 @@ export class AuthService {
         }
     }
 
-    async signOut(): Promise<RetornoSucessoErro> {
+    async signOut(animationFadeOut?: Element): Promise<RetornoSucessoErro> {
         try {
             await signOut(this.firebaseAuth);
             await firstValueFrom(this.aguardarAutenticacao.pipe(take(1)));
-            await this.router.navigateByUrl('/login');
+
+            if (animationFadeOut) {
+                animationFadeOut.addEventListener('animationend', async () => {
+                    await this.router.navigateByUrl('/login');
+                });
+            } else {
+                await this.router.navigateByUrl('/login');
+            }
 
             return {
                 sucesso: true,

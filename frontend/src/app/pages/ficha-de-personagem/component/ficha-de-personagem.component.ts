@@ -20,7 +20,13 @@ export class FichaDePersonagemComponent {
 
     async sairDaPlataforma() {
         this.loading$.next(true);
-        setTimeout(() => this.authService.signOut().then(() => this.loading$.next(false)), 500);
+
+        const pageLayoutElement = document.querySelector('div.page-layout');
+
+        this.authService.signOut(pageLayoutElement!).then(() => {
+            pageLayoutElement?.classList.toggle('animation-fade-out');
+            this.loading$.next(false);
+        });
     }
 
     async trocarEstadoTelaCheia() {

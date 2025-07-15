@@ -33,8 +33,11 @@ export class LoginComponent {
         this.loading$.next(true);
 
         const { email, senha }: { email: string; senha: string } = this.loginForm.getRawValue();
+        const pageLayoutElement = document.querySelector('div.page-layout');
 
-        this.authService.signIn(email, senha).then(({ sucesso, tipo, mensagem, titulo }) => {
+        this.authService.signIn(email, senha, pageLayoutElement!).then(({ sucesso, tipo, mensagem, titulo }) => {
+            pageLayoutElement?.classList.toggle('animation-fade-out');
+
             if (!sucesso) {
                 this.loading$.next(false);
 
