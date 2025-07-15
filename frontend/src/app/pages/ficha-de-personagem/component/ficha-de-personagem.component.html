@@ -1,0 +1,62 @@
+<div class="page-layout" id="ficha-de-personagem-page-layout">
+    <div class="header">
+        <div class="flex">
+            <div class="imagem-personagem">
+                <img src="assets/images/foto-padrao-ficha-personagem.png" alt="Imagem Personagem" />
+            </div>
+
+            <div class="informacoes-personagem-wrapper">
+                <h1>
+                    Nome do personagem
+                    <div class="bg-white rounded-full size-2"></div>
+                    Nível
+                </h1>
+                <span>Linhagem, Origem, Classe</span>
+                <span class="mt-2">Nome do jogador</span>
+            </div>
+        </div>
+
+        <div class="action-button-wrapper">
+            <button mat-mini-fab color="primary">
+                <mat-icon>menu</mat-icon>
+                <span class="button-label">MENU DE AÇÕES</span>
+            </button>
+
+            <button mat-mini-fab color="primary">
+                <mat-icon>settings</mat-icon>
+            </button>
+
+            <button mat-mini-fab color="primary" [ngSwitch]="telaCheia$ | async" (click)="trocarEstadoTelaCheia()">
+                <mat-icon *ngSwitchDefault>fullscreen</mat-icon>
+                <mat-icon *ngSwitchCase="true">fullscreen_exit</mat-icon>
+            </button>
+
+            <button mat-mini-fab color="warn" (click)="sairDaPlataforma()">
+                <mat-icon *ngIf="(loading$ | async) === false">exit_to_app</mat-icon>
+                <mat-spinner *ngIf="loading$ | async" [diameter]="22" color="accent"></mat-spinner>
+            </button>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="atributos-pontos-wrapper">
+            <div class="atributos">Atributos</div>
+
+            <div class="pontos-wrapper">
+                <div class="pontos-de-vida">Pontos de Vida</div>
+                <div class="pontos-de-mana">Pontos de Mana</div>
+                <div class="defesa">Defesa</div>
+            </div>
+        </div>
+
+        <div class="ataques-e-magias">Ataques e Magia</div>
+
+        <div class="pericias">Perícias</div>
+
+        <div class="detalhes">Poderes</div>
+
+        <div class="equipamentos">Equipamentos</div>
+
+        <div class="inventario">Inventário</div>
+    </div>
+</div>

@@ -34,7 +34,7 @@ export class LoginComponent {
 
         const { email, senha }: { email: string; senha: string } = this.loginForm.getRawValue();
 
-        this.authService.signIn(email, senha).then(async ({ sucesso, tipo, mensagem, titulo }) => {
+        this.authService.signIn(email, senha).then(({ sucesso, tipo, mensagem, titulo }) => {
             if (!sucesso) {
                 this.loading$.next(false);
 

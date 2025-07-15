@@ -95,3 +95,14 @@ mat-checkbox,
         }
     }
 }
+
+.mat-mdc-mini-fab:not(:disabled) {
+    &.mat-primary {
+        border: 0.2rem solid white;
+    }
+
+    &.mat-primary:hover {
+        background-color: theme('colors.black-palette.400');
+        transition: 300ms;
+    }
+}
