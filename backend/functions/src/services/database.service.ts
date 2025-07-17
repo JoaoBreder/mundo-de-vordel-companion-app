@@ -1,7 +1,7 @@
-import { CollectionReference, DocumentReference, Firestore } from "firebase-admin/firestore";
+import { CollectionReference, DocumentReference, Firestore } from 'firebase-admin/firestore';
 
 
-export abstract class DatabaseMiddleware { // Implementação provisória do DatabaseMiddleWare para ver como vai se comportar
+export abstract class DatabaseService { // Implementação provisória do DatabaseService para ver como vai se comportar
     static firestore: Firestore;
 
     // -----------------------------------------------------------------------------------------------------
