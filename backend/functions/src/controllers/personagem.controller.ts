@@ -3,6 +3,7 @@ import {HttpsErrorMiddleware} from "../middlewares/httpsError.middleware";
 import {OnCallBuscarPersonagemJogadorResponse} from "../models/contracts/controllers/personagem-controller.contract";
 import {PersonagemService} from "../services/personagem.service";
 import {BasicController} from "./basic.controller";
+import {PersonagemParser} from "../models/parsers/personagem.parser";
 
 export class PersonagemController extends BasicController {
   // -----------------------------------------------------------------------------------------------------
@@ -16,7 +17,7 @@ export class PersonagemController extends BasicController {
       });
 
       if (!personagemJogador) throw new HttpsErrorMiddleware("not-found", "Personagem jogador não existe").get();
-      return {personagemJogador};
+      return {personagemJogador: PersonagemParser.toJson(personagemJogador)};
     } catch (error: HttpsError | Error | any) {
       throw this.retornarErroController(error);
     }
