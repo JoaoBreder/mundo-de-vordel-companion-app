@@ -1,5 +1,5 @@
 import { DecodedIdToken } from 'firebase-admin/auth';
-import { AuthData, HttpsError } from 'firebase-functions/lib/common/providers/https';
+import { AuthData } from 'firebase-functions/lib/common/providers/https';
 import { HttpsErrorMiddleware } from './httpsError.middleware';
 
 export class AuthCheckMiddleware {
@@ -16,9 +16,9 @@ export class AuthCheckMiddleware {
     // @ Métodos públicos
     // -----------------------------------------------------------------------------------------------------
 
-    async verificarIdToken<T>(): Promise<T | HttpsError>  {
+    async verificarIdToken<T>(): Promise<T>  {
         const { uid } = this.decodedIdToken ?? {};
-        if (!this.decodedIdToken || !uid) return new HttpsErrorMiddleware('permission-denied').get();
+        if (!this.decodedIdToken || !uid) throw new HttpsErrorMiddleware('permission-denied').get();
 
         return await this.next(uid);
     }
