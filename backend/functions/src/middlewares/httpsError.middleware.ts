@@ -2,11 +2,11 @@ import { FunctionsErrorCode, HttpsError } from "firebase-functions/v2/https";
 
 export class HttpsErrorMiddleware {
     private readonly code: FunctionsErrorCode;
-    private readonly mensagem?: string;
+    private readonly descricao?: string;
 
-    constructor(code: FunctionsErrorCode, mensagem?: string) {
+    constructor(code: FunctionsErrorCode, descricao?: string) {
         this.code = code;
-        this.mensagem = mensagem;
+        this.descricao = descricao;
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -18,16 +18,20 @@ export class HttpsErrorMiddleware {
         let detalhes = null;
 
         switch (this.code) {
+            case 'internal':
+                mensagem = 'Erro interno';
+                break;
+
             case 'permission-denied':
                 mensagem = 'Acesso não permitido';
                 detalhes = 'Autenticação inválida';
                 break;
         
-            case 'internal':
-                mensagem = 'Erro interno';
+            case 'not-found':
+                mensagem = 'Registro não encontrado';
                 break;
         }
 
-        return new HttpsError(this.code, this.mensagem ?? mensagem, detalhes);
+        return new HttpsError(this.code, mensagem, this.descricao ?? detalhes);
     }
 }
