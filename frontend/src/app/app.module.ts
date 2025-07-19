@@ -10,6 +10,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthService } from './shared/services/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [AppComponent],
@@ -25,6 +26,8 @@ import { AuthService } from './shared/services/auth.service';
         AppRoutingModule,
 
         ToastrModule.forRoot(),
+
+        HttpClientModule
     ],
     providers: [
         {
