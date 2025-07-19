@@ -1,6 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter } from 'rxjs';
+import { FichaDePersonagemService } from '../ficha-de-personagem.service';
+import { SubscriptionManager } from 'rxjs-sub-manager';
+import { ClassePersonagemLabel } from '../../../shared/models/parsers/enum.parser';
 
 @Component({
     selector: 'app-ficha-de-personagem',
@@ -9,16 +12,28 @@ import { BehaviorSubject } from 'rxjs';
     encapsulation: ViewEncapsulation.None,
 })
 export class FichaDePersonagemComponent {
+    private subscriptionManager = new SubscriptionManager({ prefixId: 'FichaDePersonagemComponent' });
+
     loading$ = new BehaviorSubject<boolean>(false);
     telaCheia$ = new BehaviorSubject<boolean>(false);
 
-    constructor(private authService: AuthService) {}
+    // TODO: PROVISÓRIO
+    informacoesPersonagem: {
+        nome: string;
+        nivel: number;
+        descricao: string;
+    } | null = null;
+    // TODO: PROVISÓRIO
+
+    constructor(private authService: AuthService, private fichaDePersonagemService: FichaDePersonagemService) {
+      this.observarPersonagemJogador();
+    }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Métodos públicos
     // -----------------------------------------------------------------------------------------------------
 
-    async sairDaPlataforma() {
+    async sairDaPlataforma(): Promise<void> {
         this.loading$.next(true);
 
         const pageLayoutElement = document.querySelector('div.page-layout');
@@ -29,7 +44,7 @@ export class FichaDePersonagemComponent {
         });
     }
 
-    async trocarEstadoTelaCheia() {
+    async trocarEstadoTelaCheia(): Promise<void> {
         const telaCheia = this.telaCheia$.getValue();
         this.telaCheia$.next(!telaCheia);
 
@@ -37,5 +52,28 @@ export class FichaDePersonagemComponent {
 
         if (!telaCheia && element?.requestFullscreen) return element.requestFullscreen();
         document.exitFullscreen();
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Métodos públicos
+    // -----------------------------------------------------------------------------------------------------
+
+    private observarPersonagemJogador() {
+      const sub = this.fichaDePersonagemService.personagemJogador$.pipe(distinctUntilChanged(), filter((value) => value !== null)).subscribe((personagemJogador) => {
+          if (personagemJogador) {
+            console.log('=== INFORMACOES PERSONAGEM ===\n', personagemJogador);
+
+            const { nome, nivel, linhagem, origem, classe } = personagemJogador.informacoes;
+
+            // TODO: Tratar dados personagens de uma forma melhor
+            this.informacoesPersonagem = {
+                nome,
+                nivel,
+                descricao: `${linhagem}, ${origem}, ${ClassePersonagemLabel[classe]}`
+            }
+          }
+      });
+
+      this.subscriptionManager.add({ sub, ref: 'observarPersonagemJogador' });
     }
 }

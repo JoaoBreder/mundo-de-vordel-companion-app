@@ -176,6 +176,20 @@ export class AuthService {
         });
     }
 
+    async getAuthToken(): Promise<string> {
+        let idTokenResult = this.userIdTokenResult$.getValue();
+
+        if (!idTokenResult || new Date(idTokenResult.expirationTime).getTime() > new Date().getTime()) {
+            const usuarioAuth = this.usuarioAuth$.getValue();
+            if (!usuarioAuth) throw new Error('Usuário não está autenticado');
+
+            idTokenResult = await usuarioAuth.getIdTokenResult();
+            this.userIdTokenResult$.next(idTokenResult);
+        }
+
+        return idTokenResult.token;
+    }
+
     // -----------------------------------------------------------------------------------------------------
     // @ Métodos privados
     // -----------------------------------------------------------------------------------------------------

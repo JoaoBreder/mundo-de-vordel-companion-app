@@ -1,19 +1,23 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * import {onCall} from "firebase-functions/v2/https";
- * import {onDocumentWritten} from "firebase-functions/v2/firestore";
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+import {onCall} from "firebase-functions/v2/https";
+import {PersonagemController} from "./controllers/personagem.controller";
+import {AuthCheckMiddleware} from "./middlewares/auth.middleware";
+import {OnCallBuscarPersonagemJogadorResponse} from "./models/contracts/controllers/personagem-controller.contract";
+import {initializeApp} from "firebase-admin/app";
+import {getFirestore} from "firebase-admin/firestore";
+import {DatabaseService} from "./services/database.service";
 
-import {onRequest} from "firebase-functions/v2/https";
-import * as logger from "firebase-functions/logger";
 
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
+const firebaseAppAdmin = initializeApp();
+const firestore = getFirestore(firebaseAppAdmin);
 
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+DatabaseService.firestoreInstance = firestore;
+
+
+// -----------------------------------------------------------------------------------------------------
+// @ Funções onCall
+// -----------------------------------------------------------------------------------------------------
+
+export const onCallBuscarPersonagemJogador = onCall(async ({data, auth}): Promise<OnCallBuscarPersonagemJogadorResponse> => {
+  const next = async (uid: string) => await (new PersonagemController(uid)).buscarPersonagemJogador();
+  return new AuthCheckMiddleware(auth, next).verificarIdToken();
+});
