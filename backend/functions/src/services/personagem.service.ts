@@ -4,7 +4,7 @@ import { PersonagemParser } from "../models/parsers/personagem.parser";
 import { Personagem } from "../models/personagem";
 import { DatabaseService } from "./database.service";
 
-export abstract class PersonagemService {
+export abstract class PersonagemService extends DatabaseService {
     // -----------------------------------------------------------------------------------------------------
     // @ Métodos públicos
     // -----------------------------------------------------------------------------------------------------
@@ -13,7 +13,7 @@ export abstract class PersonagemService {
         const collectionsPath = ['usuarios', userId, 'personagens'];
         const limiteBusca = 1;
         
-        const personagemFirestore = (await DatabaseService.buscarDocsColecao<PersonagemFirestore[]>(collectionsPath, limiteBusca))[0];
+        const personagemFirestore = (await this.buscarDocsColecao<PersonagemFirestore[]>(collectionsPath, limiteBusca))[0];
         return personagemFirestore ? PersonagemParser.fromFirestore(personagemFirestore) : undefined;
     }
 }

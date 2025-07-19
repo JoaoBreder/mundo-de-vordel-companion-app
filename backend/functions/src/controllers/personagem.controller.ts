@@ -2,25 +2,9 @@ import { HttpsError } from "firebase-functions/v2/https";
 import { HttpsErrorMiddleware } from "../middlewares/httpsError.middleware";
 import { OnCallBuscarPersonagemJogadorResponse } from "../models/contracts/controllers/personagem-controller.contract";
 import { PersonagemService } from "../services/personagem.service";
+import { BasicController } from "./basic.controller";
 
-export class PersonagemController {
-    private uid: string;
-
-    constructor(uid: string) {
-        this.uid = uid;
-    }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Métodos privados
-    // -----------------------------------------------------------------------------------------------------
-
-    private retornarErroController(error: HttpsError | Error | any): HttpsError {
-        if (error instanceof HttpsError) return error;
-        if (error instanceof Error) return new HttpsErrorMiddleware('internal', error.message).get();
-
-        return new HttpsErrorMiddleware('internal').get();
-    }
-
+export class PersonagemController extends BasicController {
     // -----------------------------------------------------------------------------------------------------
     // @ Métodos públicos
     // -----------------------------------------------------------------------------------------------------
