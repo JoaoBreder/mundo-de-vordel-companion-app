@@ -1,49 +1,49 @@
-import { CollectionReference, DocumentData, DocumentReference, Firestore, Query, QuerySnapshot } from 'firebase-admin/firestore';
+import {CollectionReference, DocumentData, DocumentReference, Firestore, Query, QuerySnapshot} from "firebase-admin/firestore";
 
 
 // Implementação provisória do DatabaseService para ver como vai se comportar
 export abstract class DatabaseService {
-    static firestore: Firestore;
+  static firestore: Firestore;
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Métodos privados
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Métodos privados
+  // -----------------------------------------------------------------------------------------------------
 
-    private static async get(documentRef: Query<DocumentData> | DocumentReference): Promise<any> {
-        const snapshot = await documentRef.get();
+  private static async get(documentRef: Query<DocumentData> | DocumentReference): Promise<any> {
+    const snapshot = await documentRef.get();
 
-        if (snapshot instanceof QuerySnapshot) {
-            if (snapshot.empty) return [];
-            return snapshot.docs.map((docs) => docs.data());
-        }
-
-        if (!snapshot.exists) return undefined;
-        return snapshot.data();
+    if (snapshot instanceof QuerySnapshot) {
+      if (snapshot.empty) return [];
+      return snapshot.docs.map((docs) => docs.data());
     }
 
-    private static montarCollectionRef(collectionsPath: string[]): CollectionReference {
-        return this.firestore.collection(`/${collectionsPath.join('/')}`);
-    }
+    if (!snapshot.exists) return undefined;
+    return snapshot.data();
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Métodos públicos
-    // -----------------------------------------------------------------------------------------------------
+  private static montarCollectionRef(collectionsPath: string[]): CollectionReference {
+    return this.firestore.collection(`/${collectionsPath.join("/")}`);
+  }
 
-    static async buscarPorDocId<T>(docId: string, collectionsPath: string[]): Promise<T | undefined> {
-        const collectionRef = this.montarCollectionRef(collectionsPath);
-        return await this.get(collectionRef.doc(docId)); 
-    }
+  // -----------------------------------------------------------------------------------------------------
+  // @ Métodos públicos
+  // -----------------------------------------------------------------------------------------------------
 
-    static async buscarDocsColecao<T>(collectionsPath: string[], limite: number = 100): Promise<T> {
-        const collectionRef = this.montarCollectionRef(collectionsPath);
-        return await this.get(collectionRef.limit(limite)); 
-    }
+  static async buscarPorDocId<T>(docId: string, collectionsPath: string[]): Promise<T | undefined> {
+    const collectionRef = this.montarCollectionRef(collectionsPath);
+    return await this.get(collectionRef.doc(docId));
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Setters
-    // -----------------------------------------------------------------------------------------------------
+  static async buscarDocsColecao<T>(collectionsPath: string[], limite = 100): Promise<T> {
+    const collectionRef = this.montarCollectionRef(collectionsPath);
+    return await this.get(collectionRef.limit(limite));
+  }
 
-    static set firestoreInstance(firestore: Firestore) {
-        this.firestore = firestore;
-    }
+  // -----------------------------------------------------------------------------------------------------
+  // @ Setters
+  // -----------------------------------------------------------------------------------------------------
+
+  static set firestoreInstance(firestore: Firestore) {
+    this.firestore = firestore;
+  }
 }
