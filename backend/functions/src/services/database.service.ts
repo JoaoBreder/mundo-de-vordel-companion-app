@@ -1,21 +1,27 @@
-import { CollectionReference, DocumentReference, Firestore } from 'firebase-admin/firestore';
+import { CollectionReference, DocumentData, DocumentReference, Firestore, Query, QuerySnapshot } from 'firebase-admin/firestore';
 
 
-export abstract class DatabaseService { // Implementação provisória do DatabaseService para ver como vai se comportar
+// Implementação provisória do DatabaseService para ver como vai se comportar
+export abstract class DatabaseService {
     static firestore: Firestore;
 
     // -----------------------------------------------------------------------------------------------------
     // @ Métodos privados
     // -----------------------------------------------------------------------------------------------------
 
-    static async get<T>(documentRef: DocumentReference): Promise<T | undefined> {
+    private static async get(documentRef: Query<DocumentData> | DocumentReference): Promise<any> {
         const snapshot = await documentRef.get();
 
+        if (snapshot instanceof QuerySnapshot) {
+            if (snapshot.empty) return [];
+            return snapshot.docs.map((docs) => docs.data());
+        }
+
         if (!snapshot.exists) return undefined;
-        return snapshot.data() as T;
+        return snapshot.data();
     }
 
-    static montarCollectionRef(collectionsPath: string[]): CollectionReference {
+    private static montarCollectionRef(collectionsPath: string[]): CollectionReference {
         return this.firestore.collection(`/${collectionsPath.join('/')}`);
     }
 
@@ -25,7 +31,12 @@ export abstract class DatabaseService { // Implementação provisória do Databa
 
     static async buscarPorDocId<T>(docId: string, collectionsPath: string[]): Promise<T | undefined> {
         const collectionRef = this.montarCollectionRef(collectionsPath);
-        return await this.get<T>(collectionRef.doc(docId)); 
+        return await this.get(collectionRef.doc(docId)); 
+    }
+
+    static async buscarDocsColecao<T>(collectionsPath: string[], limite: number = 100): Promise<T> {
+        const collectionRef = this.montarCollectionRef(collectionsPath);
+        return await this.get(collectionRef.limit(limite)); 
     }
 
     // -----------------------------------------------------------------------------------------------------
