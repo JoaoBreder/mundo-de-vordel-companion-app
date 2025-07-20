@@ -12,12 +12,12 @@ export class PersonagemController extends BasicController {
 
   async buscarPersonagemJogador(): Promise<OnCallBuscarPersonagemJogadorResponse> {
     try {
-      const personagemJogador = await PersonagemService.buscarPersonagemJogador({
+      const personagemFirestore = await PersonagemService.buscarPersonagemJogador({
         userId: this.uid,
       });
 
-      if (!personagemJogador) throw new HttpsErrorMiddleware("not-found", "Personagem jogador não existe").get();
-      return {personagemJogador: PersonagemParser.toJson(personagemJogador)};
+      if (!personagemFirestore) throw new HttpsErrorMiddleware("not-found", "Personagem jogador não existe").get();
+      return {personagemJogador: PersonagemParser.toJson(personagemFirestore)};
     } catch (error: HttpsError | Error | any) {
       throw this.retornarErroController(error);
     }
