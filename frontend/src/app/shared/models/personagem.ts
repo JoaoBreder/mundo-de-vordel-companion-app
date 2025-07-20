@@ -1,25 +1,27 @@
 export interface PersonagemBase {
     dataCriacao: any;
     excluido: boolean;
+    fotoPersonagemPath: string;
+
     informacoes: InformacoesPersonagem;
 }
 
 export class Personagem implements PersonagemBase {
-  dataCriacao: Date;
-  excluido: boolean;
-  informacoes: InformacoesPersonagem;
+    dataCriacao: Date;
+    excluido: boolean;
+    fotoPersonagemPath: string;
 
-  constructor(
-    informacoesPersonagem: InformacoesPersonagem,
-    personagem?: Partial<Omit<Personagem, "informacoes">>
-  ) {
-    const {dataCriacao, excluido} = personagem || {};
+    informacoes: InformacoesPersonagem;
 
-    this.informacoes = informacoesPersonagem;
+    constructor(informacoesPersonagem: InformacoesPersonagem, personagem?: Partial<Omit<Personagem, 'informacoes'>>) {
+        const { dataCriacao, excluido, fotoPersonagemPath } = personagem || {};
 
-    this.dataCriacao = dataCriacao ?? new Date();
-    this.excluido = excluido ?? false;
-  }
+        this.informacoes = informacoesPersonagem;
+
+        this.dataCriacao = dataCriacao ?? new Date();
+        this.excluido = excluido ?? false;
+        this.fotoPersonagemPath = fotoPersonagemPath ?? 'arquivos_plataforma/foto-padrao-personagem.png';
+    }
 }
 
 export interface InformacoesPersonagem {
@@ -31,19 +33,19 @@ export interface InformacoesPersonagem {
 }
 
 export enum ClassePersonagem {
-    BARBARO = "BARBARO",
-    BARDO = "BARDO",
-    BUCANEIRO = "BUCANEIRO",
-    BRUXO = "BRUXO",
-    CACADOR = "CACADOR",
-    CAVALEIRO = "CAVALEIRO",
-    DRUIDA = "DRUIDA",
-    FEITICEIRO = "FEITICEIRO",
-    GUERREIRO = "GUERREIRO",
-    INVENTOR = "INVENTOR",
-    LADINO = "LADINO",
-    LUTADOR = "LUTADOR",
-    MAGO = "MAGO",
-    NOBRE = "NOBRE",
-    PALADINO = "PALADINO"
+    BARBARO = 'BARBARO',
+    BARDO = 'BARDO',
+    BUCANEIRO = 'BUCANEIRO',
+    BRUXO = 'BRUXO',
+    CACADOR = 'CACADOR',
+    CAVALEIRO = 'CAVALEIRO',
+    DRUIDA = 'DRUIDA',
+    FEITICEIRO = 'FEITICEIRO',
+    GUERREIRO = 'GUERREIRO',
+    INVENTOR = 'INVENTOR',
+    LADINO = 'LADINO',
+    LUTADOR = 'LUTADOR',
+    MAGO = 'MAGO',
+    NOBRE = 'NOBRE',
+    PALADINO = 'PALADINO',
 }
