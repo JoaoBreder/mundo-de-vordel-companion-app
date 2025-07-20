@@ -1,4 +1,5 @@
-import {ClassePersonagem} from "../personagem";
+import { ClassePersonagem } from "../personagem";
+import { TipoModificador } from "../quantificador";
 
 export const ClassePersonagemLabel: Record<ClassePersonagem, string> = {
   [ClassePersonagem.BARBARO]: "Bárbaro",
@@ -16,4 +17,40 @@ export const ClassePersonagemLabel: Record<ClassePersonagem, string> = {
   [ClassePersonagem.MAGO]: "Mago",
   [ClassePersonagem.NOBRE]: "Nobre",
   [ClassePersonagem.PALADINO]: "Paladino",
+};
+
+export const TipoModificadorLabel: Record<TipoModificador, string> = {
+  [TipoModificador.BONUS_LINHAGEM]: "Linhagem",
+  [TipoModificador.BONUS_NIVEL]: "Nível",
+  [TipoModificador.BONUS_PODER]: "Poder",
+  [TipoModificador.CONDICAO]: "Condição",
+  [TipoModificador.EFEITO]: "Efeito",
+  [TipoModificador.VALOR_BASE]: "Valor Base",
+  [TipoModificador.TREINAMENTO]: "Treinamento",
+  [TipoModificador.EQUIPAMENTO_MAO_ESQUERDA]: "Equipamento",
+  [TipoModificador.EQUIPAMENTO_MAO_DIREITA]: "Equipamento",
+  [TipoModificador.VESTIMENTA_1]: "Vestimenta",
+  [TipoModificador.VESTIMENTA_2]: "Vestimenta",
+  [TipoModificador.VESTIMENTA_3]: "Vestimenta",
+  [TipoModificador.VESTIMENTA_4]: "Vestimenta",
+  [TipoModificador.NIVEL_1]: "Nível 1",
+  [TipoModificador.NIVEL_2]: "Nível 2",
+  [TipoModificador.NIVEL_3]: "Nível 3",
+  [TipoModificador.NIVEL_4]: "Nível 4",
+  [TipoModificador.NIVEL_5]: "Nível 5",
+  [TipoModificador.NIVEL_6]: "Nível 6",
+  [TipoModificador.NIVEL_7]: "Nível 7",
+  [TipoModificador.NIVEL_8]: "Nível 8",
+  [TipoModificador.NIVEL_9]: "Nível 9",
+  [TipoModificador.NIVEL_10]: "Nível 10",
+  [TipoModificador.NIVEL_11]: "Nível 11",
+  [TipoModificador.NIVEL_12]: "Nível 12",
+  [TipoModificador.NIVEL_13]: "Nível 13",
+  [TipoModificador.NIVEL_14]: "Nível 14",
+  [TipoModificador.NIVEL_15]: "Nível 15",
+  [TipoModificador.NIVEL_16]: "Nível 16",
+  [TipoModificador.NIVEL_17]: "Nível 17",
+  [TipoModificador.NIVEL_18]: "Nível 18",
+  [TipoModificador.NIVEL_19]: "Nível 19",
+  [TipoModificador.NIVEL_20]: "Nível 20"
 };

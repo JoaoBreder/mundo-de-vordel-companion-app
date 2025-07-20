@@ -3,8 +3,8 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { BehaviorSubject, distinctUntilChanged, filter } from 'rxjs';
 import { FichaDePersonagemService } from '../ficha-de-personagem.service';
 import { SubscriptionManager } from 'rxjs-sub-manager';
-import { Personagem } from '../../../shared/models/personagem';
 import { ClassePersonagemLabel } from '../../../shared/models/parsers/enum.parser';
+import { Personagem } from '../../../shared/models/personagem';
 
 @Component({
     selector: 'app-ficha-de-personagem',
@@ -66,7 +66,7 @@ export class FichaDePersonagemComponent {
             )
             .subscribe(personagemJogador => {
                 if (personagemJogador) {
-                  this.personagem = personagemJogador
+                  this.personagem = personagemJogador;
                   this.salvarBase64ImagemPersonagem();
                 };
             });
