@@ -8,12 +8,12 @@
 
             <div class="informacoes-personagem-wrapper">
                 <h1>
-                    {{ informacoesPersonagem?.nome }}
+                    {{ personagem?.informacoes?.nome }}
                     <div class="bg-white rounded-full size-2"></div>
-                    Nível {{ informacoesPersonagem?.nivel }}
+                    Nível {{ personagem?.informacoes?.nivel }}
                 </h1>
-                <span>{{ informacoesPersonagem?.descricao }}</span>
-                <span class="mt-2">Nome do jogador</span>
+                <span>{{ descricaoPersonagemJogador }}</span>
+                <span class="mt-2">{{ nomeJogador }}</span>
             </div>
         </div>
 
