@@ -7,12 +7,12 @@ export abstract class StorageService {
     // @ Métodos públicos
     // -----------------------------------------------------------------------------------------------------
 
-    static async buscarBufferArquivo(path: string): Promise<Buffer<ArrayBufferLike> | undefined> {
+    static async buscarBufferArquivo(path: string): Promise<Buffer | undefined> {
         const bucket = this.storage.bucket();
         const file = bucket.file(path);
 
         const [exists] = await file.exists();
-        if(exists) return undefined;
+        if(!exists) return undefined;
 
         const [buffer] = await file.download();
         return buffer;
