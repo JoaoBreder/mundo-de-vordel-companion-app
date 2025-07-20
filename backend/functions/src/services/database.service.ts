@@ -14,11 +14,11 @@ export abstract class DatabaseService {
 
     if (snapshot instanceof QuerySnapshot) {
       if (snapshot.empty) return [];
-      return snapshot.docs.map((docs) => docs.data());
+      return snapshot.docs.map((doc) => ({ ...doc.data(), _id: doc.id}));
     }
 
     if (!snapshot.exists) return undefined;
-    return snapshot.data();
+    return {...snapshot.data(), _id: snapshot.id};
   }
 
   private static montarCollectionRef(collectionsPath: string[]): CollectionReference {
