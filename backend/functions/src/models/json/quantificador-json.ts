@@ -13,3 +13,29 @@ export class QuantificadorJson implements QuantificadorBase {
         this.modificadoresTemporarios = modificadoresTemporarios ?? [];
     }
 }
+
+export class QuantificadorPericiaJson extends QuantificadorJson {
+    descricao: string | null;
+    treinado: boolean;
+
+    constructor(quantificador?: Partial<QuantificadorPericiaJson>) {
+        super(quantificador);
+
+        const {descricao, treinado} = quantificador || {};
+        
+        this.descricao = descricao ?? '';
+        this.treinado = treinado ?? false;
+    }
+}
+
+export class QuantificadorVariavelJson extends QuantificadorJson {
+    valorAtual: number;
+
+    constructor(quantificador?: Partial<QuantificadorVariavelJson>) {
+        super(quantificador);
+
+        const {valorAtual, valorTotal} = quantificador || {};
+
+        this.valorAtual = valorAtual ?? valorTotal ?? 0;
+    }
+}
