@@ -4,12 +4,26 @@ import {Personagem} from "../personagem";
 import {PersonagemJson} from "../json/personagem-json";
 
 export abstract class PersonagemParser {
+  // -----------------------------------------------------------------------------------------------------
+  // @ Métodos privados
+  // -----------------------------------------------------------------------------------------------------
+
+  private static converterData(data: string | Date | Timestamp): Date {
+    if (typeof data === "string") return new Date(data);
+    if ((data as Timestamp)?.seconds !== undefined && (data as Timestamp)?.nanoseconds !== undefined) return (data as Timestamp).toDate();
+    return data as Date;
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Métodos públicos
+  // -----------------------------------------------------------------------------------------------------
+
   static fromFirestore(personagemFirestore: PersonagemFirestore): Personagem {
     const {dataCriacao, informacoes} = personagemFirestore;
 
     const dadosPersonagem: Omit<Personagem, "informacoes"> = {
       ...personagemFirestore,
-      dataCriacao: dataCriacao.toDate(),
+      dataCriacao: this.converterData(dataCriacao),
     };
 
     return new Personagem(informacoes, dadosPersonagem);
@@ -26,12 +40,12 @@ export abstract class PersonagemParser {
     return new PersonagemFirestore(informacoes, dadosPersonagem);
   }
 
-  static toJson(personagem: Personagem): PersonagemJson {
+  static toJson(personagem: Personagem | PersonagemFirestore): PersonagemJson {
     const {dataCriacao, informacoes} = personagem;
 
     const dadosPersonagem: Omit<PersonagemJson, "informacoes"> = {
       ...personagem,
-      dataCriacao: dataCriacao.toISOString(),
+      dataCriacao: this.converterData(dataCriacao).toISOString(),
     };
 
     return new PersonagemJson(informacoes, dadosPersonagem);

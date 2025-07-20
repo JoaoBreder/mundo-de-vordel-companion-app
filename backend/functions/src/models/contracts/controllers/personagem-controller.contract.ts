@@ -6,3 +6,11 @@ import {PersonagemJson} from "../../json/personagem-json";
 export interface OnCallBuscarPersonagemJogadorResponse {
     personagemJogador: PersonagemJson
 }
+
+export interface OnCallGerarBufferImagemPersonagemRequest {
+    personagemId: string;
+}
+
+export interface OnCallGerarBufferImagemPersonagemResponse {
+    base64: string;
+}

@@ -1,19 +1,21 @@
-import {InformacoesPersonagem, PersonagemBase} from "../personagem";
+import { InformacoesPersonagem, PersonagemBase } from '../personagem';
 
 export class PersonagemJson implements PersonagemBase {
-  dataCriacao: string;
-  excluido: boolean;
-  informacoes: InformacoesPersonagem;
+    _id: string | null;
 
-  constructor(
-    informacoesPersonagem: InformacoesPersonagem,
-    personagem?: Partial<Omit<PersonagemJson, "informacoes">>
-  ) {
-    const {dataCriacao, excluido} = personagem || {};
+    dataCriacao: string;
+    excluido: boolean;
 
-    this.informacoes = informacoesPersonagem;
+    informacoes: InformacoesPersonagem;
 
-    this.dataCriacao = dataCriacao ?? new Date().toISOString();
-    this.excluido = excluido ?? false;
-  }
+    constructor(informacoesPersonagem: InformacoesPersonagem, personagem?: Partial<Omit<PersonagemJson, 'informacoes'>>) {
+        const { _id, dataCriacao, excluido } = personagem || {};
+
+        this._id = _id ?? null;
+
+        this.informacoes = informacoesPersonagem;
+
+        this.dataCriacao = dataCriacao ?? new Date().toISOString();
+        this.excluido = excluido ?? false;
+    }
 }

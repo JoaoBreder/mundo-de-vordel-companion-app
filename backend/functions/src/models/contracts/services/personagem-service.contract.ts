@@ -1,3 +1,8 @@
 export interface BuscarPersonagemJogador {
-    userId: string
+    userId: string;
+}
+
+export interface GerarBufferImagemPersonagem {
+    userId: string;
+    personagemId: string;
 }

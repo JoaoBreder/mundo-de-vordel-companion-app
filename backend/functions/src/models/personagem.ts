@@ -1,19 +1,27 @@
 export interface PersonagemBase {
+    _id: string | null;
+
     dataCriacao: any;
     excluido: boolean;
+
     informacoes: InformacoesPersonagem;
 }
 
 export class Personagem implements PersonagemBase {
+  _id: string | null;
+
   dataCriacao: Date;
   excluido: boolean;
+
   informacoes: InformacoesPersonagem;
 
   constructor(
     informacoesPersonagem: InformacoesPersonagem,
     personagem?: Partial<Omit<Personagem, "informacoes">>
   ) {
-    const {dataCriacao, excluido} = personagem || {};
+    const {_id, dataCriacao, excluido} = personagem || {};
+
+    this._id = _id ?? null;
 
     this.informacoes = informacoesPersonagem;
 

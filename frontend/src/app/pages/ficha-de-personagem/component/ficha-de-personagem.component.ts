@@ -3,6 +3,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { BehaviorSubject, distinctUntilChanged, filter } from 'rxjs';
 import { FichaDePersonagemService } from '../ficha-de-personagem.service';
 import { SubscriptionManager } from 'rxjs-sub-manager';
+import { Personagem } from '../../../shared/models/personagem';
 import { ClassePersonagemLabel } from '../../../shared/models/parsers/enum.parser';
 
 @Component({
@@ -17,16 +18,15 @@ export class FichaDePersonagemComponent {
     loading$ = new BehaviorSubject<boolean>(false);
     telaCheia$ = new BehaviorSubject<boolean>(false);
 
-    // TODO: PROVISÓRIO
-    informacoesPersonagem: {
-        nome: string;
-        nivel: number;
-        descricao: string;
-    } | null = null;
-    // TODO: PROVISÓRIO
+    srcImagemPersonagem$ = new BehaviorSubject<string>('');
 
-    constructor(private authService: AuthService, private fichaDePersonagemService: FichaDePersonagemService) {
-      this.observarPersonagemJogador();
+    personagem: Personagem | null = null;
+
+    constructor(
+        private authService: AuthService,
+        private fichaDePersonagemService: FichaDePersonagemService
+    ) {
+        this.observarPersonagemJogador();
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -55,25 +55,41 @@ export class FichaDePersonagemComponent {
     }
 
     // -----------------------------------------------------------------------------------------------------
-    // @ Métodos públicos
+    // @ Métodos privados
     // -----------------------------------------------------------------------------------------------------
 
     private observarPersonagemJogador() {
-      const sub = this.fichaDePersonagemService.personagemJogador$.pipe(distinctUntilChanged(), filter((value) => value !== null)).subscribe((personagemJogador) => {
-          if (personagemJogador) {
-            console.log('=== INFORMACOES PERSONAGEM ===\n', personagemJogador);
+        const sub = this.fichaDePersonagemService.personagemJogador$
+            .pipe(
+                distinctUntilChanged(),
+                filter(value => value !== null)
+            )
+            .subscribe(personagemJogador => {
+                if (personagemJogador) {
+                  this.personagem = personagemJogador
+                  this.salvarBase64ImagemPersonagem();
+                };
+            });
 
-            const { nome, nivel, linhagem, origem, classe } = personagemJogador.informacoes;
+        this.subscriptionManager.add({ sub, ref: 'observarPersonagemJogador' });
+    }
 
-            // TODO: Tratar dados personagens de uma forma melhor
-            this.informacoesPersonagem = {
-                nome,
-                nivel,
-                descricao: `${linhagem}, ${origem}, ${ClassePersonagemLabel[classe]}`
-            }
-          }
-      });
+    private async salvarBase64ImagemPersonagem(): Promise<void> {
+        const base64 = await this.fichaDePersonagemService.gerarBase64ImagemPersonagem();
+        this.srcImagemPersonagem$.next(base64);
+    }
 
-      this.subscriptionManager.add({ sub, ref: 'observarPersonagemJogador' });
+    // -----------------------------------------------------------------------------------------------------
+    // @ Getters
+    // -----------------------------------------------------------------------------------------------------
+
+    get nomeJogador() {
+        return this.authService.usuario?.identificacao;
+    }
+
+    get descricaoPersonagemJogador() {
+        return this.personagem
+            ? `${this.personagem.informacoes.linhagem}, ${this.personagem.informacoes.origem}, ${ClassePersonagemLabel[this.personagem.informacoes.classe]}`
+            : '';
     }
 }

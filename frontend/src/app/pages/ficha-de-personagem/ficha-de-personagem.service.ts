@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { OnCallBuscarPersonagemJogadorResponse } from '../../shared/models/contracts/cloud-functions/oncall-buscar-personagem-jogador';
 import { Personagem } from '../../shared/models/personagem';
 import { PersonagemParser } from '../../shared/models/parsers/personagem.parser';
+import { OnCallGerarBufferImagemPersonagemRequest, OnCallGerarBufferImagemPersonagemResponse } from '../../shared/models/contracts/cloud-functions/oncall-gerar-buffer-imagem-personagem';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 @Injectable({
@@ -15,6 +16,7 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
     private readonly subscriptionManager = new SubscriptionManager({ prefixId: 'HistoricoEnvioAppService' });
 
     private onCallBuscarPersonagemJogador = 'onCallBuscarPersonagemJogador';
+    private onCallGerarBufferImagemPersonagem = 'onCallGerarBufferImagemPersonagem';
 
     personagemJogador$ = new BehaviorSubject<Personagem | null>(null);
 
@@ -62,6 +64,32 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
             this.personagemJogador$.next(PersonagemParser.fromJson(personagemJogador));
         } catch (error) {
             console.error(error);
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Métodos públicos
+    // -----------------------------------------------------------------------------------------------------
+
+    async gerarBase64ImagemPersonagem(): Promise<string> {
+        const personagem = this.personagemJogador$.getValue();
+        if (!personagem || !personagem?._id) return '';
+
+        try {
+            const requestData: OnCallGerarBufferImagemPersonagemRequest = {
+              personagemId: personagem._id
+            };
+
+            const { base64 } = await this.functionsService.callCloudFunction<any, OnCallGerarBufferImagemPersonagemResponse>(
+                this.onCallGerarBufferImagemPersonagem,
+                requestData,
+                true
+            );
+
+            return `data:image/png;base64,${base64}`;
+        } catch (error) {
+            console.error(error);
+            return '';
         }
     }
 }
