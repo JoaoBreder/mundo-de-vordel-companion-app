@@ -1,7 +1,6 @@
 export interface PersonagemBase {
     dataCriacao: any;
     excluido: boolean;
-    fotoPersonagemPath: string;
 
     informacoes: InformacoesPersonagem;
 }
@@ -9,7 +8,6 @@ export interface PersonagemBase {
 export class Personagem implements PersonagemBase {
   dataCriacao: Date;
   excluido: boolean;
-  fotoPersonagemPath: string;
 
   informacoes: InformacoesPersonagem;
 
@@ -17,13 +15,12 @@ export class Personagem implements PersonagemBase {
     informacoesPersonagem: InformacoesPersonagem,
     personagem?: Partial<Omit<Personagem, "informacoes">>
   ) {
-    const {dataCriacao, excluido, fotoPersonagemPath} = personagem || {};
+    const {dataCriacao, excluido} = personagem || {};
 
     this.informacoes = informacoesPersonagem;
 
     this.dataCriacao = dataCriacao ?? new Date();
     this.excluido = excluido ?? false;
-    this.fotoPersonagemPath = fotoPersonagemPath ?? "arquivos_plataforma/foto-padrao-personagem.png";
   }
 }
 

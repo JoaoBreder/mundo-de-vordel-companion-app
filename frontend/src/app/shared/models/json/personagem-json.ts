@@ -3,7 +3,6 @@ import {InformacoesPersonagem, PersonagemBase} from "../personagem";
 export class PersonagemJson implements PersonagemBase {
   dataCriacao: string;
   excluido: boolean;
-  fotoPersonagemPath: string;
 
   informacoes: InformacoesPersonagem;
 
@@ -11,12 +10,11 @@ export class PersonagemJson implements PersonagemBase {
     informacoesPersonagem: InformacoesPersonagem,
     personagem?: Partial<Omit<PersonagemJson, "informacoes">>
   ) {
-    const {dataCriacao, excluido, fotoPersonagemPath} = personagem || {};
+    const {dataCriacao, excluido} = personagem || {};
 
     this.informacoes = informacoesPersonagem;
 
     this.dataCriacao = dataCriacao ?? new Date().toISOString();
     this.excluido = excluido ?? false;
-    this.fotoPersonagemPath = fotoPersonagemPath ?? "arquivos_plataforma/foto-padrao-personagem.png";
   }
 }
