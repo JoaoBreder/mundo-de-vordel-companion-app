@@ -3,7 +3,7 @@
     <div class="header">
         <div class="flex">
             <div class="imagem-personagem">
-                <img src="assets/images/foto-padrao-ficha-personagem.png" alt="Imagem Personagem" />
+                <img [src]="srcImagemPersonagem$ | async" alt="Imagem Personagem" />
             </div>
 
             <div class="informacoes-personagem-wrapper">

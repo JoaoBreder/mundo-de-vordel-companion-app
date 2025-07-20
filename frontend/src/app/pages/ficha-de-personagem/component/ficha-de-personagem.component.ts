@@ -18,6 +18,8 @@ export class FichaDePersonagemComponent {
     loading$ = new BehaviorSubject<boolean>(false);
     telaCheia$ = new BehaviorSubject<boolean>(false);
 
+    srcImagemPersonagem$ = new BehaviorSubject<string>('');
+
     personagem: Personagem | null = null;
 
     constructor(
@@ -53,7 +55,7 @@ export class FichaDePersonagemComponent {
     }
 
     // -----------------------------------------------------------------------------------------------------
-    // @ Métodos públicos
+    // @ Métodos privados
     // -----------------------------------------------------------------------------------------------------
 
     private observarPersonagemJogador() {
@@ -63,10 +65,18 @@ export class FichaDePersonagemComponent {
                 filter(value => value !== null)
             )
             .subscribe(personagemJogador => {
-                if (personagemJogador) this.personagem = personagemJogador;
+                if (personagemJogador) {
+                  this.personagem = personagemJogador
+                  this.salvarBase64ImagemPersonagem();
+                };
             });
 
         this.subscriptionManager.add({ sub, ref: 'observarPersonagemJogador' });
+    }
+
+    private async salvarBase64ImagemPersonagem(): Promise<void> {
+        const base64 = await this.fichaDePersonagemService.gerarBase64ImagemPersonagem();
+        this.srcImagemPersonagem$.next(base64);
     }
 
     // -----------------------------------------------------------------------------------------------------
