@@ -79,7 +79,7 @@ export abstract class PersonagemParser {
     return new Personagem(dadosPersonagem);
   }
 
-  static toFirestore(personagem: Personagem): PersonagemFirestore {
+  static toFirestore(personagem: Personagem | PersonagemJson): PersonagemFirestore {
     const {
       dataCriacao, 
       atributos, 
@@ -87,53 +87,53 @@ export abstract class PersonagemParser {
     } = personagem;
 
     const _atributos = {
-      car: QuantificadorParser.quantificador(atributos.car),
-      con: QuantificadorParser.quantificador(atributos.con),
-      des: QuantificadorParser.quantificador(atributos.des),
-      for: QuantificadorParser.quantificador(atributos.for),
-      int: QuantificadorParser.quantificador(atributos.int),
-      sab: QuantificadorParser.quantificador(atributos.sab)
+      car: QuantificadorParser.toFirestore(atributos.car),
+      con: QuantificadorParser.toFirestore(atributos.con),
+      des: QuantificadorParser.toFirestore(atributos.des),
+      for: QuantificadorParser.toFirestore(atributos.for),
+      int: QuantificadorParser.toFirestore(atributos.int),
+      sab: QuantificadorParser.toFirestore(atributos.sab)
     };
 
     const _pericias = {
-      acrobacia: QuantificadorPericiaParser.quantificadorPericia(pericias.acrobacia),
-      adestramento: QuantificadorPericiaParser.quantificadorPericia(pericias.adestramento),
-      atletismo: QuantificadorPericiaParser.quantificadorPericia(pericias.atletismo),
-      atuacao: QuantificadorPericiaParser.quantificadorPericia(pericias.atuacao),
-      cavalgar: QuantificadorPericiaParser.quantificadorPericia(pericias.cavalgar),
-      conhecimento: QuantificadorPericiaParser.quantificadorPericia(pericias.conhecimento),
-      cura: QuantificadorPericiaParser.quantificadorPericia(pericias.cura),
-      diplomacia: QuantificadorPericiaParser.quantificadorPericia(pericias.diplomacia),
-      enganacao: QuantificadorPericiaParser.quantificadorPericia(pericias.enganacao),
-      fortitude: QuantificadorPericiaParser.quantificadorPericia(pericias.fortitude),
-      guerra: QuantificadorPericiaParser.quantificadorPericia(pericias.guerra),
-      iniciativa: QuantificadorPericiaParser.quantificadorPericia(pericias.iniciativa),
-      intimidacao: QuantificadorPericiaParser.quantificadorPericia(pericias.intimidacao),
-      intuicao: QuantificadorPericiaParser.quantificadorPericia(pericias.intuicao),
-      investigacao: QuantificadorPericiaParser.quantificadorPericia(pericias.investigacao),
-      jogatina: QuantificadorPericiaParser.quantificadorPericia(pericias.jogatina),
-      ladinagem: QuantificadorPericiaParser.quantificadorPericia(pericias.ladinagem),
-      luta: QuantificadorPericiaParser.quantificadorPericia(pericias.luta),
-      misticismo: QuantificadorPericiaParser.quantificadorPericia(pericias.misticismo),
-      nobreza: QuantificadorPericiaParser.quantificadorPericia(pericias.nobreza),
+      acrobacia: QuantificadorPericiaParser.toFirestore(pericias.acrobacia),
+      adestramento: QuantificadorPericiaParser.toFirestore(pericias.adestramento),
+      atletismo: QuantificadorPericiaParser.toFirestore(pericias.atletismo),
+      atuacao: QuantificadorPericiaParser.toFirestore(pericias.atuacao),
+      cavalgar: QuantificadorPericiaParser.toFirestore(pericias.cavalgar),
+      conhecimento: QuantificadorPericiaParser.toFirestore(pericias.conhecimento),
+      cura: QuantificadorPericiaParser.toFirestore(pericias.cura),
+      diplomacia: QuantificadorPericiaParser.toFirestore(pericias.diplomacia),
+      enganacao: QuantificadorPericiaParser.toFirestore(pericias.enganacao),
+      fortitude: QuantificadorPericiaParser.toFirestore(pericias.fortitude),
+      guerra: QuantificadorPericiaParser.toFirestore(pericias.guerra),
+      iniciativa: QuantificadorPericiaParser.toFirestore(pericias.iniciativa),
+      intimidacao: QuantificadorPericiaParser.toFirestore(pericias.intimidacao),
+      intuicao: QuantificadorPericiaParser.toFirestore(pericias.intuicao),
+      investigacao: QuantificadorPericiaParser.toFirestore(pericias.investigacao),
+      jogatina: QuantificadorPericiaParser.toFirestore(pericias.jogatina),
+      ladinagem: QuantificadorPericiaParser.toFirestore(pericias.ladinagem),
+      luta: QuantificadorPericiaParser.toFirestore(pericias.luta),
+      misticismo: QuantificadorPericiaParser.toFirestore(pericias.misticismo),
+      nobreza: QuantificadorPericiaParser.toFirestore(pericias.nobreza),
       oficio: [
-        QuantificadorPericiaParser.quantificadorPericia(pericias.oficio[0]), 
-        QuantificadorPericiaParser.quantificadorPericia(pericias.oficio[1])
+        QuantificadorPericiaParser.toFirestore(pericias.oficio[0]), 
+        QuantificadorPericiaParser.toFirestore(pericias.oficio[1])
       ],
-      percepcao: QuantificadorPericiaParser.quantificadorPericia(pericias.percepcao),
-      pilotagem: QuantificadorPericiaParser.quantificadorPericia(pericias.pilotagem),
-      pontaria: QuantificadorPericiaParser.quantificadorPericia(pericias.pontaria),
-      reflexos: QuantificadorPericiaParser.quantificadorPericia(pericias.reflexos),
-      religiao: QuantificadorPericiaParser.quantificadorPericia(pericias.religiao),
-      sobrevivencia: QuantificadorPericiaParser.quantificadorPericia(pericias.sobrevivencia),
-      vontade: QuantificadorPericiaParser.quantificadorPericia(pericias.vontade)
+      percepcao: QuantificadorPericiaParser.toFirestore(pericias.percepcao),
+      pilotagem: QuantificadorPericiaParser.toFirestore(pericias.pilotagem),
+      pontaria: QuantificadorPericiaParser.toFirestore(pericias.pontaria),
+      reflexos: QuantificadorPericiaParser.toFirestore(pericias.reflexos),
+      religiao: QuantificadorPericiaParser.toFirestore(pericias.religiao),
+      sobrevivencia: QuantificadorPericiaParser.toFirestore(pericias.sobrevivencia),
+      vontade: QuantificadorPericiaParser.toFirestore(pericias.vontade)
     };
 
     const dadosPersonagem: PersonagemFirestore = {
       ...personagem,
       atributos: _atributos,
       pericias: _pericias,
-      dataCriacao: Timestamp.fromDate(dataCriacao),
+      dataCriacao: Timestamp.fromDate(this.converterData(dataCriacao)),
     };
 
     return new PersonagemFirestore(dadosPersonagem);
