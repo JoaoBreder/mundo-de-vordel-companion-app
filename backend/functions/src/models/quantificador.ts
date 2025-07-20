@@ -41,17 +41,15 @@ export class Quantificador implements QuantificadorBase{
     // -----------------------------------------------------------------------------------------------------
 
     adicionarModificador(modificador: Modificador, temporario = false): void {
-        temporario 
-            ? this._modificadores.set(modificador.tipo, modificador)
-            : this._modificadoresTemporarios.set(modificador.tipo, modificador);
+        if (!temporario) this._modificadores.set(modificador.tipo, modificador);
+        else this._modificadoresTemporarios.set(modificador.tipo, modificador);
 
         this._valorTotal = this.calcularValorTotal();
     }
 
     removerModificador(modificador: Modificador, temporario = false): void {
-        temporario 
-            ? this._modificadores.delete(modificador.tipo)
-            : this._modificadoresTemporarios.delete(modificador.tipo);
+        if (!temporario) this._modificadores.delete(modificador.tipo);
+        else this._modificadoresTemporarios.delete(modificador.tipo);
 
         this._valorTotal = this.calcularValorTotal();
     }
@@ -65,11 +63,11 @@ export class Quantificador implements QuantificadorBase{
     }
 
     get modificadores(): Modificador[] {
-        return Array.from(this.modificadores.values());
+        return Array.from(this._modificadores.values());
     }
 
     get modificadoresTemporarios(): Modificador[] {
-        return Array.from(this.modificadoresTemporarios.values());
+        return Array.from(this._modificadoresTemporarios.values());
     }
 }
 
