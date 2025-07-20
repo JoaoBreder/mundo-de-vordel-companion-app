@@ -7,6 +7,7 @@ import { OnCallBuscarPersonagemJogadorResponse } from '../../shared/models/contr
 import { Personagem } from '../../shared/models/personagem';
 import { PersonagemParser } from '../../shared/models/parsers/personagem.parser';
 import { OnCallGerarBufferImagemPersonagemRequest, OnCallGerarBufferImagemPersonagemResponse } from '../../shared/models/contracts/cloud-functions/oncall-gerar-buffer-imagem-personagem';
+import { CloudFunction } from '../../shared/helpers/cloud-function';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 @Injectable({
@@ -14,9 +15,6 @@ import { OnCallGerarBufferImagemPersonagemRequest, OnCallGerarBufferImagemPerson
 })
 export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate<boolean> {
     private readonly subscriptionManager = new SubscriptionManager({ prefixId: 'HistoricoEnvioAppService' });
-
-    private onCallBuscarPersonagemJogador = 'onCallBuscarPersonagemJogador';
-    private onCallGerarBufferImagemPersonagem = 'onCallGerarBufferImagemPersonagem';
 
     personagemJogador$ = new BehaviorSubject<Personagem | null>(null);
 
@@ -56,7 +54,7 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
             const requestData = {}; // TODO: Quando for implementado a possibilidade de mais personagens, vai ser preciso modificar esse objeto
 
             const { personagemJogador } = await this.functionsService.callCloudFunction<any, OnCallBuscarPersonagemJogadorResponse>(
-                this.onCallBuscarPersonagemJogador,
+                CloudFunction.ONCALL_BUSCAR_PERSONAGEM_JOGADOR,
                 requestData,
                 true
             );
@@ -81,7 +79,7 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
             };
 
             const { base64 } = await this.functionsService.callCloudFunction<any, OnCallGerarBufferImagemPersonagemResponse>(
-                this.onCallGerarBufferImagemPersonagem,
+                CloudFunction.ONCALL_GERAR_BUFFER_IMAGEM_PERSONAGEM,
                 requestData,
                 true
             );
