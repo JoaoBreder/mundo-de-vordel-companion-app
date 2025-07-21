@@ -4,7 +4,7 @@ import { BehaviorSubject, distinctUntilChanged, filter } from 'rxjs';
 import { FichaDePersonagemService } from '../ficha-de-personagem.service';
 import { SubscriptionManager } from 'rxjs-sub-manager';
 import { ClassePersonagemLabel } from '../../../shared/models/parsers/enum.parser';
-import { Personagem } from '../../../shared/models/personagem';
+import { Atributos, Personagem } from '../../../shared/models/personagem';
 
 @Component({
     selector: 'app-ficha-de-personagem',
@@ -18,9 +18,10 @@ export class FichaDePersonagemComponent {
     loading$ = new BehaviorSubject<boolean>(false);
     telaCheia$ = new BehaviorSubject<boolean>(false);
 
+    personagem: Personagem | null = null;
     srcImagemPersonagem$ = new BehaviorSubject<string>('');
 
-    personagem: Personagem | null = null;
+    listaAtributos: (keyof Atributos)[] = ['for', 'des', 'con', 'int', 'sab', 'car'];
 
     constructor(
         private authService: AuthService,
@@ -58,7 +59,7 @@ export class FichaDePersonagemComponent {
     // @ Métodos privados
     // -----------------------------------------------------------------------------------------------------
 
-    private observarPersonagemJogador() {
+    private observarPersonagemJogador(): void {
         const sub = this.fichaDePersonagemService.personagemJogador$
             .pipe(
                 distinctUntilChanged(),
@@ -83,11 +84,11 @@ export class FichaDePersonagemComponent {
     // @ Getters
     // -----------------------------------------------------------------------------------------------------
 
-    get nomeJogador() {
-        return this.authService.usuario?.identificacao;
+    get nomeJogador(): string {
+        return this.authService.usuario?.identificacao ?? '';
     }
 
-    get descricaoPersonagemJogador() {
+    get descricaoPersonagemJogador(): string {
         return this.personagem
             ? `${this.personagem.informacoes.linhagem}, ${this.personagem.informacoes.origem}, ${ClassePersonagemLabel[this.personagem.informacoes.classe]}`
             : '';

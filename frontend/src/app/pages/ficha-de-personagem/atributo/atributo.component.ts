@@ -25,7 +25,7 @@ export class AtributoComponent implements OnInit {
     // @ Métodos privados
     // -----------------------------------------------------------------------------------------------------
 
-    private montarDescricaoDetalhes() {
+    private montarDescricaoDetalhes(): void {
         const detalhesAtributoArray: string[] = [];
 
         this.modificadores.forEach(modificador => {

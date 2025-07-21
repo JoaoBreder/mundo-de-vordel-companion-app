@@ -40,45 +40,16 @@
         </div>
     </div>
 
-    <div class="content">
+    <div *ngIf="personagem" class="content">
         <div class="grid-principal">
             <div class="grid-wrapper">
                 <div class="atributos">
                     <atributo-component
-                        nome="FOR"
-                        [valorTotal]="personagem?.atributos?.for?.valorTotal ?? 0"
-                        [modificadores]="personagem?.atributos?.for?.modificadores ?? []"
-                        [modificadoresTemporarios]="personagem?.atributos?.for?.modificadoresTemporarios ?? []" />
-
-                    <atributo-component
-                        nome="DES"
-                        [valorTotal]="personagem?.atributos?.des?.valorTotal ?? 0"
-                        [modificadores]="personagem?.atributos?.des?.modificadores ?? []"
-                        [modificadoresTemporarios]="personagem?.atributos?.des?.modificadoresTemporarios ?? []" />
-
-                    <atributo-component
-                        nome="CON"
-                        [valorTotal]="personagem?.atributos?.con?.valorTotal ?? 0"
-                        [modificadores]="personagem?.atributos?.con?.modificadores ?? []"
-                        [modificadoresTemporarios]="personagem?.atributos?.con?.modificadoresTemporarios ?? []" />
-
-                    <atributo-component
-                        nome="INT"
-                        [valorTotal]="personagem?.atributos?.int?.valorTotal ?? 0"
-                        [modificadores]="personagem?.atributos?.int?.modificadores ?? []"
-                        [modificadoresTemporarios]="personagem?.atributos?.int?.modificadoresTemporarios ?? []" />
-
-                    <atributo-component
-                        nome="SAB"
-                        [valorTotal]="personagem?.atributos?.sab?.valorTotal ?? 0"
-                        [modificadores]="personagem?.atributos?.sab?.modificadores ?? []"
-                        [modificadoresTemporarios]="personagem?.atributos?.sab?.modificadoresTemporarios ?? []" />
-
-                    <atributo-component
-                        nome="CAR"
-                        [valorTotal]="personagem?.atributos?.car?.valorTotal ?? 0"
-                        [modificadores]="personagem?.atributos?.car?.modificadores ?? []"
-                        [modificadoresTemporarios]="personagem?.atributos?.car?.modificadoresTemporarios ?? []" />
+                        *ngFor="let atributo of listaAtributos"
+                        [nome]="atributo.toUpperCase()"
+                        [valorTotal]="personagem.atributos[atributo].valorTotal"
+                        [modificadores]="personagem.atributos[atributo].modificadores"
+                        [modificadoresTemporarios]="personagem.atributos[atributo].modificadoresTemporarios" />
                 </div>
 
                 <div class="pontos-wrapper">
