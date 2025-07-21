@@ -1,5 +1,5 @@
-import { ClassePersonagem } from "../personagem";
-import { TipoModificador } from "../quantificador";
+import { ClassePersonagem } from "../models/personagem";
+import { TipoModificador } from "../models/quantificador";
 
 export const ClassePersonagemLabel: Record<ClassePersonagem, string> = {
   [ClassePersonagem.BARBARO]: "Bárbaro",

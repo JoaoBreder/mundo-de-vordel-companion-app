@@ -3,7 +3,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { BehaviorSubject, distinctUntilChanged, filter } from 'rxjs';
 import { FichaDePersonagemService } from '../ficha-de-personagem.service';
 import { SubscriptionManager } from 'rxjs-sub-manager';
-import { ClassePersonagemLabel } from '../../../shared/models/parsers/enum.parser';
+import { ClassePersonagemLabel } from '../../../shared/helpers/enum-label.parser';
 import { Atributos, Personagem } from '../../../shared/models/personagem';
 
 @Component({
