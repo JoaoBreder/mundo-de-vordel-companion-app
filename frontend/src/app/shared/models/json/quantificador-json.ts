@@ -1,12 +1,12 @@
-import { Modificador, QuantificadorBase } from "../quantificador";
+import { AtributoAbreviado, Modificador, QuantificadorBase } from '../quantificador';
 
 export class QuantificadorJson implements QuantificadorBase {
     valorTotal: number;
     modificadores: Modificador[];
     modificadoresTemporarios: Modificador[];
-    
+
     constructor(quantificador?: Partial<QuantificadorJson>) {
-        const {valorTotal, modificadores, modificadoresTemporarios} = quantificador || {};
+        const { valorTotal, modificadores, modificadoresTemporarios } = quantificador || {};
 
         this.valorTotal = valorTotal ?? 0;
         this.modificadores = modificadores ?? [];
@@ -15,14 +15,16 @@ export class QuantificadorJson implements QuantificadorBase {
 }
 
 export class QuantificadorPericiaJson extends QuantificadorJson {
+    atributo: AtributoAbreviado | null;
     descricao: string | null;
     treinado: boolean;
 
     constructor(quantificador?: Partial<QuantificadorPericiaJson>) {
         super(quantificador);
 
-        const {descricao, treinado} = quantificador || {};
-        
+        const { atributo, descricao, treinado } = quantificador || {};
+
+        this.atributo = atributo ?? null;
         this.descricao = descricao ?? '';
         this.treinado = treinado ?? false;
     }
@@ -34,7 +36,7 @@ export class QuantificadorVariavelJson extends QuantificadorJson {
     constructor(quantificador?: Partial<QuantificadorVariavelJson>) {
         super(quantificador);
 
-        const {valorAtual, valorTotal} = quantificador || {};
+        const { valorAtual, valorTotal } = quantificador || {};
 
         this.valorAtual = valorAtual ?? valorTotal ?? 0;
     }

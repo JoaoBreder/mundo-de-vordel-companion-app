@@ -72,14 +72,16 @@ export class Quantificador implements QuantificadorBase {
 }
 
 export class QuantificadorPericia extends Quantificador {
+    atributo: AtributoAbreviado | null;
     descricao: string | null;
     treinado: boolean;
 
     constructor(quantificador?: Partial<QuantificadorPericia>) {
         super(quantificador);
 
-        const { descricao, treinado } = quantificador || {};
+        const { atributo, descricao, treinado } = quantificador || {};
 
+        this.atributo = atributo ?? null;
         this.descricao = descricao ?? '';
         this.treinado = treinado ?? false;
     }
@@ -117,6 +119,15 @@ export class QuantificadorVariavel extends Quantificador {
 export interface Modificador {
     tipo: TipoModificador;
     valor: number;
+}
+
+export enum AtributoAbreviado {
+    CAR = 'CAR',
+    CON = 'CON',
+    DES = 'DES',
+    FOR = 'FOR',
+    INT = 'INT',
+    SAB = 'SAB',
 }
 
 export enum OperacaoModificarValor {

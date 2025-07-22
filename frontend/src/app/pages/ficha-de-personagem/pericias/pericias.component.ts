@@ -17,6 +17,8 @@ export class PericiasComponent implements OnInit {
     displayedColumns: string[] = ['pericia', 'atributo', 'bonus', 'treinado'];
     periciasDataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
+    periciasSomenteTreinado: string[] = ['adestramento', 'conhecimento', 'guerra', 'jogatina', 'ladinagem', 'misticismo', 'nobreza', 'oficio', 'pilotagem', 'religiao'];
+
     ngOnInit(): void {
         this.montarPericiasDataSource();
     }
@@ -40,11 +42,11 @@ export class PericiasComponent implements OnInit {
                     });
 
                     data.push({
-                        atributo: 'FOR',
-                        bonus: `${oficio.valorTotal > 0 ? '+' : ''}${oficio.valorTotal}`,
+                        atributo: oficio.atributo,
+                        bonus: this.periciasSomenteTreinado.includes(key) && !oficio.treinado ? '—' : `${oficio.valorTotal > 0 ? '+' : ''}${oficio.valorTotal}`,
                         pericia: `${PericiaLabel[key as keyof Pericias]} ${oficio.descricao}`,
                         treinado: oficio.treinado,
-                        detalhes: detalhesAtributoArray.join(', '),
+                        detalhes: this.periciasSomenteTreinado.includes(key) && !oficio.treinado ? 'Somente treinado' : detalhesAtributoArray.join(', ')
                     });
                 });
 
@@ -56,11 +58,11 @@ export class PericiasComponent implements OnInit {
             });
 
             data.push({
-                atributo: 'FOR',
-                bonus: `${pericia.valorTotal > 0 ? '+' : ''}${pericia.valorTotal}`,
+                atributo: pericia.atributo,
+                bonus: this.periciasSomenteTreinado.includes(key) && !pericia.treinado ? '—' : `${pericia.valorTotal > 0 ? '+' : ''}${pericia.valorTotal}`,
                 pericia: PericiaLabel[key as keyof Pericias],
                 treinado: pericia.treinado,
-                detalhes: detalhesAtributoArray.join(', '),
+                detalhes: this.periciasSomenteTreinado.includes(key) && !pericia.treinado ? 'Somente treinado' : detalhesAtributoArray.join(', ')
             });
         });
 
