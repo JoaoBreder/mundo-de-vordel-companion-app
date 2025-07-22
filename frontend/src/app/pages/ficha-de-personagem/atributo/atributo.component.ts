@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Modificador } from '../../../shared/models/quantificador';
-import { TipoModificadorLabel } from '../../../shared/helpers/enum-label.parser';
+import { TipoModificadorLabel } from '../../../shared/helpers/label-helpers';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector

@@ -1,0 +1,124 @@
+pericias-component {
+    .pericias-card {
+        display: flex;
+        flex-direction: column;
+
+        height: 100%;
+        padding: 0 1rem;
+
+        border: 0.2rem solid white;
+        border-radius: 0.5rem;
+
+        .scrollbar-control {
+          padding-top: 4rem;
+          padding-bottom: 0.5rem;
+        }
+
+        .custom-scrollbar {
+            background-color: rgba(255, 255, 255, 0.35) !important;
+
+            &:hover,
+            &:active {
+                background-color: rgba(255, 255, 255, 0.35) !important;
+            }
+        }
+
+        .pericias-table {
+            height: 100%;
+            background-color: transparent;
+            overflow-y: scroll;
+
+            h4 {
+                margin: 0;
+            }
+
+            mat-header-row {
+                background-color: black;
+            }
+
+            mat-row {
+                span {
+                    font-size: 1.4rem;
+                }
+            }
+
+            mat-row {
+              height: 4.3rem !important;
+                min-height: 4.3rem !important;
+            }
+
+            mat-header-row {
+                height: 4rem !important;
+                min-height: 4rem !important;
+            }
+
+            mat-header-cell {
+                font-size: 1.2rem;
+                border-bottom-color: transparent;
+            }
+
+            .mat-column-atributo {
+                justify-content: center;
+
+                word-wrap: break-word !important;
+                white-space: unset !important;
+                flex: 0 0 20% !important;
+                width: 20% !important;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+
+                word-break: break-word;
+
+                -ms-hyphens: auto;
+                -moz-hyphens: auto;
+                -webkit-hyphens: auto;
+                hyphens: auto;
+            }
+
+            .mat-column-treinado,
+            .mat-column-bonus {
+                justify-content: center;
+
+                word-wrap: break-word !important;
+                white-space: unset !important;
+                flex: 0 0 14% !important;
+                width: 14% !important;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+
+                word-break: break-word;
+
+                -ms-hyphens: auto;
+                -moz-hyphens: auto;
+                -webkit-hyphens: auto;
+                hyphens: auto;
+            }
+
+            .mat-column-atributo {
+                span {
+                    opacity: 0.5;
+                    font-weight: bold;
+                }
+            }
+
+            .mat-column-bonus {
+                span {
+                    font-weight: bold;
+                }
+            }
+
+            .mat-column-treinado {
+              border-bottom-color: transparent;
+            }
+
+            .mat-column-pericia,
+            .mat-column-atributo,
+            .mat-column-treinado,
+            .mat-column-bonus {
+                padding: 0;
+                padding-left: 0.5rem;
+                padding-right: 1rem;
+            }
+        }
+    }
+}

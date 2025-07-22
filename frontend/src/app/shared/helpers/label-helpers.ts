@@ -1,4 +1,4 @@
-import { ClassePersonagem } from "../models/personagem";
+import { ClassePersonagem, Pericias } from "../models/personagem";
 import { TipoModificador } from "../models/quantificador";
 
 export const ClassePersonagemLabel: Record<ClassePersonagem, string> = {
@@ -18,6 +18,37 @@ export const ClassePersonagemLabel: Record<ClassePersonagem, string> = {
   [ClassePersonagem.NOBRE]: "Nobre",
   [ClassePersonagem.PALADINO]: "Paladino",
 };
+
+export const PericiaLabel: Record<keyof Pericias, string> = {
+  acrobacia: "Acrobacia",
+  adestramento: "Adestramento",
+  atletismo: "Atletismo",
+  atuacao: "Atuação",
+  cavalgar: "Cavalgar",
+  conhecimento: "Conhecimento",
+  cura: "Cura",
+  diplomacia: "Diplomacia",
+  enganacao: "Enganação",
+  fortitude: "Fortitude",
+  guerra: "Guerra",
+  iniciativa: "Iniciativa",
+  intimidacao: "Intimidação",
+  intuicao: "Intuição",
+  investigacao: "Investigação",
+  jogatina: "Jogatina",
+  ladinagem: "Ladinagem",
+  luta: "Luta",
+  misticismo: "Misticismo",
+  nobreza: "Nobreza",
+  oficio: "Ofício",
+  percepcao: "Percepção",
+  pilotagem: "Pilotagem",
+  pontaria: "Pontaria",
+  reflexos: "Reflexos",
+  religiao: "Religião",
+  sobrevivencia: "Sobrevivência",
+  vontade: "Vontade"
+}
 
 export const TipoModificadorLabel: Record<TipoModificador, string> = {
   [TipoModificador.BONUS_LINHAGEM]: "Linhagem",

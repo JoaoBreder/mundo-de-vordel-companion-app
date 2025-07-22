@@ -80,12 +80,6 @@ app-ficha-de-personagem {
         grid-auto-rows: auto;
         grid-gap: 2rem;
 
-        .pericias {
-            border: 0.2rem solid white;
-            border-radius: 0.5rem;
-            flex-grow: 1;
-        }
-
         .grid-principal {
             display: grid;
 
@@ -137,7 +131,6 @@ app-ficha-de-personagem {
             .pontos-de-mana,
             .defesa,
             .ataques-e-magias,
-            .pericias,
             .detalhes,
             .equipamentos,
             .inventario {
@@ -170,7 +163,6 @@ app-ficha-de-personagem {
 
             .atributos-pontos-wrapper,
             .ataques-e-magias,
-            .pericias,
             .detalhes,
             .equipamentos,
             .inventario {
