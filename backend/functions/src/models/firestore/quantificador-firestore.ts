@@ -1,4 +1,4 @@
-import { Modificador, QuantificadorBase } from "../quantificador";
+import { AtributoAbreviado, Modificador, QuantificadorBase } from "../quantificador";
 
 export class QuantificadorFirestore implements QuantificadorBase {
     valorTotal: number;
@@ -15,14 +15,16 @@ export class QuantificadorFirestore implements QuantificadorBase {
 }
 
 export class QuantificadorPericiaFirestore extends QuantificadorFirestore {
+    atributo: AtributoAbreviado | null;
     descricao: string | null;
     treinado: boolean;
 
     constructor(quantificador?: Partial<QuantificadorPericiaFirestore>) {
         super(quantificador);
 
-        const {descricao, treinado} = quantificador || {};
+        const {atributo, descricao, treinado} = quantificador || {};
         
+        this.atributo = atributo ?? null;
         this.descricao = descricao ?? '';
         this.treinado = treinado ?? false;
     }
