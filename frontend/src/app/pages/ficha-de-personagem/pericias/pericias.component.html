@@ -1,0 +1,35 @@
+<div class="pericias-card">
+    <ng-scrollbar visibility="hover" thumbClass="custom-scrollbar">
+        <mat-table class="pericias-table" [dataSource]="periciasDataSource" scrollViewport>
+            <ng-container matColumnDef="pericia">
+                <mat-header-cell *matHeaderCellDef><h4>Perícias</h4></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span>{{ element.pericia }}</span>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="atributo">
+                <mat-header-cell *matHeaderCellDef>Atributo</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span>{{ element.atributo }}</span>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="bonus">
+                <mat-header-cell *matHeaderCellDef>Bônus</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span>{{ element.bonus }}</span>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="treinado">
+                <mat-header-cell *matHeaderCellDef>Treino</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <div class="border-gray-500 border-[0.1rem] rounded-full p-1 flex justify-center items-center">
+                        <div class="rounded-full w-3 h-3" [ngClass]="{ 'bg-white': element.treinado }"></div>
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let element; columns: displayedColumns" class="element" matRipple [matTooltip]="element.detalhes" matTooltipPosition="left"></mat-row>
+        </mat-table>
+    </ng-scrollbar>
+</div>

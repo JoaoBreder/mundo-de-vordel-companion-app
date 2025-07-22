@@ -40,25 +40,34 @@
         </div>
     </div>
 
-    <div class="content">
-        <div class="atributos-pontos-wrapper">
-            <div class="atributos">Atributos</div>
+    <div *ngIf="personagem" class="content">
+        <div class="grid-principal">
+            <div class="grid-wrapper">
+                <div class="atributos">
+                    <atributo-component
+                        *ngFor="let atributo of listaAtributos"
+                        [nome]="atributo.toUpperCase()"
+                        [valorTotal]="personagem.atributos[atributo].valorTotal"
+                        [modificadores]="personagem.atributos[atributo].modificadores"
+                        [modificadoresTemporarios]="personagem.atributos[atributo].modificadoresTemporarios" />
+                </div>
 
-            <div class="pontos-wrapper">
-                <div class="pontos-de-vida">Pontos de Vida</div>
-                <div class="pontos-de-mana">Pontos de Mana</div>
-                <div class="defesa">Defesa</div>
+                <div class="pontos-wrapper">
+                    <div class="pontos-de-vida">Pontos de Vida</div>
+                    <div class="pontos-de-mana">Pontos de Mana</div>
+                    <div class="defesa">Defesa</div>
+                </div>
             </div>
+
+            <div class="ataques-e-magias">Ataques e Magia</div>
+
+            <div class="detalhes">Poderes</div>
+
+            <div class="equipamentos">Equipamentos</div>
+
+            <div class="inventario">Inventário</div>
         </div>
 
-        <div class="ataques-e-magias">Ataques e Magia</div>
-
-        <div class="pericias">Perícias</div>
-
-        <div class="detalhes">Poderes</div>
-
-        <div class="equipamentos">Equipamentos</div>
-
-        <div class="inventario">Inventário</div>
+        <pericias-component [pericias]="personagem.pericias" />
     </div>
 </div>

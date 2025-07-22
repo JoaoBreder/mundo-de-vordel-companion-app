@@ -4,10 +4,10 @@ import { SubscriptionManager } from 'rxjs-sub-manager';
 import { ActivatedRouteSnapshot, CanDeactivate, Resolve, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { OnCallBuscarPersonagemJogadorResponse } from '../../shared/models/contracts/cloud-functions/oncall-buscar-personagem-jogador';
-import { Personagem } from '../../shared/models/personagem';
 import { PersonagemParser } from '../../shared/models/parsers/personagem.parser';
 import { OnCallGerarBufferImagemPersonagemRequest, OnCallGerarBufferImagemPersonagemResponse } from '../../shared/models/contracts/cloud-functions/oncall-gerar-buffer-imagem-personagem';
 import { CloudFunction } from '../../shared/helpers/cloud-function';
+import { Personagem } from '../../shared/models/personagem';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 @Injectable({
@@ -59,7 +59,7 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
                 true
             );
 
-            this.personagemJogador$.next(PersonagemParser.fromJson(personagemJogador));
+            this.personagemJogador$.next(PersonagemParser.personagem(personagemJogador));
         } catch (error) {
             console.error(error);
         }
