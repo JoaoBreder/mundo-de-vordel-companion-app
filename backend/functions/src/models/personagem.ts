@@ -88,6 +88,15 @@ export interface Atributos {
     sab: Quantificador;
 }
 
+export enum AtributoAbreviado {
+    CAR = 'CAR',
+    CON = 'CON',
+    DES = 'DES',
+    FOR = 'FOR',
+    INT = 'INT',
+    SAB = 'SAB'
+}
+
 export interface InformacoesPersonagem {
     classe: ClassePersonagem;
     linhagem: string;
@@ -125,6 +134,10 @@ export interface Pericias {
     religiao: QuantificadorPericia;
     sobrevivencia: QuantificadorPericia;
     vontade: QuantificadorPericia;
+}
+
+export enum Pericia {
+  
 }
 
 export enum ClassePersonagem {
