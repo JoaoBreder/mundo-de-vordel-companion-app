@@ -1,15 +1,16 @@
-import { TipoAtaque, TipoDano } from "../../ataque";
-import { OrdenacaoRegistrosAtaque } from "../../firestore/ataque-firestore";
-import { AtaqueArmaJson, AtaqueEfeitoJson } from "../../json/ataque-json";
-import {PersonagemJson} from "../../json/personagem-json";
+import { TipoAtaque, TipoDano } from "../ataque";
+import { OrdenacaoRegistrosAtaque } from "../firestore/ataque-firestore";
+import { AtaqueArmaJson, AtaqueEfeitoJson } from "../json/ataque-json";
+import { PersonagemJson } from "../json/personagem-json";
+
 
 export interface OnCallBuscarAtaquesPersonagemRequest {
     personagemId: string;
+    orderBy: OrdenacaoRegistrosAtaque;
     filter?: {
-        tipo: TipoAtaque;
-        tipoDano: TipoDano;
+        tipo?: TipoAtaque;
+        tipoDano?: TipoDano;
     };
-    orderBy?: OrdenacaoRegistrosAtaque;
 }
 
 export interface OnCallBuscarAtaquesPersonagemResponse {

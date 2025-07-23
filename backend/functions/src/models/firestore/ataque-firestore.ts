@@ -76,7 +76,7 @@ export class AtaqueEfeitoFirestore implements AtaqueBase {
 }
 
 export enum OrdenacaoRegistrosAtaque {
-    DESCRICAO = "DESCRICAO",
-    TIPO = "TIPO",
-    TIPO_DANO = "TIPO_DANO"
+    descricao = "descricao",
+    tipo = "tipo",
+    tipoDano = "tipoDano"
 }
