@@ -20,57 +20,63 @@ export abstract class AtaqueParser {
     // -----------------------------------------------------------------------------------------------------
 
     static ataque(ataque: AtaqueArmaFirestore | AtaqueArmaJson | AtaqueEfeitoFirestore | AtaqueEfeitoJson): AtaqueArma | AtaqueEfeito {
-        const {bonus, dataAtualizacao, dataCriacao} = ataque;
+        const {bonusAtaque, bonusDano, dataAtualizacao, dataCriacao} = ataque;
 
         if (ataque instanceof AtaqueArmaFirestore || ataque instanceof AtaqueArmaJson)
             return new AtaqueArma({
                 ...ataque,
-                bonus: new Quantificador(bonus),
+                bonusAtaque: bonusAtaque ? new Quantificador(bonusAtaque) : null,
+                bonusDano: bonusDano ? new Quantificador(bonusDano) : null,
                 dataAtualizacao: dataAtualizacao ? this.converterData(dataAtualizacao) : null,
                 dataCriacao: this.converterData(dataCriacao)
             });
 
         return new AtaqueEfeito({
             ...ataque,
-            bonus: new Quantificador(bonus),
+            bonusAtaque: bonusAtaque ? new Quantificador(bonusAtaque) : null,
+            bonusDano: bonusDano ? new Quantificador(bonusDano) : null,
             dataAtualizacao: dataAtualizacao ? this.converterData(dataAtualizacao) : null,
             dataCriacao: this.converterData(dataCriacao)
         }); 
     }
 
     static toFirestore(ataque: AtaqueArma | AtaqueArmaJson | AtaqueEfeito | AtaqueEfeitoJson): AtaqueArmaFirestore | AtaqueEfeitoFirestore {
-        const {bonus, dataAtualizacao, dataCriacao} = ataque;
+        const {bonusAtaque, bonusDano, dataAtualizacao, dataCriacao} = ataque;
 
         if (ataque instanceof AtaqueArmaFirestore || ataque instanceof AtaqueArmaJson)
             return new AtaqueArmaFirestore({
                 ...ataque,
-                bonus: new Quantificador(bonus),
+                bonusAtaque: bonusAtaque ? new Quantificador(bonusAtaque) : null,
+                bonusDano: bonusDano ? new Quantificador(bonusDano) : null,
                 dataAtualizacao: dataAtualizacao ? Timestamp.fromDate(this.converterData(dataAtualizacao)) : null,
                 dataCriacao: Timestamp.fromDate(this.converterData(dataCriacao))
             });
 
         return new AtaqueEfeitoFirestore({
             ...ataque,
-            bonus: new Quantificador(bonus),
+            bonusAtaque: bonusAtaque ? new Quantificador(bonusAtaque) : null,
+            bonusDano: bonusDano ? new Quantificador(bonusDano) : null,
             dataAtualizacao: dataAtualizacao ? Timestamp.fromDate(this.converterData(dataAtualizacao)) : null,
             dataCriacao: Timestamp.fromDate(this.converterData(dataCriacao))
         }); 
     }
 
     static toJson(ataque: AtaqueArma | AtaqueArmaFirestore | AtaqueEfeito | AtaqueEfeitoFirestore): AtaqueArmaJson | AtaqueEfeitoJson {
-        const {bonus, dataAtualizacao, dataCriacao} = ataque;
+        const {bonusAtaque, bonusDano, dataAtualizacao, dataCriacao} = ataque;
 
         if (ataque instanceof AtaqueArmaFirestore || ataque instanceof AtaqueArmaJson)
             return new AtaqueArmaJson({
                 ...ataque,
-                bonus: new Quantificador(bonus),
+                bonusAtaque: bonusAtaque ? new Quantificador(bonusAtaque) : null,
+                bonusDano: bonusDano ? new Quantificador(bonusDano) : null,
                 dataAtualizacao: dataAtualizacao ? this.converterData(dataAtualizacao).toISOString() : null,
                 dataCriacao: this.converterData(dataCriacao).toISOString()
             });
 
         return new AtaqueEfeitoJson({
             ...ataque,
-            bonus: new Quantificador(bonus),
+            bonusAtaque: bonusAtaque ? new Quantificador(bonusAtaque) : null,
+            bonusDano: bonusDano ? new Quantificador(bonusDano) : null,
             dataAtualizacao: dataAtualizacao ? this.converterData(dataAtualizacao).toISOString() : null,
             dataCriacao: this.converterData(dataCriacao).toISOString()
         }); 

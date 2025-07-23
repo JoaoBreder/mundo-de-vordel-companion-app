@@ -8,7 +8,8 @@ export class AtaqueArmaJson implements AtaqueBase {
     excluido: boolean;
 
     alcance: AlcanceAtaque | null;
-    bonus: QuantificadorJson;
+    bonusAtaque: QuantificadorJson | null;
+    bonusDano: QuantificadorJson | null;
     dano: string;
     descricao: string;
     tipo: TipoAtaque | null;
@@ -19,8 +20,8 @@ export class AtaqueArmaJson implements AtaqueBase {
 
     constructor(ataque?: Partial<AtaqueArmaJson>) {
         const {
-            alcance, bonus, dano, dataAtualizacao, dataCriacao,
-            descricao, excluido, tipo, tipoDano, critico, pericia
+            alcance, bonusAtaque, bonusDano, dano, dataAtualizacao,
+            dataCriacao, descricao, excluido, tipo, tipoDano, critico, pericia
         } = ataque ?? {};
 
         this.dataAtualizacao = dataAtualizacao ?? null;
@@ -35,7 +36,8 @@ export class AtaqueArmaJson implements AtaqueBase {
         this.critico = critico ?? null;
         this.pericia = pericia ?? null;
 
-        this.bonus = new QuantificadorJson(bonus);
+        this.bonusAtaque = bonusAtaque ? new QuantificadorJson(bonusAtaque) : null;
+        this.bonusDano = bonusDano ? new QuantificadorJson(bonusDano) : null;
     }
 }
 
@@ -45,7 +47,8 @@ export class AtaqueEfeitoJson implements AtaqueBase {
     excluido: boolean;
 
     alcance: AlcanceAtaque | null;
-    bonus: QuantificadorJson;
+    bonusAtaque: QuantificadorJson | null;
+    bonusDano: QuantificadorJson | null;
     dano: string;
     descricao: string;
     tipo: TipoAtaque | null;
@@ -55,8 +58,8 @@ export class AtaqueEfeitoJson implements AtaqueBase {
 
     constructor(ataque?: Partial<AtaqueEfeitoJson>) {
         const {
-            alcance, bonus, dano, dataAtualizacao, dataCriacao,
-            descricao, excluido, tipo, tipoDano, resistencia
+            alcance, bonusAtaque, bonusDano, dano, dataAtualizacao,
+            dataCriacao, descricao, excluido, tipo, tipoDano, resistencia
         } = ataque ?? {};
 
         this.dataAtualizacao = dataAtualizacao ?? null;
@@ -70,6 +73,7 @@ export class AtaqueEfeitoJson implements AtaqueBase {
         this.tipoDano = tipoDano ?? null;
         this.resistencia = resistencia ?? null;
 
-        this.bonus = new QuantificadorJson(bonus);
+        this.bonusAtaque = bonusAtaque ? new QuantificadorJson(bonusAtaque) : null;
+        this.bonusDano = bonusDano ? new QuantificadorJson(bonusDano) : null;
     }
 }

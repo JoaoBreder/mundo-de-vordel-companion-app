@@ -36,7 +36,7 @@ export abstract class DatabaseService {
 
   static async buscarDocsColecao<T>(collectionsPath: string[], orderBy?: any, filter?: Object, limite?: number): Promise<T> {
     let collectionRef = this.montarCollectionRef(collectionsPath);
-    let query: Query<DocumentData> = collectionRef;
+    let query: Query<DocumentData> = collectionRef.where('excluido', '==', false);
 
     if (filter) {
       Object.keys(filter).forEach((key) => {
@@ -45,11 +45,11 @@ export abstract class DatabaseService {
     }
 
     if (orderBy) {
-      collectionRef.orderBy(orderBy);
+      query = query.orderBy(orderBy, 'asc');
     }
 
     if (limite) {
-      query = collectionRef.limit(limite);
+      query = query.limit(limite);
     }
 
     return await this.get(query);

@@ -7,7 +7,8 @@ export interface AtaqueBase {
     excluido: boolean;
 
     alcance: any;
-    bonus: any;
+    bonusAtaque: any;
+    bonusDano: any;
     dano: string;
     descricao: string;
     tipo: TipoAtaque | null;
@@ -28,12 +29,13 @@ export class AtaqueArma implements AtaqueBase {
     private _critico: string | null;
     private _pericia: Pericia | null;
 
-    bonus: Quantificador;
+    bonusAtaque: Quantificador | null;
+    bonusDano: Quantificador | null;
 
     constructor(ataque?: Partial<AtaqueArma>) {
         const {
-            alcance, bonus, dano, dataAtualizacao, dataCriacao,
-            descricao, excluido, tipo, tipoDano, critico, pericia
+            alcance, bonusAtaque, bonusDano, dano, dataAtualizacao, 
+            dataCriacao, descricao, excluido, tipo, tipoDano, critico, pericia
         } = ataque ?? {};
 
         this._dataCriacao = dataCriacao ?? new Date();
@@ -48,7 +50,8 @@ export class AtaqueArma implements AtaqueBase {
         this._critico = critico ?? null;
         this._pericia = pericia ?? null;
 
-        this.bonus = new Quantificador(bonus);
+        this.bonusAtaque = bonusAtaque ? new Quantificador(bonusAtaque) : null;
+        this.bonusDano = bonusDano ? new Quantificador(bonusDano) : null;
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -57,20 +60,20 @@ export class AtaqueArma implements AtaqueBase {
 
     modificarAtaque(ataque: Partial<AtaqueArma>) {
         const {
-            alcance, bonus, dano, descricao, excluido,  
-            tipo, tipoDano, critico, pericia
+            alcance, bonusAtaque, bonusDano, dano,
+            descricao, tipo, tipoDano, critico, pericia
         } = ataque;
 
         this._alcance = alcance ?? this.alcance;
         this._dano = dano ?? this.dano;
         this._descricao = descricao ?? this.descricao;
-        this._excluido = excluido ?? this.excluido;
         this._tipo = tipo ?? this.tipo;
         this._tipoDano = tipoDano ?? this.tipoDano;
         this._critico = critico ?? this.critico;
         this._pericia = pericia ?? this.pericia;
 
-        this.bonus = new Quantificador(bonus ?? this.bonus);
+        this.bonusAtaque = bonusAtaque ? new Quantificador(bonusAtaque) : this.bonusAtaque;
+        this.bonusDano = bonusDano ? new Quantificador(bonusDano) : this.bonusDano;
 
         this._dataAtualizacao = new Date();
     }
@@ -138,12 +141,13 @@ export class AtaqueEfeito implements AtaqueBase {
 
     private _resistencia: Pericia | null;
 
-    bonus: Quantificador;
+    bonusAtaque: Quantificador | null;
+    bonusDano: Quantificador | null;
 
     constructor(ataque?: Partial<AtaqueEfeito>) {
         const {
-            alcance, bonus, dano, dataAtualizacao, dataCriacao,
-            descricao, excluido, tipo, tipoDano, resistencia
+            alcance, bonusAtaque, bonusDano, dano, dataAtualizacao,
+            dataCriacao, descricao, excluido, tipo, tipoDano, resistencia
         } = ataque ?? {};
 
         this._dataCriacao = dataCriacao ?? new Date();
@@ -158,7 +162,8 @@ export class AtaqueEfeito implements AtaqueBase {
         this._tipoDano = tipoDano ?? null;
         this._resistencia = resistencia ?? null;
 
-        this.bonus = new Quantificador(bonus);
+        this.bonusAtaque = bonusAtaque ? new Quantificador(bonusAtaque) : null;
+        this.bonusDano = bonusDano ? new Quantificador(bonusDano) : null;
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -167,19 +172,20 @@ export class AtaqueEfeito implements AtaqueBase {
 
     modificarAtaque(ataque: Partial<AtaqueEfeito>) {
         const {
-            alcance, bonus, dano, descricao, 
-            excluido, tipo, tipoDano, resistencia
+            alcance, bonusAtaque, bonusDano, dano,
+            descricao, tipo, tipoDano, resistencia
         } = ataque;
 
         this._alcance = alcance ?? this.alcance;
         this._dano = dano ?? this.dano;
         this._descricao = descricao ?? this.descricao;
-        this._excluido = excluido ?? this.excluido;
         this._tipo = tipo ?? this.tipo;
         this._tipoDano = tipoDano ?? this.tipoDano;
         this._resistencia = resistencia ?? this.resistencia;
 
-        this.bonus = new Quantificador(bonus ?? this.bonus);
+        this.bonusAtaque = bonusAtaque ? new Quantificador(bonusAtaque) : this.bonusAtaque;
+        this.bonusDano = bonusDano ? new Quantificador(bonusDano) : this.bonusDano;
+
         this._dataAtualizacao = new Date();
     }
 

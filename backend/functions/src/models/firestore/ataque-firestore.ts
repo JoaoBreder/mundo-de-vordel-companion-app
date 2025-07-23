@@ -9,7 +9,8 @@ export class AtaqueArmaFirestore implements AtaqueBase {
     excluido: boolean;
 
     alcance: AlcanceAtaque | null;
-    bonus: QuantificadorFirestore;
+    bonusAtaque: QuantificadorFirestore | null;
+    bonusDano: QuantificadorFirestore | null;
     dano: string;
     descricao: string;
     tipo: TipoAtaque | null;
@@ -20,8 +21,8 @@ export class AtaqueArmaFirestore implements AtaqueBase {
 
     constructor(ataque?: Partial<AtaqueArmaFirestore>) {
         const {
-            alcance, bonus, dano, dataAtualizacao, dataCriacao,
-            descricao, excluido, tipo, tipoDano, critico, pericia
+            alcance, bonusAtaque, bonusDano, dano, dataAtualizacao,
+            dataCriacao, descricao, excluido, tipo, tipoDano, critico, pericia
         } = ataque ?? {};
 
         this.dataAtualizacao = dataAtualizacao ?? null;
@@ -36,7 +37,8 @@ export class AtaqueArmaFirestore implements AtaqueBase {
         this.critico = critico ?? null;
         this.pericia = pericia ?? null;
 
-        this.bonus = new QuantificadorFirestore(bonus);
+        this.bonusAtaque = bonusAtaque ? new QuantificadorFirestore(bonusAtaque) : null;
+        this.bonusDano = bonusDano ? new QuantificadorFirestore(bonusDano) : null;
     }
 }
 
@@ -46,7 +48,8 @@ export class AtaqueEfeitoFirestore implements AtaqueBase {
     excluido: boolean;
 
     alcance: AlcanceAtaque | null;
-    bonus: QuantificadorFirestore;
+    bonusAtaque: QuantificadorFirestore | null;
+    bonusDano: QuantificadorFirestore | null;
     dano: string;
     descricao: string;
     tipo: TipoAtaque | null;
@@ -56,8 +59,8 @@ export class AtaqueEfeitoFirestore implements AtaqueBase {
 
     constructor(ataque?: Partial<AtaqueEfeitoFirestore>) {
         const {
-            alcance, bonus, dano, dataAtualizacao, dataCriacao,
-            descricao, excluido, tipo, tipoDano, resistencia
+            alcance, bonusAtaque, bonusDano, dano, dataAtualizacao,
+            dataCriacao, descricao, excluido, tipo, tipoDano, resistencia
         } = ataque ?? {};
 
         this.dataAtualizacao = dataAtualizacao ?? null;
@@ -71,7 +74,8 @@ export class AtaqueEfeitoFirestore implements AtaqueBase {
         this.tipoDano = tipoDano ?? null;
         this.resistencia = resistencia ?? null;
 
-        this.bonus = new QuantificadorFirestore(bonus);
+        this.bonusAtaque = bonusAtaque ? new QuantificadorFirestore(bonusAtaque) : null;
+        this.bonusDano = bonusDano ? new QuantificadorFirestore(bonusDano) : null;
     }
 }
 
