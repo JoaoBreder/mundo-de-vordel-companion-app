@@ -14,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
     declarations: [FichaDePersonagemComponent, AtributoComponent, PericiasComponent],
@@ -29,6 +30,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatTooltipModule,
         MatTableModule,
         MatCheckboxModule,
+        MatTabsModule
     ],
 })
 export class FichaDePersonagemModule {}

@@ -28,28 +28,24 @@ pericias-component {
             background-color: transparent;
             overflow-y: scroll;
 
-            h4 {
-                margin: 0;
+            b {
+                font-size: 1.6rem;
             }
 
             mat-header-row {
-                background-color: black;
-            }
+              height: 4rem !important;
+              min-height: 4rem !important;
 
-            mat-row {
-                span {
-                    font-size: 1.4rem;
-                }
+                background-color: black;
             }
 
             mat-row {
               height: 4.3rem !important;
                 min-height: 4.3rem !important;
-            }
 
-            mat-header-row {
-                height: 4rem !important;
-                min-height: 4rem !important;
+                span {
+                    font-size: 1.4rem;
+                }
             }
 
             mat-header-cell {
@@ -117,7 +113,6 @@ pericias-component {
             .mat-column-bonus {
                 padding: 0;
                 padding-left: 0.5rem;
-                padding-right: 1rem;
             }
         }
     }
