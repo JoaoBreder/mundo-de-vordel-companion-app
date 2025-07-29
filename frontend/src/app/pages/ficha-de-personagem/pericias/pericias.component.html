@@ -2,7 +2,7 @@
     <ng-scrollbar visibility="hover" thumbClass="custom-scrollbar">
         <mat-table class="pericias-table" [dataSource]="periciasDataSource" scrollViewport>
             <ng-container matColumnDef="pericia">
-                <mat-header-cell *matHeaderCellDef><h4>Perícias</h4></mat-header-cell>
+                <mat-header-cell *matHeaderCellDef><b>Perícias</b></mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <span>{{ element.pericia }}</span>
                 </mat-cell>

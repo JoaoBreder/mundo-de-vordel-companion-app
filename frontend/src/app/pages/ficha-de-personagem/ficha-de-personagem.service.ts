@@ -8,6 +8,10 @@ import { PersonagemParser } from '../../shared/models/parsers/personagem.parser'
 import { OnCallGerarBufferImagemPersonagemRequest, OnCallGerarBufferImagemPersonagemResponse } from '../../shared/models/contracts/cloud-functions/oncall-gerar-buffer-imagem-personagem';
 import { CloudFunction } from '../../shared/helpers/cloud-function';
 import { Personagem } from '../../shared/models/personagem';
+import { AtaqueArma, AtaqueEfeito, TipoAtaque } from '../../shared/models/ataque';
+import { OnCallBuscarAtaquesPersonagemRequest, OnCallBuscarAtaquesPersonagemResponse } from '../../shared/models/contracts/cloud-functions/oncall-buscar-ataques-personagem';
+import { OrdenacaoRegistrosAtaque } from '../../shared/models/firestore/ataque-firestore';
+import { AtaqueParser } from '../../shared/models/parsers/ataque.parser';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 @Injectable({
@@ -78,7 +82,7 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
               personagemId: personagem._id
             };
 
-            const { base64 } = await this.functionsService.callCloudFunction<any, OnCallGerarBufferImagemPersonagemResponse>(
+            const { base64 } = await this.functionsService.callCloudFunction<OnCallGerarBufferImagemPersonagemRequest, OnCallGerarBufferImagemPersonagemResponse>(
                 CloudFunction.ONCALL_GERAR_BUFFER_IMAGEM_PERSONAGEM,
                 requestData,
                 true
@@ -88,6 +92,33 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
         } catch (error) {
             console.error(error);
             return '';
+        }
+    }
+
+    async buscarAtaquesPersonagem(orderBy: OrdenacaoRegistrosAtaque, filtroTipo?: TipoAtaque): Promise<(AtaqueArma | AtaqueEfeito)[]> {
+        const personagem = this.personagemJogador$.getValue();
+        if (!personagem || !personagem?._id) return [];
+
+        try {
+            const requestData: OnCallBuscarAtaquesPersonagemRequest = {
+                orderBy,
+                personagemId: personagem._id,
+                filter: {
+                    tipo: filtroTipo
+                }
+            };
+
+            const { ataques } = await this.functionsService.callCloudFunction<OnCallBuscarAtaquesPersonagemRequest, OnCallBuscarAtaquesPersonagemResponse>(
+                CloudFunction.ONCALL_BUSCAR_ATAQUES_PERSONAGEM,
+                requestData,
+                true
+            );
+
+            const ataquesParsed = ataques.map((ataque) => AtaqueParser.ataque(ataque));
+            return ataquesParsed;
+        } catch(error) {
+            console.log(error);
+            return [];
         }
     }
 }

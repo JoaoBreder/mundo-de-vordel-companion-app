@@ -70,73 +70,97 @@ app-ficha-de-personagem {
     }
 
     .content {
-        display: grid;
+      display: flex;
+      justify-content: center;
+      height: 100%;
 
-        flex-grow: 1;
-        overflow: auto;
-
-        grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: 100%;
-        grid-auto-rows: auto;
-        grid-gap: 2rem;
-
-        .grid-principal {
+        .content-layout {
             display: grid;
-
-            flex-grow: 1;
             overflow: auto;
 
-            grid-template-columns: repeat(6, 1fr);
-            grid-template-rows: 40%;
+            height: 100%;
+            width: 75vw;
+
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: 100%;
             grid-auto-rows: auto;
             grid-gap: 2rem;
 
-            grid-column: span 4;
+            pericias-component {
+              grid-column: span 2;
+            }
 
             .grid-wrapper {
                 display: grid;
+
+                flex-grow: 1;
+                overflow: auto;
+
+                grid-template-rows: 40%;
                 grid-auto-rows: auto;
                 grid-gap: 2rem;
 
-                .atributos {
-                    display: grid;
-                    flex-grow: 1;
+                grid-column: span 6;
 
-                    grid-template-columns: repeat(6, 1fr);
-                    grid-template-rows: 100%;
+                .atributos-e-pontos {
+                    display: grid;
+
+                    grid-template-rows: 35%;
                     grid-auto-rows: auto;
                     grid-gap: 2rem;
+
+                    .atributos {
+                        display: grid;
+                        flex-grow: 1;
+
+                        grid-template-columns: repeat(10, 1fr);
+                        grid-template-rows: 100%;
+                        grid-auto-rows: auto;
+                        grid-gap: 2rem;
+                    }
+
+                    .pontos-wrapper {
+                        display: grid;
+                        flex-grow: 1;
+
+                        grid-template-columns: repeat(3, 1fr);
+                        grid-gap: 2rem;
+                    }
                 }
 
-                .pontos-wrapper {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    grid-gap: 2rem;
+                .detalhes {
+                    padding: 0 1.5rem 1rem;
+                    border: 0.2rem solid white;
+                    border-radius: 0.5rem;
                     flex-grow: 1;
+
+                    .tab-detalhes-content {
+                      height: 100%;
+                      padding-top: 1rem;
+                    }
+
+                    .mat-mdc-tab-body-wrapper {
+                      height: 100%;
+                    }
+
+                    .mat-mdc-tab-labels {
+                      width: 0;
+                      gap: 1rem;
+                    }
+
+                    .mat-mdc-tab {
+                      height: fit-content;
+                      padding: 2rem 0 1rem;
+                    }
+
+                    .mat-mdc-tab:hover {
+                      background-color: black;
+
+                      span {
+                        color: white;
+                      }
+                    }
                 }
-            }
-
-            .grid-wrapper,
-            .ataques-e-magias {
-                grid-column: span 3;
-            }
-
-            .detalhes,
-            .equipamentos,
-            .inventario {
-                grid-column: span 2;
-            }
-
-            .pontos-de-vida,
-            .pontos-de-mana,
-            .defesa,
-            .ataques-e-magias,
-            .detalhes,
-            .equipamentos,
-            .inventario {
-                border: 0.2rem solid white;
-                border-radius: 0.5rem;
-                flex-grow: 1;
             }
         }
     }

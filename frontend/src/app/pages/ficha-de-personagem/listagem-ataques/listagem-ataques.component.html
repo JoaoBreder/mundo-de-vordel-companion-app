@@ -1,0 +1,121 @@
+<div class="listagem-ataques">
+    <div class="action-button-wrapper">
+        <div class="group-wrapper">
+            <span>Ordenação:</span>
+
+            <button
+                mat-raised-button
+                [color]="botaoOrdenacaoAtivado('descricao') ? 'accent' : 'primary'"
+                [ngClass]="{ 'botao-desativado': !botaoOrdenacaoAtivado('descricao') }"
+                (click)="modificarOrdenacao('descricao')">
+                <span class="button-label">DESCRIÇÃO</span>
+            </button>
+
+            <button
+                mat-raised-button
+                [color]="botaoOrdenacaoAtivado('tipo') ? 'accent' : 'primary'"
+                [ngClass]="{ 'botao-desativado': !botaoOrdenacaoAtivado('tipo') }"
+                (click)="modificarOrdenacao('tipo')">
+                <span class="button-label">TIPO ATAQUE</span>
+            </button>
+
+            <button
+                mat-raised-button
+                [color]="botaoOrdenacaoAtivado('tipoDano') ? 'accent' : 'primary'"
+                [ngClass]="{ 'botao-desativado': !botaoOrdenacaoAtivado('tipoDano') }"
+                (click)="modificarOrdenacao('tipoDano')">
+                <span class="button-label">TIPO DANO</span>
+            </button>
+        </div>
+
+        <div class="group-wrapper">
+            <span>Filtro:</span>
+            <button
+                mat-raised-button
+                [color]="botaoFiltroAtivado(null) ? 'accent' : 'primary'"
+                [ngClass]="{ 'botao-desativado': !botaoFiltroAtivado(null) }"
+                (click)="modificarFiltro(null)">
+                <span class="button-label">TODOS</span>
+            </button>
+
+            <button
+                mat-raised-button
+                [color]="botaoFiltroAtivado('ATAQUE_A_DISTANCIA') ? 'accent' : 'primary'"
+                [ngClass]="{ 'botao-desativado': !botaoFiltroAtivado('ATAQUE_A_DISTANCIA') }"
+                (click)="modificarFiltro('ATAQUE_A_DISTANCIA')">
+                <span class="button-label">ATAQUE À DISTÂNCIA</span>
+            </button>
+
+            <button
+                mat-raised-button
+                [color]="botaoFiltroAtivado('CORPO_A_CORPO') ? 'accent' : 'primary'"
+                [ngClass]="{ 'botao-desativado': !botaoFiltroAtivado('CORPO_A_CORPO') }"
+                (click)="modificarFiltro('CORPO_A_CORPO')">
+                <span class="button-label">CORPO A CORPO</span>
+            </button>
+
+            <button
+                mat-raised-button
+                [color]="botaoFiltroAtivado('EFEITO') ? 'accent' : 'primary'"
+                [ngClass]="{ 'botao-desativado': !botaoFiltroAtivado('EFEITO') }"
+                (click)="modificarFiltro('EFEITO')">
+                <span class="button-label">EFEITO</span>
+            </button>
+        </div>
+    </div>
+
+    <ng-scrollbar visibility="hover" thumbClass="custom-scrollbar">
+        <mat-table class="ataques-table" [dataSource]="ataquesDataSource" scrollViewport>
+            <ng-container matColumnDef="ataque">
+                <mat-header-cell *matHeaderCellDef><b>Ataque</b></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <ng-icon
+                        [name]="getTipoAtaqueIcon(element.tipo)"
+                        [size]="'20px'"
+                        class="mr-3 cursor-pointer"
+                        [matTooltip]="getTipoAtaqueLabel(element.tipo)"
+                        matTooltipPosition="above"></ng-icon>
+                    <span class="w-full">{{ element.descricao }}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="teste">
+                <mat-header-cell *matHeaderCellDef>Teste de Ataque</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span>{{ element?.pericia ? getPericiaLabel(element.pericia) + (element?.bonusAtaque ? ' + ' + element.bonusAtaque.valorTotal : '') : '—' }}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="dano">
+                <mat-header-cell *matHeaderCellDef>Dano</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span>{{ element.dano }} {{ element?.bonusDano ? '+ ' + element.bonusDano.valorTotal : '' }}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="critico">
+                <mat-header-cell *matHeaderCellDef>Crítico</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span>{{ element?.critico ?? '—' }}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="tipoDano">
+                <mat-header-cell *matHeaderCellDef>Tipo</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span>{{ element?.tipoDano ? getTipoDanoLabel(element.tipoDano) : '—' }}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="alcance">
+                <mat-header-cell *matHeaderCellDef>Alcance</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span>{{ element?.alcance ? getAlcanceAtaqueLabel(element.alcance) : '—' }}</span>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let element; columns: displayedColumns" class="element" matRipple></mat-row>
+        </mat-table>
+    </ng-scrollbar>
+</div>

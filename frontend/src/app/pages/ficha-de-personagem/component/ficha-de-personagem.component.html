@@ -41,33 +41,35 @@
     </div>
 
     <div *ngIf="personagem" class="content">
-        <div class="grid-principal">
+        <div class="content-layout">
             <div class="grid-wrapper">
-                <div class="atributos">
-                    <atributo-component
-                        *ngFor="let atributo of listaAtributos"
-                        [nome]="atributo.toUpperCase()"
-                        [valorTotal]="personagem.atributos[atributo].valorTotal"
-                        [modificadores]="personagem.atributos[atributo].modificadores"
-                        [modificadoresTemporarios]="personagem.atributos[atributo].modificadoresTemporarios" />
+                <div class="atributos-e-pontos">
+                    <div class="atributos">
+                        <atributo-component
+                            *ngFor="let atributo of listaAtributos"
+                            [nome]="atributo.toUpperCase()"
+                            [valorTotal]="personagem.atributos[atributo].valorTotal"
+                            [modificadores]="personagem.atributos[atributo].modificadores"
+                            [modificadoresTemporarios]="personagem.atributos[atributo].modificadoresTemporarios" />
+
+                        <div class="placeholder"></div>
+                    </div>
+
+                    <div class="placeholder"></div>
                 </div>
 
-                <div class="pontos-wrapper">
-                    <div class="pontos-de-vida">Pontos de Vida</div>
-                    <div class="pontos-de-mana">Pontos de Mana</div>
-                    <div class="defesa">Defesa</div>
-                </div>
+                <mat-tab-group class="detalhes" color="accent">
+                    <mat-tab label="Ataques" bodyClass="tab-detalhes-content">
+                        <listagem-ataques-component />
+                    </mat-tab>
+
+                    <mat-tab label="Magias" bodyClass="tab-detalhes-content"></mat-tab>
+                    <mat-tab label="Poderes" bodyClass="tab-detalhes-content"></mat-tab>
+                    <mat-tab label="Inventário" bodyClass="tab-detalhes-content"></mat-tab>
+                </mat-tab-group>
             </div>
 
-            <div class="ataques-e-magias">Ataques e Magia</div>
-
-            <div class="detalhes">Poderes</div>
-
-            <div class="equipamentos">Equipamentos</div>
-
-            <div class="inventario">Inventário</div>
+            <pericias-component [pericias]="personagem.pericias" />
         </div>
-
-        <pericias-component [pericias]="personagem.pericias" />
     </div>
 </div>

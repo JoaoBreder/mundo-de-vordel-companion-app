@@ -25,6 +25,7 @@
         "@angular/router": "^16.2.0",
         "@ng-icons/bootstrap-icons": "^27.2.0",
         "@ng-icons/core": "^27.2.0",
+        "@ng-icons/game-icons": "^32.1.0",
         "firebase": "^9.8.2",
         "ngx-scrollbar": "^13.0.3",
         "ngx-toastr": "^18.0.0",

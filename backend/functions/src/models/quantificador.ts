@@ -1,3 +1,5 @@
+import { AtributoAbreviado } from "./personagem";
+
 export interface QuantificadorBase {
     valorTotal: number;
     modificadores: Modificador[];
@@ -72,6 +74,7 @@ export class Quantificador implements QuantificadorBase{
 }
 
 export class QuantificadorPericia extends Quantificador {
+    // TODO: Encapsular parâmetros
     atributo: AtributoAbreviado | null;
     descricao: string | null;
     treinado: boolean;
@@ -119,15 +122,6 @@ export class QuantificadorVariavel extends Quantificador {
 export interface Modificador {
     tipo: TipoModificador;
     valor: number;
-}
-
-export enum AtributoAbreviado {
-    CAR = 'CAR',
-    CON = 'CON',
-    DES = 'DES',
-    FOR = 'FOR',
-    INT = 'INT',
-    SAB = 'SAB'
 }
 
 export enum OperacaoModificarValor {

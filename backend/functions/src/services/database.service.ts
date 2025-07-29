@@ -34,9 +34,25 @@ export abstract class DatabaseService {
     return await this.get(collectionRef.doc(docId));
   }
 
-  static async buscarDocsColecao<T>(collectionsPath: string[], limite = 100): Promise<T> {
-    const collectionRef = this.montarCollectionRef(collectionsPath);
-    return await this.get(collectionRef.limit(limite));
+  static async buscarDocsColecao<T>(collectionsPath: string[], orderBy?: any, filter?: object, limite?: number): Promise<T> {
+    let collectionRef = this.montarCollectionRef(collectionsPath);
+    let query: Query<DocumentData> = collectionRef.where('excluido', '==', false);
+
+    if (filter) {
+      Object.keys(filter).forEach((key) => {
+        query = query.where(key, '==', filter[key as keyof object]);
+      });
+    }
+
+    if (orderBy) {
+      query = query.orderBy(orderBy, 'asc');
+    }
+
+    if (limite) {
+      query = query.limit(limite);
+    }
+
+    return await this.get(query);
   }
 
   // -----------------------------------------------------------------------------------------------------

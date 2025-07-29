@@ -1,6 +1,6 @@
 import { Component, Input, ViewEncapsulation, OnInit } from '@angular/core';
 import { Pericias } from '../../../shared/models/personagem';
-import { PericiaLabel, TipoModificadorLabel } from '../../../shared/helpers/label-helpers';
+import { PericiaKeyLabel, TipoModificadorLabel } from '../../../shared/helpers/label-helpers';
 import { MatTableDataSource } from '@angular/material/table';
 import { QuantificadorPericia } from '../../../shared/models/quantificador';
 
@@ -44,7 +44,7 @@ export class PericiasComponent implements OnInit {
                     data.push({
                         atributo: oficio.atributo,
                         bonus: this.periciasSomenteTreinado.includes(key) && !oficio.treinado ? '—' : `${oficio.valorTotal > 0 ? '+' : ''}${oficio.valorTotal}`,
-                        pericia: `${PericiaLabel[key as keyof Pericias]} ${oficio.descricao}`,
+                        pericia: `${PericiaKeyLabel[key as keyof Pericias]} ${oficio.descricao}`,
                         treinado: oficio.treinado,
                         detalhes: this.periciasSomenteTreinado.includes(key) && !oficio.treinado ? 'Somente treinado' : detalhesAtributoArray.join(', ')
                     });
@@ -60,7 +60,7 @@ export class PericiasComponent implements OnInit {
             data.push({
                 atributo: pericia.atributo,
                 bonus: this.periciasSomenteTreinado.includes(key) && !pericia.treinado ? '—' : `${pericia.valorTotal > 0 ? '+' : ''}${pericia.valorTotal}`,
-                pericia: PericiaLabel[key as keyof Pericias],
+                pericia: PericiaKeyLabel[key as keyof Pericias],
                 treinado: pericia.treinado,
                 detalhes: this.periciasSomenteTreinado.includes(key) && !pericia.treinado ? 'Somente treinado' : detalhesAtributoArray.join(', ')
             });

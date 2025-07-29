@@ -1,4 +1,5 @@
-import { AtributoAbreviado, Modificador, QuantificadorBase } from "../quantificador";
+import { AtributoAbreviado } from "../personagem";
+import { Modificador, QuantificadorBase } from "../quantificador";
 
 export class QuantificadorJson implements QuantificadorBase {
     valorTotal: number;

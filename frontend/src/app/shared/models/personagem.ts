@@ -88,6 +88,15 @@ export interface Atributos {
     sab: Quantificador;
 }
 
+export enum AtributoAbreviado {
+    CAR = 'CAR',
+    CON = 'CON',
+    DES = 'DES',
+    FOR = 'FOR',
+    INT = 'INT',
+    SAB = 'SAB',
+}
+
 export interface InformacoesPersonagem {
     classe: ClassePersonagem;
     linhagem: string;
@@ -125,6 +134,37 @@ export interface Pericias {
     religiao: QuantificadorPericia;
     sobrevivencia: QuantificadorPericia;
     vontade: QuantificadorPericia;
+}
+
+export enum Pericia {
+    ACROBACIA = 'ACROBACIA',
+    ADESTRAMENTO = 'ADESTRAMENTO',
+    ATLETISMO = 'ATLETISMO',
+    ATUACAO = 'ATUACAO',
+    CAVALGAR = 'CAVALGAR',
+    CONHECIMENTO = 'CONHECIMENTO',
+    CURA = 'CURA',
+    DIPLOMACIA = 'DIPLOMACIA',
+    ENGANACAO = 'ENGANACAO',
+    FORTITUDE = 'FORTITUDE',
+    GUERRA = 'GUERRA',
+    INICIATIVA = 'INICIATIVA',
+    INTIMIDACAO = 'INTIMIDACAO',
+    INTUICAO = 'INTUICAO',
+    INVESTIGACAO = 'INVESTIGACAO',
+    JOGATINA = 'JOGATINA',
+    LADINAGEM = 'LADINAGEM',
+    LUTA = 'LUTA',
+    MISTICISMO = 'MISTICISMO',
+    NOBREZA = 'NOBREZA',
+    OFICIO = 'OFICIO',
+    PERCEPCAO = 'PERCEPCAO',
+    PILOTAGEM = 'PILOTAGEM',
+    PONTARIA = 'PONTARIA',
+    REFLEXOS = 'REFLEXOS',
+    RELIGIAO = 'RELIGIAO',
+    SOBREVIVENCIA = 'SOBREVIVENCIA',
+    VONTADE = 'VONTADE',
 }
 
 export enum ClassePersonagem {
