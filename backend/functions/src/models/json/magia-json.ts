@@ -1,0 +1,39 @@
+import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, ExecucaoMagia, MagiaBase, Resistencia, TipoMagia } from "../magia";
+
+export class MagiaJson implements MagiaBase {
+    dataAtualizacao: string | null;
+    dataCriacao: string;
+    excluido: boolean;
+
+    alcance: AlcanceMagia | null;
+    area: string | null;
+    circulo: CirculoMagia | null;
+    duracao: DuracaoMagia |string | null;
+    efeito: string;
+    escola: EscolaMagia | null;
+    execucao: ExecucaoMagia | null;
+    nome: string;
+    resistencia: Resistencia | null;
+    tipo: TipoMagia | null;
+
+    constructor(magia?: Partial<MagiaJson>) {
+        const {
+            alcance, area, circulo, dataCriacao, dataAtualizacao, duracao, efeito, escola, excluido, execucao, nome, resistencia, tipo
+        } = magia ?? {};
+
+        this.dataCriacao = dataCriacao ?? new Date().toISOString();
+        this.dataAtualizacao = dataAtualizacao ?? null;
+        this.excluido = excluido ?? false;
+
+        this.alcance = alcance ?? null;
+        this.area = area ?? null;
+        this.circulo = circulo ?? null; 
+        this.duracao = duracao ?? null; 
+        this.efeito = efeito ?? ''; 
+        this.escola = escola ?? null; 
+        this.execucao = execucao ?? null;
+        this.nome = nome ?? '';
+        this.resistencia = resistencia ?? null; 
+        this.tipo = tipo ?? null; 
+    }
+}
