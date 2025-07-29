@@ -8,7 +8,7 @@ import { PersonagemParser } from '../../shared/models/parsers/personagem.parser'
 import { OnCallGerarBufferImagemPersonagemRequest, OnCallGerarBufferImagemPersonagemResponse } from '../../shared/models/contracts/cloud-functions/oncall-gerar-buffer-imagem-personagem';
 import { CloudFunction } from '../../shared/helpers/cloud-function';
 import { Personagem } from '../../shared/models/personagem';
-import { AtaqueArma, AtaqueEfeito } from '../../shared/models/ataque';
+import { AtaqueArma, AtaqueEfeito, TipoAtaque } from '../../shared/models/ataque';
 import { OnCallBuscarAtaquesPersonagemRequest, OnCallBuscarAtaquesPersonagemResponse } from '../../shared/models/contracts/cloud-functions/oncall-buscar-ataques-personagem';
 import { OrdenacaoRegistrosAtaque } from '../../shared/models/firestore/ataque-firestore';
 import { AtaqueParser } from '../../shared/models/parsers/ataque.parser';
@@ -95,14 +95,17 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
         }
     }
 
-    async buscarAtaquesPersonagem(): Promise<(AtaqueArma | AtaqueEfeito)[]> {
+    async buscarAtaquesPersonagem(orderBy: OrdenacaoRegistrosAtaque, filtroTipo?: TipoAtaque): Promise<(AtaqueArma | AtaqueEfeito)[]> {
         const personagem = this.personagemJogador$.getValue();
         if (!personagem || !personagem?._id) return [];
 
         try {
             const requestData: OnCallBuscarAtaquesPersonagemRequest = {
+                orderBy,
                 personagemId: personagem._id,
-                orderBy: OrdenacaoRegistrosAtaque.descricao
+                filter: {
+                    tipo: filtroTipo
+                }
             };
 
             const { ataques } = await this.functionsService.callCloudFunction<OnCallBuscarAtaquesPersonagemRequest, OnCallBuscarAtaquesPersonagemResponse>(

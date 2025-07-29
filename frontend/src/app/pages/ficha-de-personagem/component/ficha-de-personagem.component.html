@@ -59,10 +59,13 @@
                 </div>
 
                 <mat-tab-group class="detalhes" color="accent">
-                    <mat-tab class="teste" label="Ataques"></mat-tab>
-                    <mat-tab label="Magias"></mat-tab>
-                    <mat-tab label="Poderes"></mat-tab>
-                    <mat-tab label="Inventário"></mat-tab>
+                    <mat-tab label="Ataques" bodyClass="tab-detalhes-content">
+                        <listagem-ataques-component />
+                    </mat-tab>
+
+                    <mat-tab label="Magias" bodyClass="tab-detalhes-content"></mat-tab>
+                    <mat-tab label="Poderes" bodyClass="tab-detalhes-content"></mat-tab>
+                    <mat-tab label="Inventário" bodyClass="tab-detalhes-content"></mat-tab>
                 </mat-tab-group>
             </div>
 

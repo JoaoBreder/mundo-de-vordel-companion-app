@@ -129,10 +129,19 @@ app-ficha-de-personagem {
                 }
 
                 .detalhes {
-                    padding: 0 1.5rem;
+                    padding: 0 1.5rem 1rem;
                     border: 0.2rem solid white;
                     border-radius: 0.5rem;
                     flex-grow: 1;
+
+                    .tab-detalhes-content {
+                      height: 100%;
+                      padding-top: 1rem;
+                    }
+
+                    .mat-mdc-tab-body-wrapper {
+                      height: 100%;
+                    }
 
                     .mat-mdc-tab-labels {
                       width: 0;

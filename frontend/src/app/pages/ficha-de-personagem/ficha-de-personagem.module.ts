@@ -6,6 +6,9 @@ import { FichaDePersonagemComponent } from './component/ficha-de-personagem.comp
 import { AtributoComponent } from './atributo/atributo.component';
 import { PericiasComponent } from './pericias/pericias.component';
 
+import { NgIconsModule } from '@ng-icons/core';
+import { gameAxeSword, gameGoldShell, gamePocketBow } from '@ng-icons/game-icons';
+
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -15,12 +18,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ListagemAtaquesComponent } from './listagem-ataques/listagem-ataques.component';
 
 @NgModule({
-    declarations: [FichaDePersonagemComponent, AtributoComponent, PericiasComponent],
+    declarations: [FichaDePersonagemComponent, AtributoComponent, PericiasComponent, ListagemAtaquesComponent],
     imports: [
         CommonModule,
         FichaDePersonagemRoutingModule,
+
+        NgIconsModule,
+        NgIconsModule.withIcons({ gameAxeSword, gameGoldShell, gamePocketBow }),
 
         NgScrollbarModule,
 
