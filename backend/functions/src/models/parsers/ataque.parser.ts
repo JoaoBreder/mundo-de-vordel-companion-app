@@ -1,5 +1,5 @@
 import { Timestamp } from "firebase-admin/firestore";
-import { AtaqueArma, AtaqueEfeito } from "../ataque";
+import { AtaqueArma, AtaqueEfeito, TipoAtaque } from "../ataque";
 import { AtaqueArmaFirestore, AtaqueEfeitoFirestore } from "../firestore/ataque-firestore";
 import { AtaqueArmaJson, AtaqueEfeitoJson } from "../json/ataque-json";
 import { Quantificador } from "../quantificador";
@@ -22,7 +22,7 @@ export abstract class AtaqueParser {
     static ataque(ataque: AtaqueArmaFirestore | AtaqueArmaJson | AtaqueEfeitoFirestore | AtaqueEfeitoJson): AtaqueArma | AtaqueEfeito {
         const {bonusAtaque, bonusDano, dataAtualizacao, dataCriacao} = ataque;
 
-        if (ataque instanceof AtaqueArmaFirestore || ataque instanceof AtaqueArmaJson)
+        if (ataque.tipo === TipoAtaque.ATAQUE_A_DISTANCIA || ataque.tipo === TipoAtaque.CORPO_A_CORPO)
             return new AtaqueArma({
                 ...ataque,
                 bonusAtaque: bonusAtaque ? new Quantificador(bonusAtaque) : null,
@@ -43,7 +43,7 @@ export abstract class AtaqueParser {
     static toFirestore(ataque: AtaqueArma | AtaqueArmaJson | AtaqueEfeito | AtaqueEfeitoJson): AtaqueArmaFirestore | AtaqueEfeitoFirestore {
         const {bonusAtaque, bonusDano, dataAtualizacao, dataCriacao} = ataque;
 
-        if (ataque instanceof AtaqueArmaFirestore || ataque instanceof AtaqueArmaJson)
+        if (ataque.tipo === TipoAtaque.ATAQUE_A_DISTANCIA || ataque.tipo === TipoAtaque.CORPO_A_CORPO)
             return new AtaqueArmaFirestore({
                 ...ataque,
                 bonusAtaque: bonusAtaque ? new Quantificador(bonusAtaque) : null,
@@ -64,7 +64,7 @@ export abstract class AtaqueParser {
     static toJson(ataque: AtaqueArma | AtaqueArmaFirestore | AtaqueEfeito | AtaqueEfeitoFirestore): AtaqueArmaJson | AtaqueEfeitoJson {
         const {bonusAtaque, bonusDano, dataAtualizacao, dataCriacao} = ataque;
 
-        if (ataque instanceof AtaqueArmaFirestore || ataque instanceof AtaqueArmaJson)
+        if (ataque.tipo === TipoAtaque.ATAQUE_A_DISTANCIA || ataque.tipo === TipoAtaque.CORPO_A_CORPO)
             return new AtaqueArmaJson({
                 ...ataque,
                 bonusAtaque: bonusAtaque ? new Quantificador(bonusAtaque) : null,

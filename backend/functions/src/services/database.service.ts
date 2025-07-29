@@ -34,13 +34,13 @@ export abstract class DatabaseService {
     return await this.get(collectionRef.doc(docId));
   }
 
-  static async buscarDocsColecao<T>(collectionsPath: string[], orderBy?: any, filter?: Object, limite?: number): Promise<T> {
+  static async buscarDocsColecao<T>(collectionsPath: string[], orderBy?: any, filter?: object, limite?: number): Promise<T> {
     let collectionRef = this.montarCollectionRef(collectionsPath);
     let query: Query<DocumentData> = collectionRef.where('excluido', '==', false);
 
     if (filter) {
       Object.keys(filter).forEach((key) => {
-        query = query.where(key, '==', filter[key as keyof Object]);
+        query = query.where(key, '==', filter[key as keyof object]);
       });
     }
 
