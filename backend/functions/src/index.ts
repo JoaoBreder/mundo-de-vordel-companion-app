@@ -1,7 +1,7 @@
 import {onCall} from "firebase-functions/v2/https";
 import {PersonagemController} from "./controllers/personagem.controller";
 import {AuthCheckMiddleware} from "./middlewares/auth.middleware";
-import { OnCallBuscarAtaquesPersonagemResponse, OnCallBuscarPersonagemJogadorResponse, OnCallGerarBufferImagemPersonagemResponse } from "./models/contracts/personagem-controller.contract";
+import { OnCallBuscarAtaquesPersonagemResponse, OnCallBuscarMagiasPersonagemResponse, OnCallBuscarPersonagemJogadorResponse, OnCallGerarBufferImagemPersonagemResponse } from "./models/contracts/personagem-controller.contract";
 import {initializeApp} from "firebase-admin/app";
 import {getFirestore} from "firebase-admin/firestore";
 import {getStorage} from "firebase-admin/storage";
@@ -23,6 +23,11 @@ StorageService.storageInstance = storage;
 
 export const onCallBuscarAtaquesPersonagem = onCall(async ({ data, auth }): Promise<OnCallBuscarAtaquesPersonagemResponse> => {
   const next = async (uid: string) => await (new PersonagemController(uid)).buscarAtaquesPersonagem(data);
+  return new AuthCheckMiddleware(auth, next).verificarIdToken();
+});
+
+export const onCallBuscarMagiasPersonagem = onCall(async ({ data, auth }): Promise<OnCallBuscarMagiasPersonagemResponse> => {
+  const next = async (uid: string) => await (new PersonagemController(uid)).buscarMagiasPersonagem(data);
   return new AuthCheckMiddleware(auth, next).verificarIdToken();
 });
 

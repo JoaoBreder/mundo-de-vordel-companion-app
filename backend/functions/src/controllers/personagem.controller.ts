@@ -1,17 +1,21 @@
 import {HttpsError} from "firebase-functions/v2/https";
 import {HttpsErrorMiddleware} from "../middlewares/httpsError.middleware";
-import {PersonagemService} from "../services/personagem.service";
 import {BasicController} from "./basic.controller";
-import {PersonagemParser} from "../models/parsers/personagem.parser";
+import {PersonagemService} from "../services/personagem.service";
+
+import { AtaqueParser } from "../models/parsers/ataque.parser";
+import { MagiaParser } from "../models/parsers/magia.parser";
+import { PersonagemParser } from "../models/parsers/personagem.parser";
 
 import {
   OnCallBuscarAtaquesPersonagemRequest, 
   OnCallBuscarAtaquesPersonagemResponse, 
+  OnCallBuscarMagiasPersonagemRequest, 
+  OnCallBuscarMagiasPersonagemResponse, 
   OnCallBuscarPersonagemJogadorResponse, 
   OnCallGerarBufferImagemPersonagemRequest, 
   OnCallGerarBufferImagemPersonagemResponse
 } from "../models/contracts/personagem-controller.contract";
-import { AtaqueParser } from "../models/parsers/ataque.parser";
 
 export class PersonagemController extends BasicController {
   // -----------------------------------------------------------------------------------------------------
@@ -25,6 +29,19 @@ export class PersonagemController extends BasicController {
       return {
         ataques: ataques.map((ataque) => AtaqueParser.toJson(ataque)), 
         quantidade: ataques.length
+      };
+    } catch (error: HttpsError | Error | any) {
+      throw this.retornarErroController(error);
+    }
+  }
+
+  async buscarMagiasPersonagem(requestData: OnCallBuscarMagiasPersonagemRequest): Promise<OnCallBuscarMagiasPersonagemResponse> {
+    try {
+      const magias = await PersonagemService.buscarMagiasPersonagem(this.uid, requestData);
+
+      return {
+        magias: magias.map((magia) => MagiaParser.toJson(magia)), 
+        quantidade: magias.length
       };
     } catch (error: HttpsError | Error | any) {
       throw this.retornarErroController(error);
