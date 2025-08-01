@@ -1,5 +1,5 @@
 import { QuantificadorFirestore, QuantificadorPericiaFirestore, QuantificadorVariavelFirestore } from "../firestore/quantificador-firestore";
-import { Quantificador, QuantificadorPericia, QuantificadorVariavel } from "../quantificador";
+import { Quantificador, QuantificadorPericia, QuantificadorVariavel } from "../entities/quantificador";
 import { QuantificadorJson, QuantificadorPericiaJson, QuantificadorVariavelJson } from "../json/quantificador-json";
 
 export abstract class QuantificadorParser {
