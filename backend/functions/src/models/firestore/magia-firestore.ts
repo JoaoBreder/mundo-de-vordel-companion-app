@@ -1,5 +1,5 @@
 import { Timestamp } from "firebase-admin/firestore";
-import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, ExecucaoMagia, MagiaBase, Resistencia, TipoMagia } from "../magia";
+import { MagiaBase, AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, ExecucaoMagia, Resistencia, TipoMagia } from "../entities/magia";
 
 export class MagiaFirestore implements MagiaBase {
     dataAtualizacao: Timestamp | null;

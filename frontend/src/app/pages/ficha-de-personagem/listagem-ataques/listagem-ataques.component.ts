@@ -1,12 +1,12 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FichaDePersonagemService } from '../ficha-de-personagem.service';
-import { AlcanceAtaque, AtaqueArma, AtaqueEfeito, TipoAtaque, TipoDano } from '../../../shared/models/ataque';
-import { Pericia } from '../../../shared/models/personagem';
 import { AlcanceAtaqueLabel, PericiaLabel, TipoAtaqueLabel, TipoDanoLabel } from '../../../shared/helpers/label-helpers';
 import { BehaviorSubject, combineLatest, startWith } from 'rxjs';
 import { OrdenacaoRegistrosAtaque } from '../../../shared/models/firestore/ataque-firestore';
 import { SubscriptionManager } from 'rxjs-sub-manager';
+import { TipoAtaque, AtaqueArma, AtaqueEfeito, AlcanceAtaque, TipoDano } from '../../../shared/models/entities/ataque';
+import { Pericia } from '../../../shared/models/entities/personagem';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector

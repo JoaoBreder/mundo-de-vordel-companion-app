@@ -1,8 +1,8 @@
 import {Timestamp} from "firebase-admin/firestore";
 import {PersonagemFirestore} from "../firestore/personagem-firestore";
-import {Personagem} from "../personagem";
 import {PersonagemJson} from "../json/personagem-json";
 import { QuantificadorParser, QuantificadorPericiaParser } from "./quantificador.parser";
+import { Personagem } from "../entities/personagem";
 
 export abstract class PersonagemParser {
   // -----------------------------------------------------------------------------------------------------

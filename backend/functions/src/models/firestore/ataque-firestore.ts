@@ -1,7 +1,7 @@
 import { Timestamp } from "firebase-admin/firestore";
-import { AlcanceAtaque, AtaqueBase, TipoAtaque, TipoDano } from "../ataque";
-import { Pericia } from "../personagem";
 import { QuantificadorFirestore } from "./quantificador-firestore";
+import { AtaqueBase, AlcanceAtaque, TipoAtaque, TipoDano } from "../entities/ataque";
+import { Pericia } from "../entities/personagem";
 
 export class AtaqueArmaFirestore implements AtaqueBase {
     dataAtualizacao: Timestamp | null;

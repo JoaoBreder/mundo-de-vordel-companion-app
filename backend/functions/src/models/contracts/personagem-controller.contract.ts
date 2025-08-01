@@ -1,10 +1,10 @@
-import { TipoAtaque, TipoDano } from "../ataque";
+import { TipoAtaque, TipoDano } from "../entities/ataque";
+import { CirculoMagia, EscolaMagia, ExecucaoMagia } from "../entities/magia";
 import { OrdenacaoRegistrosAtaque } from "../firestore/ataque-firestore";
 import { OrdenacaoRegistrosMagia } from "../firestore/magia-firestore";
 import { AtaqueArmaJson, AtaqueEfeitoJson } from "../json/ataque-json";
 import { MagiaJson } from "../json/magia-json";
 import { PersonagemJson } from "../json/personagem-json";
-import { CirculoMagia, EscolaMagia, ExecucaoMagia } from "../magia";
 
 
 export interface OnCallBuscarAtaquesPersonagemRequest {

@@ -1,7 +1,7 @@
 import { Timestamp } from "firebase-admin/firestore";
-import { Magia } from "../magia";
 import { MagiaFirestore } from "../firestore/magia-firestore";
 import { MagiaJson } from "../json/magia-json";
+import { Magia } from "../entities/magia";
 
 export abstract class MagiaParser {
     // -----------------------------------------------------------------------------------------------------

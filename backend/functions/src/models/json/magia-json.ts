@@ -1,4 +1,5 @@
-import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, ExecucaoMagia, MagiaBase, Resistencia, TipoMagia } from "../magia";
+import { MagiaBase, AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, ExecucaoMagia, Resistencia, TipoMagia } from "../entities/magia";
+
 
 export class MagiaJson implements MagiaBase {
     dataAtualizacao: string | null;

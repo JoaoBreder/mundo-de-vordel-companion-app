@@ -1,7 +1,7 @@
 import { Timestamp } from 'firebase/firestore';
-import { AtaqueArma, AtaqueEfeito, TipoAtaque } from '../ataque';
-import { Quantificador } from '../quantificador';
 import { AtaqueArmaJson, AtaqueEfeitoJson } from '../json/ataque-json';
+import { AtaqueArma, AtaqueEfeito, TipoAtaque } from '../entities/ataque';
+import { Quantificador } from '../entities/quantificador';
 
 export abstract class AtaqueParser {
     // -----------------------------------------------------------------------------------------------------

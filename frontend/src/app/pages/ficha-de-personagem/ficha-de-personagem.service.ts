@@ -7,11 +7,11 @@ import { OnCallBuscarPersonagemJogadorResponse } from '../../shared/models/contr
 import { PersonagemParser } from '../../shared/models/parsers/personagem.parser';
 import { OnCallGerarBufferImagemPersonagemRequest, OnCallGerarBufferImagemPersonagemResponse } from '../../shared/models/contracts/cloud-functions/oncall-gerar-buffer-imagem-personagem';
 import { CloudFunction } from '../../shared/helpers/cloud-function';
-import { Personagem } from '../../shared/models/personagem';
-import { AtaqueArma, AtaqueEfeito, TipoAtaque } from '../../shared/models/ataque';
 import { OnCallBuscarAtaquesPersonagemRequest, OnCallBuscarAtaquesPersonagemResponse } from '../../shared/models/contracts/cloud-functions/oncall-buscar-ataques-personagem';
 import { OrdenacaoRegistrosAtaque } from '../../shared/models/firestore/ataque-firestore';
 import { AtaqueParser } from '../../shared/models/parsers/ataque.parser';
+import { TipoAtaque, AtaqueArma, AtaqueEfeito } from '../../shared/models/entities/ataque';
+import { Personagem } from '../../shared/models/entities/personagem';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 @Injectable({

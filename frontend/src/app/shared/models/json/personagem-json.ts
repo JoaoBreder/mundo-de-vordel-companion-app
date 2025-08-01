@@ -1,4 +1,4 @@
-import { ClassePersonagem, InformacoesPersonagem, PersonagemBase } from '../personagem';
+import { PersonagemBase, InformacoesPersonagem, ClassePersonagem } from '../entities/personagem';
 import { QuantificadorJson, QuantificadorPericiaJson } from './quantificador-json';
 
 export class PersonagemJson implements PersonagemBase {

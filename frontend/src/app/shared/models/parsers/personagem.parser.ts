@@ -1,5 +1,5 @@
+import { Personagem } from "../entities/personagem";
 import {PersonagemJson} from "../json/personagem-json";
-import { Personagem } from "../personagem";
 import { QuantificadorParser, QuantificadorPericiaParser } from "./quantificador.parser";
 
 export abstract class PersonagemParser {

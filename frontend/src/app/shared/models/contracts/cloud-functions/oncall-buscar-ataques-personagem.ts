@@ -1,4 +1,4 @@
-import { TipoAtaque, TipoDano } from '../../ataque';
+import { TipoAtaque, TipoDano } from '../../entities/ataque';
 import { OrdenacaoRegistrosAtaque } from '../../firestore/ataque-firestore';
 import { AtaqueArmaJson, AtaqueEfeitoJson } from '../../json/ataque-json';
 

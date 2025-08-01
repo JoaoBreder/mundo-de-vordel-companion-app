@@ -1,4 +1,4 @@
-import { AtributoAbreviado } from "../personagem";
+import { AtributoAbreviado } from "../entities/personagem";
 import { Modificador, QuantificadorBase } from "../entities/quantificador";
 
 export class QuantificadorFirestore implements QuantificadorBase {

@@ -1,8 +1,8 @@
 import { Component, Input, ViewEncapsulation, OnInit } from '@angular/core';
-import { Pericias } from '../../../shared/models/personagem';
 import { PericiaKeyLabel, TipoModificadorLabel } from '../../../shared/helpers/label-helpers';
 import { MatTableDataSource } from '@angular/material/table';
-import { QuantificadorPericia } from '../../../shared/models/quantificador';
+import { Pericias } from '../../../shared/models/entities/personagem';
+import { QuantificadorPericia } from '../../../shared/models/entities/quantificador';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector

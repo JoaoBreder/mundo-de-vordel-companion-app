@@ -1,6 +1,6 @@
 import {Timestamp} from "firebase-admin/firestore";
-import {ClassePersonagem, InformacoesPersonagem, PersonagemBase} from "../personagem";
 import { QuantificadorFirestore, QuantificadorPericiaFirestore } from "./quantificador-firestore";
+import { PersonagemBase, InformacoesPersonagem, ClassePersonagem } from "../entities/personagem";
 
 export class PersonagemFirestore implements PersonagemBase {
   _id: string | null;

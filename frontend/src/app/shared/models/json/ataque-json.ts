@@ -1,5 +1,5 @@
-import { AlcanceAtaque, AtaqueBase, TipoAtaque, TipoDano } from '../ataque';
-import { Pericia } from '../personagem';
+import { AtaqueBase, AlcanceAtaque, TipoAtaque, TipoDano } from '../entities/ataque';
+import { Pericia } from '../entities/personagem';
 import { QuantificadorJson } from './quantificador-json';
 
 export class AtaqueArmaJson implements AtaqueBase {

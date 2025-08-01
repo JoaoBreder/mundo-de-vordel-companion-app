@@ -1,6 +1,7 @@
-import { AlcanceAtaque, TipoAtaque, TipoDano } from '../models/ataque';
-import { ClassePersonagem, Pericia, Pericias } from '../models/personagem';
-import { TipoModificador } from '../models/quantificador';
+import { AlcanceAtaque, TipoAtaque, TipoDano } from "../models/entities/ataque";
+import { ClassePersonagem, Pericia, Pericias } from "../models/entities/personagem";
+import { TipoModificador } from "../models/entities/quantificador";
+
 
 export const AlcanceAtaqueLabel: Record<AlcanceAtaque, string> = {
     [AlcanceAtaque.TOQUE]: 'Toque',
