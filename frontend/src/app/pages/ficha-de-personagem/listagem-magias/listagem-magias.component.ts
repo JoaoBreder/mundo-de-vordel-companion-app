@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FichaDePersonagemService } from '../ficha-de-personagem.service';
 import { AlcanceMagiaLabel, DuracaoMagiaLabel, EscolaMagiaLabel, ExecucaoMagiaLabel, PericiaLabel, TipoResistenciaLabel } from '../../../shared/helpers/label-helpers';
-import { BehaviorSubject, startWith } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, startWith } from 'rxjs';
 import { SubscriptionManager } from 'rxjs-sub-manager';
 import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, ExecucaoMagia, Magia, Resistencia, TipoResistencia } from '../../../shared/models/entities/magia';
 import { OrdenacaoRegistrosMagia } from '../../../shared/models/firestore/magia-firestore';
@@ -47,7 +47,7 @@ export class ListagemMagiasComponent implements OnInit, OnDestroy {
     }
 
     private observarActionButtons(): void {
-        const sub = this.filtroLista$.pipe(startWith(this.filtroLista)).subscribe(filtro => this.buscarMagiasDataSource(filtro ?? undefined));
+        const sub = this.filtroLista$.pipe(startWith(this.filtroLista), distinctUntilChanged()).subscribe(filtro => this.buscarMagiasDataSource(filtro ?? undefined));
 
         this.subscriptionManager.add({ ref: 'observarActionButtons', sub });
     }

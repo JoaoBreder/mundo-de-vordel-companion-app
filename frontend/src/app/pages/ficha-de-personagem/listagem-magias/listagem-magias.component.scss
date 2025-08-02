@@ -96,7 +96,7 @@ listagem-magias-component {
 
             .mat-column-execucao,
             .mat-column-alcance {
-                justify-content: center;
+
 
                 word-wrap: break-word !important;
                 white-space: unset !important;
@@ -115,8 +115,6 @@ listagem-magias-component {
 
             .mat-column-duracao,
             .mat-column-resistencia {
-                justify-content: center;
-
                 word-wrap: break-word !important;
                 white-space: unset !important;
                 flex: 0 0 20% !important;
@@ -133,8 +131,6 @@ listagem-magias-component {
             }
 
             .mat-column-conjurar {
-                justify-content: center;
-
                 word-wrap: break-word !important;
                 white-space: unset !important;
                 flex: 0 0 10% !important;
