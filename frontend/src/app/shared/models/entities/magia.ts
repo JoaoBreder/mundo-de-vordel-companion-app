@@ -6,6 +6,7 @@ export interface MagiaBase {
     excluido: boolean;
 
     alcance: AlcanceMagia | null;
+    alvo: string | null;
     area: string | null;
     circulo: CirculoMagia | null;
     duracao: DuracaoMagia | string | null;
@@ -23,6 +24,7 @@ export class Magia implements MagiaBase {
     private _excluido: boolean;
 
     private _alcance: AlcanceMagia | null;
+    private _alvo: string | null;
     private _area: string | null;
     private _circulo: CirculoMagia | null;
     private _duracao: DuracaoMagia | string | null;
@@ -34,13 +36,14 @@ export class Magia implements MagiaBase {
     private _tipo: TipoMagia | null;
 
     constructor(magia?: Partial<Magia>) {
-        const { alcance, area, circulo, dataCriacao, dataAtualizacao, duracao, efeito, escola, excluido, execucao, nome, resistencias, tipo } = magia ?? {};
+        const { alcance, alvo, area, circulo, dataCriacao, dataAtualizacao, duracao, efeito, escola, excluido, execucao, nome, resistencias, tipo } = magia ?? {};
 
         this._dataAtualizacao = dataAtualizacao ?? null;
         this._dataCriacao = dataCriacao ?? new Date();
         this._excluido = excluido ?? false;
 
         this._alcance = alcance ?? null;
+        this._alvo = alvo ?? null;
         this._area = area ?? null;
         this._circulo = circulo ?? null;
         this._duracao = duracao ?? null;
@@ -57,14 +60,17 @@ export class Magia implements MagiaBase {
     // -----------------------------------------------------------------------------------------------------
 
     modificarMagia(magia: Partial<Magia>) {
-        const { alcance, circulo, duracao, efeito, escola, execucao, resistencias, tipo } = magia;
+        const { alcance, alvo, area, circulo, duracao, efeito, escola, execucao, nome, resistencias, tipo } = magia;
 
         this._alcance = alcance ?? this.alcance;
+        this._alvo = alvo ?? this.alvo;
+        this._area = area ?? this.area;
         this._circulo = circulo ?? this.circulo;
         this._duracao = duracao ?? this.duracao;
         this._efeito = efeito ?? this.efeito;
         this._escola = escola ?? this.escola;
         this._execucao = execucao ?? this.execucao;
+        this._nome = nome ?? this.nome;
         this._resistencias = resistencias ?? this.resistencias;
         this._tipo = tipo ?? this.tipo;
 
@@ -82,6 +88,10 @@ export class Magia implements MagiaBase {
 
     get alcance(): AlcanceMagia | null {
         return this._alcance;
+    }
+
+    get alvo(): string | null {
+        return this._alvo;
     }
 
     get area(): string | null {

@@ -7,6 +7,7 @@ export class MagiaJson implements MagiaBase {
     excluido: boolean;
 
     alcance: AlcanceMagia | null;
+    alvo: string | null;
     area: string | null;
     circulo: CirculoMagia | null;
     duracao: DuracaoMagia |string | null;
@@ -19,7 +20,7 @@ export class MagiaJson implements MagiaBase {
 
     constructor(magia?: Partial<MagiaJson>) {
         const {
-            alcance, area, circulo, dataCriacao, dataAtualizacao, duracao, efeito, escola, excluido, execucao, nome, resistencias, tipo
+            alcance, alvo, area, circulo, dataCriacao, dataAtualizacao, duracao, efeito, escola, excluido, execucao, nome, resistencias, tipo
         } = magia ?? {};
 
         this.dataCriacao = dataCriacao ?? new Date().toISOString();
@@ -27,6 +28,7 @@ export class MagiaJson implements MagiaBase {
         this.excluido = excluido ?? false;
 
         this.alcance = alcance ?? null;
+        this.alvo = alvo ?? null;
         this.area = area ?? null;
         this.circulo = circulo ?? null; 
         this.duracao = duracao ?? null; 
