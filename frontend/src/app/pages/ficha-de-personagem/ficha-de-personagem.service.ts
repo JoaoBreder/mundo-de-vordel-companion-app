@@ -23,6 +23,7 @@ import { OrdenacaoRegistrosAtaque } from '../../shared/models/firestore/ataque-f
 import { AtaqueParser } from '../../shared/models/parsers/ataque.parser';
 import { PersonagemParser } from '../../shared/models/parsers/personagem.parser';
 import { MagiaParser } from '../../shared/models/parsers/magia.parser';
+import { DetalhesFicha } from './detalhes-ficha/detalhes-ficha.component';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 @Injectable({
@@ -32,6 +33,7 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
     private readonly subscriptionManager = new SubscriptionManager({ prefixId: 'HistoricoEnvioAppService' });
 
     personagemJogador$ = new BehaviorSubject<Personagem | null>(null);
+    detalhesFicha$ = new BehaviorSubject<DetalhesFicha | null>(null);
 
     constructor(private functionsService: FunctionsService) {}
 

@@ -70,9 +70,9 @@ app-ficha-de-personagem {
     }
 
     .content {
-      display: flex;
-      justify-content: center;
-      height: 100%;
+        display: flex;
+        justify-content: center;
+        height: 100%;
 
         .content-layout {
             display: grid;
@@ -87,7 +87,7 @@ app-ficha-de-personagem {
             grid-gap: 2rem;
 
             pericias-component {
-              grid-column: span 2;
+                grid-column: span 2;
             }
 
             .grid-wrapper {
@@ -128,40 +128,45 @@ app-ficha-de-personagem {
                     }
                 }
 
-                .detalhes {
+                .listagens {
                     padding: 0 1.5rem 1rem;
                     border: 0.2rem solid white;
                     border-radius: 0.5rem;
                     flex-grow: 1;
 
-                    .tab-detalhes-content {
-                      height: 100%;
-                      padding-top: 1rem;
+                    .tab-listagens-content {
+                        height: 100%;
+                        padding-top: 1rem;
                     }
 
                     .mat-mdc-tab-body-wrapper {
-                      height: 100%;
+                        height: 100%;
                     }
 
                     .mat-mdc-tab-labels {
-                      width: 0;
-                      gap: 1rem;
+                        width: 0;
+                        gap: 1rem;
                     }
 
                     .mat-mdc-tab {
-                      height: fit-content;
-                      padding: 2rem 0 1rem;
+                        height: fit-content;
+                        padding: 2rem 0 1rem;
                     }
 
                     .mat-mdc-tab:hover {
-                      background-color: black;
+                        background-color: black;
 
-                      span {
-                        color: white;
-                      }
+                        span {
+                            color: white;
+                        }
                     }
                 }
             }
+        }
+
+        detalhes-ficha-component {
+          width: 18vw;
+          margin-left: 2rem;
         }
     }
 
@@ -187,7 +192,7 @@ app-ficha-de-personagem {
 
             .atributos-pontos-wrapper,
             .ataques-e-magias,
-            .detalhes,
+            .listagens,
             .equipamentos,
             .inventario {
                 grid-column: span 4;

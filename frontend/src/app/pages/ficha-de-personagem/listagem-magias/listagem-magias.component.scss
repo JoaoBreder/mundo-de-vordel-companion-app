@@ -80,6 +80,10 @@ listagem-magias-component {
                 border-bottom-color: transparent;
             }
 
+            .element {
+              cursor: pointer;
+            }
+
             .mat-column-magia {
                 word-wrap: break-word !important;
                 white-space: unset !important;
@@ -94,25 +98,9 @@ listagem-magias-component {
                 hyphens: auto;
             }
 
-            .mat-column-execucao,
-            .mat-column-alcance {
-                word-wrap: break-word !important;
-                white-space: unset !important;
-                flex: 0 0 15% !important;
-                width: 15% !important;
-                overflow-wrap: break-word;
-                word-wrap: break-word;
-
-                word-break: break-word;
-
-                -ms-hyphens: auto;
-                -moz-hyphens: auto;
-                -webkit-hyphens: auto;
-                hyphens: auto;
-            }
-
             .mat-column-duracao,
-            .mat-column-resistencias {
+            .mat-column-resistencias,
+            .mat-column-alcance {
                 word-wrap: break-word !important;
                 white-space: unset !important;
                 flex: 0 0 20% !important;
@@ -128,7 +116,8 @@ listagem-magias-component {
                 hyphens: auto;
             }
 
-            .mat-column-conjurar {
+            .mat-column-conjurar,
+            .mat-column-execucao {
                 word-wrap: break-word !important;
                 white-space: unset !important;
                 flex: 0 0 10% !important;

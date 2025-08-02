@@ -52,7 +52,6 @@
     </div>
 
     <ng-scrollbar visibility="hover" thumbClass="custom-scrollbar">
-        <!-- TODO: Agrupar por círculo -->
         <mat-table class="magias-table" [dataSource]="magiasDataSource" scrollViewport>
             <ng-container matColumnDef="magia">
                 <mat-header-cell *matHeaderCellDef><b>Magia</b></mat-header-cell>
@@ -76,9 +75,9 @@
             </ng-container>
 
             <ng-container matColumnDef="alcance">
-                <mat-header-cell *matHeaderCellDef>Alcance</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>Alcance, Alvo e Área</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <span *ngIf="element?.isCirculoMagia === undefined">{{ element?.alcance ? getAlcanceMagiaLabel(element.alcance) : '—' }}</span>
+                    <span *ngIf="element?.isCirculoMagia === undefined">{{ montarDescricaoAlcanceAlvoArea(element?.alcance, element?.alvo, element?.area) }}</span>
                 </mat-cell>
             </ng-container>
 
@@ -106,7 +105,11 @@
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-            <mat-row *matRowDef="let element; columns: displayedColumns" class="element" [ngClass]="{ 'circulo-magia': element?.isCirculoMagia }" matRipple></mat-row>
+            <mat-row
+                *matRowDef="let element; columns: displayedColumns"
+                [ngClass]="{ 'circulo-magia': element?.isCirculoMagia, element: !element?.isCirculoMagia }"
+                (click)="atualizarDetalhesFichaComponent(element)"
+                matRipple></mat-row>
         </mat-table>
     </ng-scrollbar>
 </div>

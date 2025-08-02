@@ -32,9 +32,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ListagemAtaquesComponent } from './listagem-ataques/listagem-ataques.component';
 import { ListagemMagiasComponent } from './listagem-magias/listagem-magias.component';
+import { DetalhesFichaComponent } from './detalhes-ficha/detalhes-ficha.component';
 
 @NgModule({
-    declarations: [FichaDePersonagemComponent, AtributoComponent, PericiasComponent, ListagemAtaquesComponent, ListagemMagiasComponent],
+    declarations: [FichaDePersonagemComponent, AtributoComponent, PericiasComponent, ListagemAtaquesComponent, ListagemMagiasComponent, DetalhesFichaComponent],
     imports: [
         CommonModule,
         FichaDePersonagemRoutingModule,

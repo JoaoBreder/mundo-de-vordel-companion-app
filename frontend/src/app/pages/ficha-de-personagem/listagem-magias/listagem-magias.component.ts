@@ -8,12 +8,14 @@ import {
     EscolaMagiaLabel,
     ExecucaoMagiaLabel,
     PericiaLabel,
+    TipoMagiaLabel,
     TipoResistenciaLabel,
 } from '../../../shared/helpers/label-helpers';
 import { BehaviorSubject, distinctUntilChanged, startWith } from 'rxjs';
 import { SubscriptionManager } from 'rxjs-sub-manager';
 import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, ExecucaoMagia, Magia, Resistencia, TipoResistencia } from '../../../shared/models/entities/magia';
 import { OrdenacaoRegistrosMagia } from '../../../shared/models/firestore/magia-firestore';
+import { DetalhesFicha } from '../detalhes-ficha/detalhes-ficha.component';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
@@ -79,10 +81,6 @@ export class ListagemMagiasComponent implements OnInit, OnDestroy {
         return this.filtroLista === valorBotao;
     }
 
-    getAlcanceMagiaLabel(alcanceMagia: AlcanceMagia): string {
-        return AlcanceMagiaLabel[alcanceMagia];
-    }
-
     getEscolaMagiaIcon(tipo: EscolaMagia): string {
         let icon = '';
 
@@ -146,6 +144,44 @@ export class ListagemMagiasComponent implements OnInit, OnDestroy {
 
     modificarFiltro(valor: string | null): void {
         this.filtroLista$.next(valor as CirculoMagia);
+    }
+
+    montarDescricaoAlcanceAlvoArea(alcance: AlcanceMagia | null, alvo: string | null, area: string | null): string {
+        let descricao = '';
+
+        if (alcance) {
+            descricao = AlcanceMagiaLabel[alcance];
+        }
+
+        if (alvo) {
+            descricao += `, ${alvo}`;
+        }
+
+        if (area) {
+            descricao += `, ${area}`;
+        }
+
+        return descricao !== '' ? descricao : '—';
+    }
+
+    atualizarDetalhesFichaComponent(magia: Magia) {
+        const informacoesMagia = `
+          ${magia.execucao ? `<p><b>Execução:</b> ${ExecucaoMagiaLabel[magia.execucao]}.</p>` : ''}
+          ${magia.alcance ? `<p><b>Alcance:</b> ${AlcanceMagiaLabel[magia.alcance]}.</p>` : ''}
+          ${magia.alvo ? `<p><b>Alvo:</b> ${magia.alvo}.</p>` : ''}
+          ${magia.area ? `<p><b>Área:</b> ${magia.area}.</p>` : ''}
+          ${magia.duracao ? `<p><b>Execução:</b> ${DuracaoMagiaLabel[magia.duracao as DuracaoMagia] ?? magia.duracao}.</p>` : ''}
+          ${magia.resistencias.length ? `<p><b>Resistências:</b> ${this.getResistenciaLabel(magia.resistencias)}.</p>` : ''}
+        `;
+
+        const detalhesFicha: DetalhesFicha = {
+            icone: this.getEscolaMagiaIcon(magia.escola!),
+            titulo: magia.nome,
+            subtitulo: `${TipoMagiaLabel[magia.tipo!].replace('Magia ', '')} ${CirculoMagiaLabel[magia.circulo!].replace('º Círculo', '')} (${EscolaMagiaLabel[magia.escola!]})`,
+            conteudo: [informacoesMagia, `<p>${magia.efeito.split('\n').join('</p><p>')}</p>`],
+        };
+
+        this.fichaDePersonagemService.detalhesFicha$.next(detalhesFicha);
     }
 
     // -----------------------------------------------------------------------------------------------------

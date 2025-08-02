@@ -1,0 +1,24 @@
+<!-- TODO: Animar entrada do componente de detalhes -->
+<!-- TODO: Possibilidade de fechar a "janela" de detaçhes -->
+<div *ngIf="detalhesFicha" class="detalhes-ficha" [ngClass]="{ hidden: !detalhesFicha }">
+    <div class="detalhes-wrapper">
+        <div class="detalhes-header">
+            <ng-icon *ngIf="detalhesFicha.icone" [name]="detalhesFicha.icone" [size]="'22px'" class="mr-2"></ng-icon>
+            <span class="titulo">{{ detalhesFicha.titulo }}</span>
+        </div>
+    </div>
+
+    <ng-scrollbar visibility="hover" thumbClass="custom-scrollbar">
+        <mat-table class="conteudo-table" [dataSource]="conteudoDataSource" scrollViewport>
+            <ng-container matColumnDef="conteudo">
+                <mat-header-cell *matHeaderCellDef>{{ detalhesFicha.subtitulo }}</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <div class="conteudo" [innerHTML]="element"></div>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let element; columns: displayedColumns" matRipple></mat-row>
+        </mat-table>
+    </ng-scrollbar>
+</div>

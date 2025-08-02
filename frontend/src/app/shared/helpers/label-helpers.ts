@@ -1,5 +1,5 @@
 import { AlcanceAtaque, TipoAtaque, TipoDano } from '../models/entities/ataque';
-import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, ExecucaoMagia, TipoResistencia } from '../models/entities/magia';
+import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, ExecucaoMagia, TipoMagia, TipoResistencia } from '../models/entities/magia';
 import { ClassePersonagem, Pericia, Pericias } from '../models/entities/personagem';
 import { TipoModificador } from '../models/entities/quantificador';
 
@@ -152,6 +152,11 @@ export const TipoDanoLabel: Record<TipoDano, string> = {
     [TipoDano.PSIQUICO]: 'Psíquico',
     [TipoDano.TREVAS]: 'Trevas',
 };
+
+export const TipoMagiaLabel: Record<TipoMagia, string> = {
+  [TipoMagia.MAGIA_ARCANA]: 'Magia Arcana',
+  [TipoMagia.MAGIA_DIVINA]: 'Magia Divina'
+}
 
 export const TipoModificadorLabel: Record<TipoModificador, string> = {
     [TipoModificador.BONUS_LINHAGEM]: 'Linhagem',

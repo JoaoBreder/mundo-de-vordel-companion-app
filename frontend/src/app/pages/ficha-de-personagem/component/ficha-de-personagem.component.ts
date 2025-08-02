@@ -67,9 +67,9 @@ export class FichaDePersonagemComponent {
             )
             .subscribe(personagemJogador => {
                 if (personagemJogador) {
-                  this.personagem = personagemJogador;
-                  this.salvarBase64ImagemPersonagem();
-                };
+                    this.personagem = personagemJogador;
+                    this.salvarBase64ImagemPersonagem();
+                }
             });
 
         this.subscriptionManager.add({ sub, ref: 'observarPersonagemJogador' });
