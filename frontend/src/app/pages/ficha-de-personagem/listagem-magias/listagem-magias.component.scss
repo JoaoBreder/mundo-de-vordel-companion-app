@@ -96,8 +96,6 @@ listagem-magias-component {
 
             .mat-column-execucao,
             .mat-column-alcance {
-
-
                 word-wrap: break-word !important;
                 white-space: unset !important;
                 flex: 0 0 15% !important;
@@ -173,6 +171,13 @@ listagem-magias-component {
                     font-weight: bold;
                     font-size: 1.2rem;
                 }
+            }
+
+            .circulo-magia {
+                margin: 1rem 0;
+                border-bottom: 1px solid white;
+                font-size: 16px;
+                font-weight: bold;
             }
         }
     }

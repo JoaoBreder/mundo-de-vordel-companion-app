@@ -1,7 +1,15 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FichaDePersonagemService } from '../ficha-de-personagem.service';
-import { AlcanceMagiaLabel, CirculoMagiaLabel, DuracaoMagiaLabel, EscolaMagiaLabel, ExecucaoMagiaLabel, PericiaLabel, TipoResistenciaLabel } from '../../../shared/helpers/label-helpers';
+import {
+    AlcanceMagiaLabel,
+    CirculoMagiaLabel,
+    DuracaoMagiaLabel,
+    EscolaMagiaLabel,
+    ExecucaoMagiaLabel,
+    PericiaLabel,
+    TipoResistenciaLabel,
+} from '../../../shared/helpers/label-helpers';
 import { BehaviorSubject, distinctUntilChanged, startWith } from 'rxjs';
 import { SubscriptionManager } from 'rxjs-sub-manager';
 import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, ExecucaoMagia, Magia, Resistencia, TipoResistencia } from '../../../shared/models/entities/magia';
@@ -44,16 +52,16 @@ export class ListagemMagiasComponent implements OnInit, OnDestroy {
         });
 
         if (magias) {
-          let data: any[] = [];
+            let data: any[] = [];
 
-          Object.entries(magias).forEach(([key, magia]) => {
-              if(magias[key as CirculoMagia].length) {
-                data.push({ nome: CirculoMagiaLabel[key as CirculoMagia] });
-                data = data.concat(magia);
-              }
-          });
+            Object.entries(magias).forEach(([key, magia]) => {
+                if (magias[key as CirculoMagia].length) {
+                    data.push({ nome: CirculoMagiaLabel[key as CirculoMagia], isCirculoMagia: true });
+                    data = data.concat(magia);
+                }
+            });
 
-          this.magiasDataSource.data = data;
+            this.magiasDataSource.data = data;
         }
     }
 
@@ -128,10 +136,12 @@ export class ListagemMagiasComponent implements OnInit, OnDestroy {
     }
 
     getResistenciaLabel(resistencias: Resistencia[]): string {
-        return resistencias.map((resistencia) => {
-          const { pericia, tipo } = resistencia;
-          return `${PericiaLabel[pericia]} ${TipoResistenciaLabel[tipo as TipoResistencia] ?? tipo}`;
-        }).join(', ');
+        return resistencias
+            .map(resistencia => {
+                const { pericia, tipo } = resistencia;
+                return `${PericiaLabel[pericia]} ${TipoResistenciaLabel[tipo as TipoResistencia] ?? tipo}`;
+            })
+            .join(', ');
     }
 
     modificarFiltro(valor: string | null): void {

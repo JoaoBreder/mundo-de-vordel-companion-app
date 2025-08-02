@@ -58,6 +58,7 @@
                 <mat-header-cell *matHeaderCellDef><b>Magia</b></mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <ng-icon
+                        *ngIf="element?.isCirculoMagia === undefined"
                         [name]="getEscolaMagiaIcon(element.escola)"
                         [size]="'20px'"
                         class="mr-3 cursor-pointer"
@@ -70,42 +71,42 @@
             <ng-container matColumnDef="execucao">
                 <mat-header-cell *matHeaderCellDef>Execução</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <span>{{ element?.execucao ? getExecucaoMagiaLabel(element.execucao) : '—' }}</span>
+                    <span *ngIf="element?.isCirculoMagia === undefined">{{ element?.execucao ? getExecucaoMagiaLabel(element.execucao) : '—' }}</span>
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="alcance">
                 <mat-header-cell *matHeaderCellDef>Alcance</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <span>{{ element?.alcance ? getAlcanceMagiaLabel(element.alcance) : '—' }}</span>
+                    <span *ngIf="element?.isCirculoMagia === undefined">{{ element?.alcance ? getAlcanceMagiaLabel(element.alcance) : '—' }}</span>
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="duracao">
                 <mat-header-cell *matHeaderCellDef>Duração</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <span>{{ element?.duracao ? getDuracaoMagiaLabel(element.duracao) : '—' }}</span>
+                    <span *ngIf="element?.isCirculoMagia === undefined">{{ element?.duracao ? getDuracaoMagiaLabel(element.duracao) : '—' }}</span>
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="resistencias">
                 <mat-header-cell *matHeaderCellDef>Resistência</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <span>{{ element.resistencias.length ? getResistenciaLabel(element.resistencias) : '—' }}</span>
+                    <span *ngIf="element?.isCirculoMagia === undefined">{{ element.resistencias.length ? getResistenciaLabel(element.resistencias) : '—' }}</span>
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="conjurar">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <button mat-raised-button color="accent" [disabled]="true">
+                    <button *ngIf="element?.isCirculoMagia === undefined" mat-raised-button color="accent" [disabled]="true">
                         <span class="button-label">CONJURAR</span>
                     </button>
                 </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-            <mat-row *matRowDef="let element; columns: displayedColumns" class="element" matRipple></mat-row>
+            <mat-row *matRowDef="let element; columns: displayedColumns" class="element" [ngClass]="{ 'circulo-magia': element?.isCirculoMagia }" matRipple></mat-row>
         </mat-table>
     </ng-scrollbar>
 </div>
