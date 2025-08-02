@@ -7,7 +7,19 @@ import { AtributoComponent } from './atributo/atributo.component';
 import { PericiasComponent } from './pericias/pericias.component';
 
 import { NgIconsModule } from '@ng-icons/core';
-import { gameAxeSword, gameGoldShell, gamePocketBow } from '@ng-icons/game-icons';
+import {
+    gameAxeSword,
+    gameBorderedShield,
+    gameBrainTentacle,
+    gameCrystalBall,
+    gameDoorway,
+    gameDreadSkull,
+    gameGoldShell,
+    gameMagicSwirl,
+    gamePocketBow,
+    gameRubElHizb,
+    gameThunderball,
+} from '@ng-icons/game-icons';
 
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
@@ -19,15 +31,28 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ListagemAtaquesComponent } from './listagem-ataques/listagem-ataques.component';
+import { ListagemMagiasComponent } from './listagem-magias/listagem-magias.component';
 
 @NgModule({
-    declarations: [FichaDePersonagemComponent, AtributoComponent, PericiasComponent, ListagemAtaquesComponent],
+    declarations: [FichaDePersonagemComponent, AtributoComponent, PericiasComponent, ListagemAtaquesComponent, ListagemMagiasComponent],
     imports: [
         CommonModule,
         FichaDePersonagemRoutingModule,
 
         NgIconsModule,
-        NgIconsModule.withIcons({ gameAxeSword, gameGoldShell, gamePocketBow }),
+        NgIconsModule.withIcons({
+            gameAxeSword,
+            gameGoldShell,
+            gamePocketBow,
+            gameBorderedShield,
+            gameCrystalBall,
+            gameDoorway,
+            gameThunderball,
+            gameDreadSkull,
+            gameRubElHizb,
+            gameMagicSwirl,
+            gameBrainTentacle
+        }),
 
         NgScrollbarModule,
 
@@ -37,7 +62,7 @@ import { ListagemAtaquesComponent } from './listagem-ataques/listagem-ataques.co
         MatTooltipModule,
         MatTableModule,
         MatCheckboxModule,
-        MatTabsModule
+        MatTabsModule,
     ],
 })
 export class FichaDePersonagemModule {}
