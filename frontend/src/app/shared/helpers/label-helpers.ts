@@ -1,5 +1,5 @@
 import { AlcanceAtaque, TipoAtaque, TipoDano } from '../models/entities/ataque';
-import { AlcanceMagia, DuracaoMagia, EscolaMagia, ExecucaoMagia, TipoResistencia } from '../models/entities/magia';
+import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, ExecucaoMagia, TipoResistencia } from '../models/entities/magia';
 import { ClassePersonagem, Pericia, Pericias } from '../models/entities/personagem';
 import { TipoModificador } from '../models/entities/quantificador';
 
@@ -18,6 +18,14 @@ export const AlcanceMagiaLabel: Record<AlcanceMagia, string> = {
     [AlcanceMagia.LONGO]: 'Longo',
     [AlcanceMagia.ILIMITADO]: 'Ilimitado',
 };
+
+export const CirculoMagiaLabel: Record<CirculoMagia, string> = {
+  [CirculoMagia.PRIMEIRO_CIRCULO]: '1º Círculo',
+  [CirculoMagia.SEGUNDO_CIRCULO]: '2º Círculo',
+  [CirculoMagia.TERCEIRO_CIRCULO]: '3º Círculo',
+  [CirculoMagia.QUARTO_CIRCULO]: '4º Círculo',
+  [CirculoMagia.QUINTO_CIRCULO]: '5º Círculo'
+}
 
 export const ClassePersonagemLabel: Record<ClassePersonagem, string> = {
     [ClassePersonagem.BARBARO]: 'Bárbaro',

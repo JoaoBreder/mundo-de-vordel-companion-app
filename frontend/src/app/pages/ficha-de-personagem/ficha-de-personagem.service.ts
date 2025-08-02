@@ -133,9 +133,9 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
         }
     }
 
-    async buscarMagiasPersonagem(orderBy: OrdenacaoRegistrosMagia, filter: { circulo?: CirculoMagia; escola?: EscolaMagia }): Promise<Magia[]> {
+    async buscarMagiasPersonagem(orderBy: OrdenacaoRegistrosMagia, filter: { circulo?: CirculoMagia; escola?: EscolaMagia }): Promise<Record<CirculoMagia, Magia[]> | null> {
         const personagem = this.personagemJogador$.getValue();
-        if (!personagem || !personagem?._id) return [];
+        if (!personagem || !personagem?._id) return null;
 
         try {
             const requestData: OnCallBuscarMagiasPersonagemRequest = {
@@ -150,11 +150,18 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
                 true
             );
 
-            const magiasParsed = magias.map(magia => MagiaParser.magia(magia));
+            const magiasParsed: Record<CirculoMagia, Magia[]> = {
+              [CirculoMagia.PRIMEIRO_CIRCULO]: magias[CirculoMagia.PRIMEIRO_CIRCULO].map(magia => MagiaParser.magia(magia)),
+              [CirculoMagia.SEGUNDO_CIRCULO]: magias[CirculoMagia.SEGUNDO_CIRCULO].map(magia => MagiaParser.magia(magia)),
+              [CirculoMagia.TERCEIRO_CIRCULO]: magias[CirculoMagia.TERCEIRO_CIRCULO].map(magia => MagiaParser.magia(magia)),
+              [CirculoMagia.QUARTO_CIRCULO]: magias[CirculoMagia.QUARTO_CIRCULO].map(magia => MagiaParser.magia(magia)),
+              [CirculoMagia.QUINTO_CIRCULO]: magias[CirculoMagia.QUINTO_CIRCULO].map(magia => MagiaParser.magia(magia))
+            }
+
             return magiasParsed;
         } catch (error) {
             console.log(error);
-            return [];
+            return null;
         }
     }
 }

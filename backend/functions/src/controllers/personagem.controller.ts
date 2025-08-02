@@ -46,7 +46,7 @@ export class PersonagemController extends BasicController {
         [CirculoMagia.SEGUNDO_CIRCULO]: [],
         [CirculoMagia.TERCEIRO_CIRCULO]: [],
         [CirculoMagia.QUARTO_CIRCULO]: [],
-        [CirculoMagia.QUINTOIRCULO]: []
+        [CirculoMagia.QUINTO_CIRCULO]: []
       };
 
       magias.forEach((magia) => magiasResponse[magia.circulo!].push(MagiaParser.toJson(magia)));
