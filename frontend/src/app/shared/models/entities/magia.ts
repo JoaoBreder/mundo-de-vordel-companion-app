@@ -1,4 +1,4 @@
-import { Pericia } from "./personagem";
+import { Pericia } from './personagem';
 
 export interface MagiaBase {
     dataAtualizacao: any;
@@ -13,7 +13,7 @@ export interface MagiaBase {
     escola: EscolaMagia | null;
     execucao: ExecucaoMagia | null;
     nome: string;
-    resistencia: Resistencia | null;
+    resistencias: Resistencia[];
     tipo: TipoMagia | null;
 }
 
@@ -25,18 +25,16 @@ export class Magia implements MagiaBase {
     private _alcance: AlcanceMagia | null;
     private _area: string | null;
     private _circulo: CirculoMagia | null;
-    private _duracao: DuracaoMagia |string | null;
+    private _duracao: DuracaoMagia | string | null;
     private _efeito: string;
     private _escola: EscolaMagia | null;
     private _execucao: ExecucaoMagia | null;
     private _nome: string;
-    private _resistencia: Resistencia | null;
+    private _resistencias: Resistencia[];
     private _tipo: TipoMagia | null;
 
     constructor(magia?: Partial<Magia>) {
-        const {
-            alcance, area, circulo, dataCriacao, dataAtualizacao, duracao, efeito, escola, excluido, execucao, nome, resistencia, tipo
-        } = magia ?? {};
+        const { alcance, area, circulo, dataCriacao, dataAtualizacao, duracao, efeito, escola, excluido, execucao, nome, resistencias, tipo } = magia ?? {};
 
         this._dataAtualizacao = dataAtualizacao ?? null;
         this._dataCriacao = dataCriacao ?? new Date();
@@ -50,7 +48,7 @@ export class Magia implements MagiaBase {
         this._escola = escola ?? null;
         this._execucao = execucao ?? null;
         this._nome = nome ?? '';
-        this._resistencia = resistencia ?? null;
+        this._resistencias = resistencias ?? [];
         this._tipo = tipo ?? null;
     }
 
@@ -59,9 +57,7 @@ export class Magia implements MagiaBase {
     // -----------------------------------------------------------------------------------------------------
 
     modificarMagia(magia: Partial<Magia>) {
-        const {
-            alcance, circulo, duracao, efeito, escola, execucao, resistencia, tipo
-        } = magia;
+        const { alcance, circulo, duracao, efeito, escola, execucao, resistencias, tipo } = magia;
 
         this._alcance = alcance ?? this.alcance;
         this._circulo = circulo ?? this.circulo;
@@ -69,7 +65,7 @@ export class Magia implements MagiaBase {
         this._efeito = efeito ?? this.efeito;
         this._escola = escola ?? this.escola;
         this._execucao = execucao ?? this.execucao;
-        this._resistencia = resistencia ?? this.resistencia;
+        this._resistencias = resistencias ?? this.resistencias;
         this._tipo = tipo ?? this.tipo;
 
         this._dataAtualizacao = new Date();
@@ -104,7 +100,7 @@ export class Magia implements MagiaBase {
         return this._dataCriacao;
     }
 
-    get duracao(): DuracaoMagia |string | null {
+    get duracao(): DuracaoMagia | string | null {
         return this._duracao;
     }
 
@@ -128,8 +124,8 @@ export class Magia implements MagiaBase {
         return this._nome;
     }
 
-    get resistencia(): Resistencia | null {
-        return this._resistencia;
+    get resistencias(): Resistencia[] {
+        return this._resistencias;
     }
 
     get tipo(): TipoMagia | null {
@@ -137,62 +133,62 @@ export class Magia implements MagiaBase {
     }
 }
 
-export enum TipoResistencia {
-    ANULA = "ANULA",
-    PARCIAL = "PARCIAL",
-    REDUZ_A_METADE = "REDUZ_A_METADE",
-    DESACREDITA = "DESACREDITA"
-}
-
-export enum AlcanceMagia {
-    PESSOAL = "PESSOAL",
-    TOQUE = "TOQUE",
-    CURTO = "CURTO",
-    MEDIO = "MEDIO",
-    LONGO = "LONGO",
-    ILIMITADO = "ILIMITADO",
-}
-
-export enum CirculoMagia {
-    PRIMEIRO_CIRCULO = "PRIMEIRO_CIRCULO",
-    SEGUNDO_CIRCULO = "SEGUNDO_CIRCULO",
-    TERCEIRO_CIRCULO = "TERCEIRO_CIRCULO",
-    QUARTO_CIRCULO = "QUARTO_CIRCULO",
-    QUINTOIRCULO = "QUINTO_CIRCULO"
-}
-
-export enum DuracaoMagia {
-    INSTANTANEA = "INSTANTANEA",
-    CENA = "CENA",
-    SUSTENTADA = "SUSTENTADA",
-    DEFINIDA = "DEFINIDA",
-    PERMANENTE = "PERMANENTE"
-}
-
-export enum EscolaMagia {
-    ABJURACAO = "ABJURACAO",
-    ADVINHACAO = "ADVINHACAO",
-    CONVOCACAO = "CONVOCACAO",
-    ENCANTAMENTO = "ENCANTAMENTO",
-    EVOCACAO = "EVOCACAO",
-    ILUSAO = "ILUSAO",
-    NECROMANCIA = "NECROMANCIA",
-    TRANSMUTACAO = "TRANSMUTACAO"
-}
-
-export enum ExecucaoMagia {
-    ACAO_COMPLETA = "ACAO_COMPLETA",
-    ACAO_PADRAO = "ACAO_PADRAO",
-    ACAO_LIVRE = "ACAO_LIVRE",
-    REACAO = "REACAO",
-}
-
 export interface Resistencia {
     pericia: Pericia;
     tipo: TipoResistencia | string;
 }
 
+export enum AlcanceMagia {
+    PESSOAL = 'PESSOAL',
+    TOQUE = 'TOQUE',
+    CURTO = 'CURTO',
+    MEDIO = 'MEDIO',
+    LONGO = 'LONGO',
+    ILIMITADO = 'ILIMITADO',
+}
+
+export enum CirculoMagia {
+    PRIMEIRO_CIRCULO = 'PRIMEIRO_CIRCULO',
+    SEGUNDO_CIRCULO = 'SEGUNDO_CIRCULO',
+    TERCEIRO_CIRCULO = 'TERCEIRO_CIRCULO',
+    QUARTO_CIRCULO = 'QUARTO_CIRCULO',
+    QUINTOIRCULO = 'QUINTO_CIRCULO',
+}
+
+export enum DuracaoMagia {
+    INSTANTANEA = 'INSTANTANEA',
+    CENA = 'CENA',
+    SUSTENTADA = 'SUSTENTADA',
+    DEFINIDA = 'DEFINIDA',
+    PERMANENTE = 'PERMANENTE',
+}
+
+export enum EscolaMagia {
+    ABJURACAO = 'ABJURACAO',
+    ADVINHACAO = 'ADVINHACAO',
+    CONVOCACAO = 'CONVOCACAO',
+    ENCANTAMENTO = 'ENCANTAMENTO',
+    EVOCACAO = 'EVOCACAO',
+    ILUSAO = 'ILUSAO',
+    NECROMANCIA = 'NECROMANCIA',
+    TRANSMUTACAO = 'TRANSMUTACAO',
+}
+
+export enum ExecucaoMagia {
+    ACAO_COMPLETA = 'ACAO_COMPLETA',
+    ACAO_PADRAO = 'ACAO_PADRAO',
+    ACAO_LIVRE = 'ACAO_LIVRE',
+    REACAO = 'REACAO',
+}
+
 export enum TipoMagia {
-    MAGIA_ARCANA = "MAGIA_ARCANA",
-    MAGIA_DIVINA = "MAGIA_DIVINA"
+    MAGIA_ARCANA = 'MAGIA_ARCANA',
+    MAGIA_DIVINA = 'MAGIA_DIVINA',
+}
+
+export enum TipoResistencia {
+    ANULA = 'ANULA',
+    PARCIAL = 'PARCIAL',
+    REDUZ_A_METADE = 'REDUZ_A_METADE',
+    DESACREDITA = 'DESACREDITA',
 }

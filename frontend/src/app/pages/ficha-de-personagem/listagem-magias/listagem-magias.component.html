@@ -88,10 +88,10 @@
                 </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="resistencia">
+            <ng-container matColumnDef="resistencias">
                 <mat-header-cell *matHeaderCellDef>Resistência</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <span>{{ element?.resistencia ? getResistenciaLabel(element.resistencia) : '—' }}</span>
+                    <span>{{ element.resistencias.length ? getResistenciaLabel(element.resistencias) : '—' }}</span>
                 </mat-cell>
             </ng-container>
 

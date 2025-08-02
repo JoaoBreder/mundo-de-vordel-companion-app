@@ -14,12 +14,12 @@ export class MagiaFirestore implements MagiaBase {
     escola: EscolaMagia | null;
     execucao: ExecucaoMagia | null;
     nome: string;
-    resistencia: Resistencia | null;
+    resistencias: Resistencia[];
     tipo: TipoMagia | null;
 
     constructor(magia?: Partial<MagiaFirestore>) {
         const {
-            alcance, area, circulo, dataCriacao, dataAtualizacao, duracao, efeito, escola, excluido, execucao, nome, resistencia, tipo
+            alcance, area, circulo, dataCriacao, dataAtualizacao, duracao, efeito, escola, excluido, execucao, nome, resistencias, tipo
         } = magia ?? {};
 
         this.dataCriacao = dataCriacao ?? Timestamp.fromDate(new Date());
@@ -34,7 +34,7 @@ export class MagiaFirestore implements MagiaBase {
         this.escola = escola ?? null; 
         this.execucao = execucao ?? null;
         this.nome = nome ?? '';
-        this.resistencia = resistencia ?? null; 
+        this.resistencias = resistencias ?? []; 
         this.tipo = tipo ?? null; 
     }
 }

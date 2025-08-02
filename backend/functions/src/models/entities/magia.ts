@@ -13,7 +13,7 @@ export interface MagiaBase {
     escola: EscolaMagia | null;
     execucao: ExecucaoMagia | null;
     nome: string;
-    resistencia: Resistencia | null;
+    resistencias: Resistencia[];
     tipo: TipoMagia | null;
 }
 
@@ -30,12 +30,12 @@ export class Magia implements MagiaBase {
     private _escola: EscolaMagia | null;
     private _execucao: ExecucaoMagia | null;
     private _nome: string;
-    private _resistencia: Resistencia | null;
+    private _resistencias: Resistencia[];
     private _tipo: TipoMagia | null;
 
     constructor(magia?: Partial<Magia>) {
         const {
-            alcance, area, circulo, dataCriacao, dataAtualizacao, duracao, efeito, escola, excluido, execucao, nome, resistencia, tipo
+            alcance, area, circulo, dataCriacao, dataAtualizacao, duracao, efeito, escola, excluido, execucao, nome, resistencias, tipo
         } = magia ?? {};
 
         this._dataAtualizacao = dataAtualizacao ?? null;
@@ -50,7 +50,7 @@ export class Magia implements MagiaBase {
         this._escola = escola ?? null; 
         this._execucao = execucao ?? null; 
         this._nome = nome ?? '';
-        this._resistencia = resistencia ?? null; 
+        this._resistencias = resistencias ?? []; 
         this._tipo = tipo ?? null; 
     }
 
@@ -60,7 +60,7 @@ export class Magia implements MagiaBase {
 
     modificarMagia(magia: Partial<Magia>) {
         const {
-            alcance, circulo, duracao, efeito, escola, execucao, resistencia, tipo
+            alcance, circulo, duracao, efeito, escola, execucao, resistencias, tipo
         } = magia;
 
         this._alcance = alcance ?? this.alcance; 
@@ -69,7 +69,7 @@ export class Magia implements MagiaBase {
         this._efeito = efeito ?? this.efeito; 
         this._escola = escola ?? this.escola; 
         this._execucao = execucao ?? this.execucao; 
-        this._resistencia = resistencia ?? this.resistencia; 
+        this._resistencias = resistencias ?? this.resistencias; 
         this._tipo = tipo ?? this.tipo; 
 
         this._dataAtualizacao = new Date();
@@ -128,8 +128,8 @@ export class Magia implements MagiaBase {
         return this._nome;
     }
 
-    get resistencia(): Resistencia | null {
-        return this._resistencia;
+    get resistencias(): Resistencia[] {
+        return this._resistencias;
     }
 
     get tipo(): TipoMagia | null {
@@ -137,11 +137,9 @@ export class Magia implements MagiaBase {
     }
 }
 
-export enum TipoResistencia {
-    ANULA = "ANULA",
-    PARCIAL = "PARCIAL",
-    REDUZ_A_METADE = "REDUZ_A_METADE",
-    DESACREDITA = "DESACREDITA"
+export interface Resistencia {
+    pericia: Pericia;
+    tipo: TipoResistencia | string;
 }
 
 export enum AlcanceMagia {
@@ -187,12 +185,14 @@ export enum ExecucaoMagia {
     REACAO = "REACAO",
 }
 
-export interface Resistencia {
-    pericia: Pericia | null;
-    tipo: TipoResistencia | string | null;
-}
-
 export enum TipoMagia {
     MAGIA_ARCANA = "MAGIA_ARCANA",
     MAGIA_DIVINA = "MAGIA_DIVINA"
+}
+
+export enum TipoResistencia {
+    ANULA = "ANULA",
+    PARCIAL = "PARCIAL",
+    REDUZ_A_METADE = "REDUZ_A_METADE",
+    DESACREDITA = "DESACREDITA"
 }

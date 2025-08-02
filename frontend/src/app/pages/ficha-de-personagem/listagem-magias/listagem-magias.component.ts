@@ -19,7 +19,7 @@ export class ListagemMagiasComponent implements OnInit, OnDestroy {
 
     private filtroLista$ = new BehaviorSubject<CirculoMagia | null>(null);
 
-    displayedColumns: string[] = ['magia', 'execucao', 'alcance', 'duracao', 'resistencia', 'conjurar'];
+    displayedColumns: string[] = ['magia', 'execucao', 'alcance', 'duracao', 'resistencias', 'conjurar'];
     magiasDataSource: MatTableDataSource<any> = new MatTableDataSource<Magia>();
 
     constructor(private fichaDePersonagemService: FichaDePersonagemService) {}
@@ -116,9 +116,11 @@ export class ListagemMagiasComponent implements OnInit, OnDestroy {
         return DuracaoMagiaLabel[duracaoMagia as DuracaoMagia] ?? duracaoMagia;
     }
 
-    getResistenciaLabel(resistencia: Resistencia): string {
-        const { pericia, tipo } = resistencia;
-        return `${PericiaLabel[pericia]} ${TipoResistenciaLabel[tipo as TipoResistencia] ?? tipo}`;
+    getResistenciaLabel(resistencias: Resistencia[]): string {
+        return resistencias.map((resistencia) => {
+          const { pericia, tipo } = resistencia;
+          return `${PericiaLabel[pericia]} ${TipoResistenciaLabel[tipo as TipoResistencia] ?? tipo}`;
+        }).join(', ');
     }
 
     modificarFiltro(valor: string | null): void {

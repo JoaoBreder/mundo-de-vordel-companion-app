@@ -1,4 +1,5 @@
 import { AtaqueBase, AlcanceAtaque, TipoAtaque, TipoDano } from "../entities/ataque";
+import { Resistencia } from "../entities/magia";
 import { Pericia } from "../entities/personagem";
 import { QuantificadorJson } from "./quantificador-json";
 
@@ -54,12 +55,12 @@ export class AtaqueEfeitoJson implements AtaqueBase {
     tipo: TipoAtaque | null;
     tipoDano: TipoDano | null;
 
-    resistencia: Pericia | null;
+    resistencias: Resistencia[];
 
     constructor(ataque?: Partial<AtaqueEfeitoJson>) {
         const {
             alcance, bonusAtaque, bonusDano, dano, dataAtualizacao,
-            dataCriacao, descricao, excluido, tipo, tipoDano, resistencia
+            dataCriacao, descricao, excluido, tipo, tipoDano, resistencias
         } = ataque ?? {};
 
         this.dataAtualizacao = dataAtualizacao ?? null;
@@ -71,7 +72,7 @@ export class AtaqueEfeitoJson implements AtaqueBase {
         this.descricao = descricao ?? '';
         this.tipo = tipo ?? null;
         this.tipoDano = tipoDano ?? null;
-        this.resistencia = resistencia ?? null;
+        this.resistencias = resistencias ?? [];
 
         this.bonusAtaque = bonusAtaque ? new QuantificadorJson(bonusAtaque) : null;
         this.bonusDano = bonusDano ? new QuantificadorJson(bonusDano) : null;

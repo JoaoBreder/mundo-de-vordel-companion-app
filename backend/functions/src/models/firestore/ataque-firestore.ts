@@ -2,6 +2,7 @@ import { Timestamp } from "firebase-admin/firestore";
 import { QuantificadorFirestore } from "./quantificador-firestore";
 import { AtaqueBase, AlcanceAtaque, TipoAtaque, TipoDano } from "../entities/ataque";
 import { Pericia } from "../entities/personagem";
+import { Resistencia } from "../entities/magia";
 
 export class AtaqueArmaFirestore implements AtaqueBase {
     dataAtualizacao: Timestamp | null;
@@ -55,12 +56,12 @@ export class AtaqueEfeitoFirestore implements AtaqueBase {
     tipo: TipoAtaque | null;
     tipoDano: TipoDano | null;
 
-    resistencia: Pericia | null;
+    resistencias: Resistencia[];
 
     constructor(ataque?: Partial<AtaqueEfeitoFirestore>) {
         const {
             alcance, bonusAtaque, bonusDano, dano, dataAtualizacao,
-            dataCriacao, descricao, excluido, tipo, tipoDano, resistencia
+            dataCriacao, descricao, excluido, tipo, tipoDano, resistencias
         } = ataque ?? {};
 
         this.dataAtualizacao = dataAtualizacao ?? null;
@@ -72,7 +73,7 @@ export class AtaqueEfeitoFirestore implements AtaqueBase {
         this.descricao = descricao ?? '';
         this.tipo = tipo ?? null;
         this.tipoDano = tipoDano ?? null;
-        this.resistencia = resistencia ?? null;
+        this.resistencias = resistencias ?? [];
 
         this.bonusAtaque = bonusAtaque ? new QuantificadorFirestore(bonusAtaque) : null;
         this.bonusDano = bonusDano ? new QuantificadorFirestore(bonusDano) : null;
