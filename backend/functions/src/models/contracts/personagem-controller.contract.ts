@@ -33,7 +33,7 @@ export interface OnCallBuscarMagiasPersonagemRequest {
 
 export interface OnCallBuscarMagiasPersonagemResponse {
     quantidade: number;
-    magias: MagiaJson[];
+    magias: Record<CirculoMagia, MagiaJson[]>;
 }
 
 // TODO: Criar modelo de request da função de busca de personagem, quando for possível criar mais de um personagem por usuário

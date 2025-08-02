@@ -16,6 +16,8 @@ import {
   OnCallGerarBufferImagemPersonagemRequest, 
   OnCallGerarBufferImagemPersonagemResponse
 } from "../models/contracts/personagem-controller.contract";
+import { CirculoMagia } from "../models/entities/magia";
+import { MagiaJson } from "../models/json/magia-json";
 
 export class PersonagemController extends BasicController {
   // -----------------------------------------------------------------------------------------------------
@@ -39,8 +41,18 @@ export class PersonagemController extends BasicController {
     try {
       const magias = await PersonagemService.buscarMagiasPersonagem(this.uid, requestData);
 
+      const magiasResponse: Record<CirculoMagia, MagiaJson[]> = {
+        [CirculoMagia.PRIMEIRO_CIRCULO]: [],
+        [CirculoMagia.SEGUNDO_CIRCULO]: [],
+        [CirculoMagia.TERCEIRO_CIRCULO]: [],
+        [CirculoMagia.QUARTO_CIRCULO]: [],
+        [CirculoMagia.QUINTOIRCULO]: []
+      };
+
+      magias.forEach((magia) => magiasResponse[magia.circulo!].push(MagiaParser.toJson(magia)));
+
       return {
-        magias: magias.map((magia) => MagiaParser.toJson(magia)), 
+        magias: magiasResponse, 
         quantidade: magias.length
       };
     } catch (error: HttpsError | Error | any) {
