@@ -1,17 +1,23 @@
 import {HttpsError} from "firebase-functions/v2/https";
 import {HttpsErrorMiddleware} from "../middlewares/httpsError.middleware";
-import {PersonagemService} from "../services/personagem.service";
 import {BasicController} from "./basic.controller";
-import {PersonagemParser} from "../models/parsers/personagem.parser";
+import {PersonagemService} from "../services/personagem.service";
+
+import { AtaqueParser } from "../models/parsers/ataque.parser";
+import { MagiaParser } from "../models/parsers/magia.parser";
+import { PersonagemParser } from "../models/parsers/personagem.parser";
 
 import {
   OnCallBuscarAtaquesPersonagemRequest, 
   OnCallBuscarAtaquesPersonagemResponse, 
+  OnCallBuscarMagiasPersonagemRequest, 
+  OnCallBuscarMagiasPersonagemResponse, 
   OnCallBuscarPersonagemJogadorResponse, 
   OnCallGerarBufferImagemPersonagemRequest, 
   OnCallGerarBufferImagemPersonagemResponse
 } from "../models/contracts/personagem-controller.contract";
-import { AtaqueParser } from "../models/parsers/ataque.parser";
+import { CirculoMagia } from "../models/entities/magia";
+import { MagiaJson } from "../models/json/magia-json";
 
 export class PersonagemController extends BasicController {
   // -----------------------------------------------------------------------------------------------------
@@ -25,6 +31,29 @@ export class PersonagemController extends BasicController {
       return {
         ataques: ataques.map((ataque) => AtaqueParser.toJson(ataque)), 
         quantidade: ataques.length
+      };
+    } catch (error: HttpsError | Error | any) {
+      throw this.retornarErroController(error);
+    }
+  }
+
+  async buscarMagiasPersonagem(requestData: OnCallBuscarMagiasPersonagemRequest): Promise<OnCallBuscarMagiasPersonagemResponse> {
+    try {
+      const magias = await PersonagemService.buscarMagiasPersonagem(this.uid, requestData);
+
+      const magiasResponse: Record<CirculoMagia, MagiaJson[]> = {
+        [CirculoMagia.PRIMEIRO_CIRCULO]: [],
+        [CirculoMagia.SEGUNDO_CIRCULO]: [],
+        [CirculoMagia.TERCEIRO_CIRCULO]: [],
+        [CirculoMagia.QUARTO_CIRCULO]: [],
+        [CirculoMagia.QUINTO_CIRCULO]: []
+      };
+
+      magias.forEach((magia) => magiasResponse[magia.circulo!].push(MagiaParser.toJson(magia)));
+
+      return {
+        magias: magiasResponse, 
+        quantidade: magias.length
       };
     } catch (error: HttpsError | Error | any) {
       throw this.retornarErroController(error);

@@ -1,17 +1,29 @@
 import { Injectable } from '@angular/core';
-import { FunctionsService } from '../../shared/services/functions.service';
 import { SubscriptionManager } from 'rxjs-sub-manager';
 import { ActivatedRouteSnapshot, CanDeactivate, Resolve, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { OnCallBuscarPersonagemJogadorResponse } from '../../shared/models/contracts/cloud-functions/oncall-buscar-personagem-jogador';
-import { PersonagemParser } from '../../shared/models/parsers/personagem.parser';
-import { OnCallGerarBufferImagemPersonagemRequest, OnCallGerarBufferImagemPersonagemResponse } from '../../shared/models/contracts/cloud-functions/oncall-gerar-buffer-imagem-personagem';
+
+import { FunctionsService } from '../../shared/services/functions.service';
+import { TipoAtaque, AtaqueArma, AtaqueEfeito } from '../../shared/models/entities/ataque';
+import { Personagem } from '../../shared/models/entities/personagem';
+import { CirculoMagia, EscolaMagia, Magia } from '../../shared/models/entities/magia';
 import { CloudFunction } from '../../shared/helpers/cloud-function';
-import { Personagem } from '../../shared/models/personagem';
-import { AtaqueArma, AtaqueEfeito, TipoAtaque } from '../../shared/models/ataque';
+
+import { OnCallBuscarPersonagemJogadorResponse } from '../../shared/models/contracts/cloud-functions/oncall-buscar-personagem-jogador';
 import { OnCallBuscarAtaquesPersonagemRequest, OnCallBuscarAtaquesPersonagemResponse } from '../../shared/models/contracts/cloud-functions/oncall-buscar-ataques-personagem';
+import { OnCallBuscarMagiasPersonagemRequest, OnCallBuscarMagiasPersonagemResponse } from '../../shared/models/contracts/cloud-functions/oncall-buscar-magias-personagem';
+import {
+    OnCallGerarBufferImagemPersonagemRequest,
+    OnCallGerarBufferImagemPersonagemResponse,
+} from '../../shared/models/contracts/cloud-functions/oncall-gerar-buffer-imagem-personagem';
+
+import { OrdenacaoRegistrosMagia } from '../../shared/models/firestore/magia-firestore';
 import { OrdenacaoRegistrosAtaque } from '../../shared/models/firestore/ataque-firestore';
+
 import { AtaqueParser } from '../../shared/models/parsers/ataque.parser';
+import { PersonagemParser } from '../../shared/models/parsers/personagem.parser';
+import { MagiaParser } from '../../shared/models/parsers/magia.parser';
+import { DetalhesFicha } from './detalhes-ficha/detalhes-ficha.component';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 @Injectable({
@@ -21,6 +33,7 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
     private readonly subscriptionManager = new SubscriptionManager({ prefixId: 'HistoricoEnvioAppService' });
 
     personagemJogador$ = new BehaviorSubject<Personagem | null>(null);
+    detalhesFicha$ = new BehaviorSubject<DetalhesFicha | null>(null);
 
     constructor(private functionsService: FunctionsService) {}
 
@@ -79,7 +92,7 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
 
         try {
             const requestData: OnCallGerarBufferImagemPersonagemRequest = {
-              personagemId: personagem._id
+                personagemId: personagem._id,
             };
 
             const { base64 } = await this.functionsService.callCloudFunction<OnCallGerarBufferImagemPersonagemRequest, OnCallGerarBufferImagemPersonagemResponse>(
@@ -104,8 +117,8 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
                 orderBy,
                 personagemId: personagem._id,
                 filter: {
-                    tipo: filtroTipo
-                }
+                    tipo: filtroTipo,
+                },
             };
 
             const { ataques } = await this.functionsService.callCloudFunction<OnCallBuscarAtaquesPersonagemRequest, OnCallBuscarAtaquesPersonagemResponse>(
@@ -114,11 +127,43 @@ export class FichaDePersonagemService implements Resolve<boolean>, CanDeactivate
                 true
             );
 
-            const ataquesParsed = ataques.map((ataque) => AtaqueParser.ataque(ataque));
+            const ataquesParsed = ataques.map(ataque => AtaqueParser.ataque(ataque));
             return ataquesParsed;
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             return [];
+        }
+    }
+
+    async buscarMagiasPersonagem(orderBy: OrdenacaoRegistrosMagia, filter: { circulo?: CirculoMagia; escola?: EscolaMagia }): Promise<Record<CirculoMagia, Magia[]> | null> {
+        const personagem = this.personagemJogador$.getValue();
+        if (!personagem || !personagem?._id) return null;
+
+        try {
+            const requestData: OnCallBuscarMagiasPersonagemRequest = {
+                orderBy,
+                filter,
+                personagemId: personagem._id,
+            };
+
+            const { magias } = await this.functionsService.callCloudFunction<OnCallBuscarMagiasPersonagemRequest, OnCallBuscarMagiasPersonagemResponse>(
+                CloudFunction.ONCALL_BUSCAR_MAGIAS_PERSONAGEM,
+                requestData,
+                true
+            );
+
+            const magiasParsed: Record<CirculoMagia, Magia[]> = {
+              [CirculoMagia.PRIMEIRO_CIRCULO]: magias[CirculoMagia.PRIMEIRO_CIRCULO].map(magia => MagiaParser.magia(magia)),
+              [CirculoMagia.SEGUNDO_CIRCULO]: magias[CirculoMagia.SEGUNDO_CIRCULO].map(magia => MagiaParser.magia(magia)),
+              [CirculoMagia.TERCEIRO_CIRCULO]: magias[CirculoMagia.TERCEIRO_CIRCULO].map(magia => MagiaParser.magia(magia)),
+              [CirculoMagia.QUARTO_CIRCULO]: magias[CirculoMagia.QUARTO_CIRCULO].map(magia => MagiaParser.magia(magia)),
+              [CirculoMagia.QUINTO_CIRCULO]: magias[CirculoMagia.QUINTO_CIRCULO].map(magia => MagiaParser.magia(magia))
+            }
+
+            return magiasParsed;
+        } catch (error) {
+            console.log(error);
+            return null;
         }
     }
 }

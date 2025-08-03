@@ -1,0 +1,115 @@
+<div class="listagem-magias">
+    <div class="action-button-wrapper">
+        <span>Círculo:</span>
+
+        <button
+            mat-raised-button
+            [color]="botaoFiltroAtivado(null) ? 'accent' : 'primary'"
+            [ngClass]="{ 'botao-desativado': !botaoFiltroAtivado(null) }"
+            (click)="modificarFiltro(null)">
+            <span class="button-label">TODOS</span>
+        </button>
+
+        <button
+            mat-raised-button
+            [color]="botaoFiltroAtivado('PRIMEIRO_CIRCULO') ? 'accent' : 'primary'"
+            [ngClass]="{ 'botao-desativado': !botaoFiltroAtivado('PRIMEIRO_CIRCULO') }"
+            (click)="modificarFiltro('PRIMEIRO_CIRCULO')">
+            <span class="button-label">1º</span>
+        </button>
+
+        <button
+            mat-raised-button
+            [color]="botaoFiltroAtivado('SEGUNDO_CIRCULO') ? 'accent' : 'primary'"
+            [ngClass]="{ 'botao-desativado': !botaoFiltroAtivado('SEGUNDO_CIRCULO') }"
+            (click)="modificarFiltro('SEGUNDO_CIRCULO')">
+            <span class="button-label">2º</span>
+        </button>
+
+        <button
+            mat-raised-button
+            [color]="botaoFiltroAtivado('TERCEIRO_CIRCULO') ? 'accent' : 'primary'"
+            [ngClass]="{ 'botao-desativado': !botaoFiltroAtivado('TERCEIRO_CIRCULO') }"
+            (click)="modificarFiltro('TERCEIRO_CIRCULO')">
+            <span class="button-label">3º</span>
+        </button>
+
+        <button
+            mat-raised-button
+            [color]="botaoFiltroAtivado('QUARTO_CIRCULO') ? 'accent' : 'primary'"
+            [ngClass]="{ 'botao-desativado': !botaoFiltroAtivado('QUARTO_CIRCULO') }"
+            (click)="modificarFiltro('QUARTO_CIRCULO')">
+            <span class="button-label">4º</span>
+        </button>
+
+        <button
+            mat-raised-button
+            [color]="botaoFiltroAtivado('QUINTO_CIRCULO') ? 'accent' : 'primary'"
+            [ngClass]="{ 'botao-desativado': !botaoFiltroAtivado('QUINTO_CIRCULO') }"
+            (click)="modificarFiltro('QUINTO_CIRCULO')">
+            <span class="button-label">5º</span>
+        </button>
+    </div>
+
+    <ng-scrollbar visibility="hover" thumbClass="custom-scrollbar">
+        <mat-table class="magias-table" [dataSource]="magiasDataSource" scrollViewport>
+            <ng-container matColumnDef="magia">
+                <mat-header-cell *matHeaderCellDef><b>Magia</b></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <ng-icon
+                        *ngIf="element?.isCirculoMagia === undefined"
+                        [name]="getEscolaMagiaIcon(element.escola)"
+                        [size]="'20px'"
+                        class="mr-3 cursor-pointer"
+                        [matTooltip]="getEscolaMagiaLabel(element.escola)"
+                        matTooltipPosition="above"></ng-icon>
+                    <span class="w-full">{{ element.nome }}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="execucao">
+                <mat-header-cell *matHeaderCellDef>Execução</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span *ngIf="element?.isCirculoMagia === undefined">{{ element?.execucao ? getExecucaoMagiaLabel(element.execucao) : '—' }}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="alcance">
+                <mat-header-cell *matHeaderCellDef>Alcance, Alvo e Área</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span *ngIf="element?.isCirculoMagia === undefined">{{ montarDescricaoAlcanceAlvoArea(element?.alcance, element?.alvo, element?.area) }}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="duracao">
+                <mat-header-cell *matHeaderCellDef>Duração</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span *ngIf="element?.isCirculoMagia === undefined">{{ element?.duracao ? getDuracaoMagiaLabel(element.duracao) : '—' }}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="resistencias">
+                <mat-header-cell *matHeaderCellDef>Resistência</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span *ngIf="element?.isCirculoMagia === undefined">{{ element.resistencias.length ? getResistenciaLabel(element.resistencias) : '—' }}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="conjurar">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button *ngIf="element?.isCirculoMagia === undefined" mat-raised-button color="accent" [disabled]="true">
+                        <span class="button-label">CONJURAR</span>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row
+                *matRowDef="let element; columns: displayedColumns"
+                [ngClass]="{ 'circulo-magia': element?.isCirculoMagia, element: !element?.isCirculoMagia }"
+                (click)="atualizarDetalhesFichaComponent(element)"
+                matRipple></mat-row>
+        </mat-table>
+    </ng-scrollbar>
+</div>

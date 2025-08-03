@@ -1,3 +1,4 @@
+import { Resistencia } from './magia';
 import { Pericia } from './personagem';
 import { Quantificador } from './quantificador';
 
@@ -133,13 +134,13 @@ export class AtaqueEfeito implements AtaqueBase {
     private _tipo: TipoAtaque | null;
     private _tipoDano: TipoDano | null;
 
-    private _resistencia: Pericia | null;
+    private _resistencias: Resistencia[];
 
     bonusAtaque: Quantificador | null;
     bonusDano: Quantificador | null;
 
     constructor(ataque?: Partial<AtaqueEfeito>) {
-        const { alcance, bonusAtaque, bonusDano, dano, dataAtualizacao, dataCriacao, descricao, excluido, tipo, tipoDano, resistencia } = ataque ?? {};
+        const { alcance, bonusAtaque, bonusDano, dano, dataAtualizacao, dataCriacao, descricao, excluido, tipo, tipoDano, resistencias } = ataque ?? {};
 
         this._dataCriacao = dataCriacao ?? new Date();
         this._dataAtualizacao = dataAtualizacao ?? null;
@@ -151,7 +152,7 @@ export class AtaqueEfeito implements AtaqueBase {
         this._excluido = excluido ?? false;
         this._tipo = tipo ?? null;
         this._tipoDano = tipoDano ?? null;
-        this._resistencia = resistencia ?? null;
+        this._resistencias = resistencias ?? [];
 
         this.bonusAtaque = bonusAtaque ? new Quantificador(bonusAtaque) : null;
         this.bonusDano = bonusDano ? new Quantificador(bonusDano) : null;
@@ -162,14 +163,14 @@ export class AtaqueEfeito implements AtaqueBase {
     // -----------------------------------------------------------------------------------------------------
 
     modificarAtaque(ataque: Partial<AtaqueEfeito>) {
-        const { alcance, bonusAtaque, bonusDano, dano, descricao, tipo, tipoDano, resistencia } = ataque;
+        const { alcance, bonusAtaque, bonusDano, dano, descricao, tipo, tipoDano, resistencias } = ataque;
 
         this._alcance = alcance ?? this.alcance;
         this._dano = dano ?? this.dano;
         this._descricao = descricao ?? this.descricao;
         this._tipo = tipo ?? this.tipo;
         this._tipoDano = tipoDano ?? this.tipoDano;
-        this._resistencia = resistencia ?? this.resistencia;
+        this._resistencias = resistencias ?? this.resistencias;
 
         this.bonusAtaque = bonusAtaque ? new Quantificador(bonusAtaque) : this.bonusAtaque;
         this.bonusDano = bonusDano ? new Quantificador(bonusDano) : this.bonusDano;
@@ -218,8 +219,8 @@ export class AtaqueEfeito implements AtaqueBase {
         return this._tipoDano;
     }
 
-    get resistencia(): Pericia | null {
-        return this._resistencia;
+    get resistencias(): Resistencia[] {
+        return this._resistencias;
     }
 }
 

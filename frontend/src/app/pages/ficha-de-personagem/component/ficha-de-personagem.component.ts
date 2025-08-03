@@ -4,7 +4,7 @@ import { BehaviorSubject, distinctUntilChanged, filter } from 'rxjs';
 import { FichaDePersonagemService } from '../ficha-de-personagem.service';
 import { SubscriptionManager } from 'rxjs-sub-manager';
 import { ClassePersonagemLabel } from '../../../shared/helpers/label-helpers';
-import { Atributos, Personagem } from '../../../shared/models/personagem';
+import { Personagem, Atributos } from '../../../shared/models/entities/personagem';
 
 @Component({
     selector: 'app-ficha-de-personagem',
@@ -67,9 +67,9 @@ export class FichaDePersonagemComponent {
             )
             .subscribe(personagemJogador => {
                 if (personagemJogador) {
-                  this.personagem = personagemJogador;
-                  this.salvarBase64ImagemPersonagem();
-                };
+                    this.personagem = personagemJogador;
+                    this.salvarBase64ImagemPersonagem();
+                }
             });
 
         this.subscriptionManager.add({ sub, ref: 'observarPersonagemJogador' });

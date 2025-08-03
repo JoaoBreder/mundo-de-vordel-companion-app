@@ -58,18 +58,23 @@
                     <div class="placeholder"></div>
                 </div>
 
-                <mat-tab-group class="detalhes" color="accent">
-                    <mat-tab label="Ataques" bodyClass="tab-detalhes-content">
+                <mat-tab-group class="listagens" color="accent">
+                    <mat-tab label="Ataques" bodyClass="tab-listagens-content">
                         <listagem-ataques-component />
                     </mat-tab>
 
-                    <mat-tab label="Magias" bodyClass="tab-detalhes-content"></mat-tab>
-                    <mat-tab label="Poderes" bodyClass="tab-detalhes-content"></mat-tab>
-                    <mat-tab label="Inventário" bodyClass="tab-detalhes-content"></mat-tab>
+                    <mat-tab label="Magias" bodyClass="tab-listagens-content">
+                        <listagem-magias-component />
+                    </mat-tab>
+
+                    <mat-tab label="Poderes" bodyClass="tab-listagens-content"></mat-tab>
+                    <mat-tab label="Inventário" bodyClass="tab-listagens-content"></mat-tab>
                 </mat-tab-group>
             </div>
 
             <pericias-component [pericias]="personagem.pericias" />
         </div>
+
+        <detalhes-ficha-component />
     </div>
 </div>

@@ -1,8 +1,15 @@
-import { OnCallBuscarAtaquesPersonagemRequest, OnCallGerarBufferImagemPersonagemRequest } from "../models/contracts/personagem-controller.contract";
-import { AtaqueArmaFirestore, AtaqueEfeitoFirestore } from "../models/firestore/ataque-firestore";
-import {PersonagemFirestore} from "../models/firestore/personagem-firestore";
-import {DatabaseService} from "./database.service";
+import { DatabaseService } from "./database.service";
 import { StorageService } from "./storage.service";
+
+import { AtaqueArmaFirestore, AtaqueEfeitoFirestore } from "../models/firestore/ataque-firestore";
+import { MagiaFirestore } from "../models/firestore/magia-firestore";
+import { PersonagemFirestore } from "../models/firestore/personagem-firestore";
+
+import { 
+  OnCallBuscarAtaquesPersonagemRequest, 
+  OnCallBuscarMagiasPersonagemRequest, 
+  OnCallGerarBufferImagemPersonagemRequest 
+} from "../models/contracts/personagem-controller.contract";
 
 export abstract class PersonagemService {
   // -----------------------------------------------------------------------------------------------------
@@ -16,6 +23,15 @@ export abstract class PersonagemService {
     const collectionsPath = ["usuarios", userId, "personagens", personagemId, "ataques"];
     const ataquesFirestore = (await DatabaseService.buscarDocsColecao<(AtaqueArmaFirestore | AtaqueEfeitoFirestore)[]>(collectionsPath, orderBy, filter));
     return ataquesFirestore;
+  }
+
+  static async buscarMagiasPersonagem(
+    userId: string, 
+    {personagemId, orderBy, filter}: OnCallBuscarMagiasPersonagemRequest
+  ): Promise<MagiaFirestore[]> {
+    const collectionsPath = ["usuarios", userId, "personagens", personagemId, "magias"];
+    const magiasFirestore = (await DatabaseService.buscarDocsColecao<MagiaFirestore[]>(collectionsPath, orderBy, filter));
+    return magiasFirestore;
   }
 
   static async buscarPersonagemJogador(userId: string): Promise<PersonagemFirestore | undefined> {

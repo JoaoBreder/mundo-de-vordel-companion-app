@@ -1,0 +1,28 @@
+<div class="detalhes-ficha-card">
+    <div *ngIf="detalhesFicha" class="detalhes-ficha">
+        <div class="detalhes-wrapper">
+            <div class="detalhes-header">
+                <ng-icon *ngIf="detalhesFicha.icone" [name]="detalhesFicha.icone" [size]="'22px'" class="mr-2"></ng-icon>
+                <span class="titulo">{{ detalhesFicha.titulo }}</span>
+            </div>
+
+            <button mat-icon-button color="accent" (click)="fecharDetalhesFicha()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+
+        <ng-scrollbar visibility="hover" thumbClass="custom-scrollbar">
+            <mat-table class="conteudo-table" [dataSource]="conteudoDataSource" scrollViewport>
+                <ng-container matColumnDef="conteudo">
+                    <mat-header-cell *matHeaderCellDef>{{ detalhesFicha.subtitulo }}</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <div class="conteudo" [innerHTML]="element"></div>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let element; columns: displayedColumns" matRipple></mat-row>
+            </mat-table>
+        </ng-scrollbar>
+    </div>
+</div>

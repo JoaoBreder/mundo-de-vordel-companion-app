@@ -1,12 +1,12 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FichaDePersonagemService } from '../ficha-de-personagem.service';
-import { AlcanceAtaque, AtaqueArma, AtaqueEfeito, TipoAtaque, TipoDano } from '../../../shared/models/ataque';
-import { Pericia } from '../../../shared/models/personagem';
 import { AlcanceAtaqueLabel, PericiaLabel, TipoAtaqueLabel, TipoDanoLabel } from '../../../shared/helpers/label-helpers';
-import { BehaviorSubject, combineLatest, startWith } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, startWith } from 'rxjs';
 import { OrdenacaoRegistrosAtaque } from '../../../shared/models/firestore/ataque-firestore';
 import { SubscriptionManager } from 'rxjs-sub-manager';
+import { TipoAtaque, AtaqueArma, AtaqueEfeito, AlcanceAtaque, TipoDano } from '../../../shared/models/entities/ataque';
+import { Pericia } from '../../../shared/models/entities/personagem';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
@@ -33,7 +33,7 @@ export class ListagemAtaquesComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-      this.subscriptionManager.destroy();
+        this.subscriptionManager.destroy();
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -46,8 +46,10 @@ export class ListagemAtaquesComponent implements OnInit, OnDestroy {
     }
 
     private observarActionButtons(): void {
-        const sub = combineLatest([this.ordenacaoLista$.pipe(startWith(this.ordenacaoLista)), this.filtroLista$.pipe(startWith(this.filtroLista))])
-          .subscribe(([ordenacao, filtro]) => this.buscarAtaquesDataSource(ordenacao, filtro ?? undefined));
+        const sub = combineLatest([
+            this.ordenacaoLista$.pipe(startWith(this.ordenacaoLista), distinctUntilChanged()),
+            this.filtroLista$.pipe(startWith(this.filtroLista), distinctUntilChanged()),
+        ]).subscribe(([ordenacao, filtro]) => this.buscarAtaquesDataSource(ordenacao, filtro ?? undefined));
 
         this.subscriptionManager.add({ ref: 'observarActionButtons', sub });
     }

@@ -110,3 +110,8 @@ mat-checkbox,
         transition: 300ms;
     }
 }
+
+.mat-mdc-icon-button:hover .mat-mdc-button-persistent-ripple::before {
+  opacity: 1;
+  background-color: transparent;
+}
