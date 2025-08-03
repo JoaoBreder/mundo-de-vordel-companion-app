@@ -1,6 +1,8 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { TipoModificadorLabel } from '../../../shared/helpers/label-helpers';
-import { Modificador } from '../../../shared/models/entities/quantificador';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { AtributoAbreviadoLabel, TipoModificadorLabel } from '../../../shared/helpers/label-helpers';
+import { AtributoAbreviado, Modificador } from '../../../shared/models/entities/quantificador';
+import { DetalhesFicha } from '../detalhes-ficha/detalhes-ficha.component';
+import { FichaDePersonagemService } from '../ficha-de-personagem.service';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
@@ -9,29 +11,77 @@ import { Modificador } from '../../../shared/models/entities/quantificador';
     styleUrls: ['./atributo.component.scss'],
     encapsulation: ViewEncapsulation.None,
 })
-export class AtributoComponent implements OnInit {
-    @Input() public nome = '';
+export class AtributoComponent {
+    @Input() public nome!: AtributoAbreviado;
     @Input() public valorTotal = 0;
     @Input() public modificadores: Modificador[] = [];
     @Input() public modificadoresTemporarios: Modificador[] = [];
 
-    detalhesAtributo = '';
+    constructor(private fichaDePersonagemService: FichaDePersonagemService) {}
 
-    ngOnInit(): void {
-        this.montarDescricaoDetalhes();
+    // -----------------------------------------------------------------------------------------------------
+    // @ Métodos públicos
+    // -----------------------------------------------------------------------------------------------------
+    getAtributoIcon(atributo: AtributoAbreviado): string {
+        let icon = '';
+
+        switch (atributo) {
+            case AtributoAbreviado.CAR:
+                icon = 'gameDramaMasks';
+                break;
+
+            case AtributoAbreviado.CON:
+                icon = 'gameAbdominalArmor';
+                break;
+
+            case AtributoAbreviado.DES:
+                icon = 'gameRun';
+                break;
+
+            case AtributoAbreviado.FOR:
+                icon = 'gameBiceps';
+                break;
+
+            case AtributoAbreviado.INT:
+                icon = 'gameBrain';
+                break;
+
+            case AtributoAbreviado.SAB:
+                icon = 'gameWisdom';
+                break;
+        }
+
+        return icon;
     }
 
     // -----------------------------------------------------------------------------------------------------
-    // @ Métodos privados
+    // @ Métodos públicos
     // -----------------------------------------------------------------------------------------------------
 
-    private montarDescricaoDetalhes(): void {
-        const detalhesAtributoArray: string[] = [];
+    atualizarDetalhesFichaComponent() {
+        const conteudo: string[] = [`<p><b>Total:</b> ${this.valorTotal}</p>`];
 
-        this.modificadores.forEach(modificador => {
-            detalhesAtributoArray.push(`${TipoModificadorLabel[modificador.tipo]} ${modificador.valor > 0 ? '+' : ''}${modificador.valor.toString()}`);
-        });
+        const modificadoresDescricao = this.modificadores.map(
+            modificador => `<p><b>${TipoModificadorLabel[modificador.tipo]}:</b> ${modificador.valor > 0 ? '+' : '-'}${modificador.valor.toString()}</p>`
+        );
 
-        this.detalhesAtributo = detalhesAtributoArray.join(', ');
+        conteudo.push(modificadoresDescricao.join(''));
+
+        if (this.modificadoresTemporarios.length) {
+            const modificadoresTemporariosDescricao = this.modificadoresTemporarios.map(
+                modificador => `<p><b>${TipoModificadorLabel[modificador.tipo]}:</b> ${modificador.valor > 0 ? '+' : '-'}${modificador.valor.toString()}</p>`
+            );
+
+            conteudo.push(modificadoresTemporariosDescricao.join(''));
+        }
+
+        const detalhesFicha: DetalhesFicha = {
+            conteudo,
+            icone: this.getAtributoIcon(this.nome),
+            titulo: AtributoAbreviadoLabel[this.nome],
+            subtitulo: 'Atributo',
+        };
+
+        this.fichaDePersonagemService.detalhesFicha$.next(detalhesFicha);
     }
 }

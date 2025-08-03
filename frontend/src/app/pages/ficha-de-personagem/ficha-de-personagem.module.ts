@@ -19,6 +19,12 @@ import {
     gamePocketBow,
     gameRubElHizb,
     gameThunderball,
+    gameDramaMasks,
+    gameAbdominalArmor,
+    gameRun,
+    gameBiceps,
+    gameBrain,
+    gameWisdom
 } from '@ng-icons/game-icons';
 
 import { NgScrollbarModule } from 'ngx-scrollbar';
@@ -52,7 +58,13 @@ import { DetalhesFichaComponent } from './detalhes-ficha/detalhes-ficha.componen
             gameDreadSkull,
             gameRubElHizb,
             gameMagicSwirl,
-            gameBrainTentacle
+            gameBrainTentacle,
+            gameDramaMasks,
+            gameAbdominalArmor,
+            gameRun,
+            gameBiceps,
+            gameBrain,
+            gameWisdom
         }),
 
         NgScrollbarModule,

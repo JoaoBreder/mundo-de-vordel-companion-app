@@ -10,8 +10,8 @@ pericias-component {
         border-radius: 0.5rem;
 
         .scrollbar-control {
-          padding-top: 4rem;
-          padding-bottom: 0.5rem;
+            padding-top: 4rem;
+            padding-bottom: 0.5rem;
         }
 
         .custom-scrollbar {
@@ -32,15 +32,19 @@ pericias-component {
                 font-size: 1.6rem;
             }
 
+            .element {
+                cursor: pointer;
+            }
+
             mat-header-row {
-              height: 4rem !important;
-              min-height: 4rem !important;
+                height: 4rem !important;
+                min-height: 4rem !important;
 
                 background-color: black;
             }
 
             mat-row {
-              height: 4.3rem !important;
+                height: 4.3rem !important;
                 min-height: 4.3rem !important;
 
                 span {
@@ -104,7 +108,7 @@ pericias-component {
             }
 
             .mat-column-treinado {
-              border-bottom-color: transparent;
+                border-bottom-color: transparent;
             }
 
             .mat-column-pericia,

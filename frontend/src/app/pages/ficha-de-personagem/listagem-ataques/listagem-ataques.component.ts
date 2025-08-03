@@ -1,12 +1,13 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FichaDePersonagemService } from '../ficha-de-personagem.service';
-import { AlcanceAtaqueLabel, PericiaLabel, TipoAtaqueLabel, TipoDanoLabel } from '../../../shared/helpers/label-helpers';
+import { AlcanceAtaqueLabel, PericiaLabel, TipoAtaqueLabel, TipoDanoLabel, TipoModificadorLabel } from '../../../shared/helpers/label-helpers';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, startWith } from 'rxjs';
 import { OrdenacaoRegistrosAtaque } from '../../../shared/models/firestore/ataque-firestore';
 import { SubscriptionManager } from 'rxjs-sub-manager';
 import { TipoAtaque, AtaqueArma, AtaqueEfeito, AlcanceAtaque, TipoDano } from '../../../shared/models/entities/ataque';
 import { Pericia } from '../../../shared/models/entities/personagem';
+import { DetalhesFicha } from '../detalhes-ficha/detalhes-ficha.component';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
@@ -108,6 +109,60 @@ export class ListagemAtaquesComponent implements OnInit, OnDestroy {
 
     modificarOrdenacao(valor: string): void {
         this.ordenacaoLista$.next(valor as OrdenacaoRegistrosAtaque);
+    }
+
+    atualizarDetalhesFichaComponent(ataque: AtaqueArma | AtaqueEfeito) {
+        const conteudo = [];
+
+        const informacoesAtaque = `
+              ${ataque instanceof AtaqueArma && ataque?.pericia ? `<p><b>Teste de Ataque:</b> ${PericiaLabel[ataque.pericia]}${ataque.bonusAtaque ? ` + ${ataque.bonusAtaque.valorTotal}` : ''}.</p>` : ''}
+              ${`<p><b>Dano:</b> ${ataque.dano}${ataque.bonusDano ? ` + ${ataque.bonusDano.valorTotal}` : ''}.</p>`}
+              ${ataque instanceof AtaqueArma && ataque.critico ? `<p><b>Crítico:</b> ${ataque.critico}.</p>` : ''}
+              ${ataque.tipoDano ? `<p><b>Tipo:</b> ${TipoDanoLabel[ataque.tipoDano]}.</p>` : ''}
+              ${ataque.alcance ? `<p><b>Alcance:</b> ${AlcanceAtaqueLabel[ataque.alcance]}.</p>` : ''}
+            `;
+        conteudo.push(informacoesAtaque);
+
+        if (ataque.bonusAtaque) {
+            let bonusAtaqueDescricao = ataque.bonusAtaque.modificadores.map(
+                modificador => `<p><b>${TipoModificadorLabel[modificador.tipo]}:</b> ${modificador.valor > 0 ? '+' : '-'}${modificador.valor.toString()}</p>`
+            );
+
+            if (ataque.bonusAtaque.modificadoresTemporarios.length) {
+                bonusAtaqueDescricao = bonusAtaqueDescricao.concat(
+                    ataque.bonusAtaque.modificadoresTemporarios.map(
+                        modificador => `<p><b>${TipoModificadorLabel[modificador.tipo]}:</b> ${modificador.valor > 0 ? '+' : '-'}${modificador.valor.toString()}</p>`
+                    )
+                );
+            }
+
+            conteudo.push(`<p><b>Bônus Total Ataque:</b> ${ataque.bonusAtaque.valorTotal}</p> ${bonusAtaqueDescricao.join('')}`);
+        }
+
+        if (ataque.bonusDano) {
+            let bonusDanoDescricao = ataque.bonusDano.modificadores.map(
+                modificador => `<p><b>${TipoModificadorLabel[modificador.tipo]}:</b> ${modificador.valor > 0 ? '+' : '-'}${modificador.valor.toString()}</p>`
+            );
+
+            if (ataque.bonusDano.modificadoresTemporarios.length) {
+                bonusDanoDescricao = bonusDanoDescricao.concat(
+                    ataque.bonusDano.modificadoresTemporarios.map(
+                        modificador => `<p><b>${TipoModificadorLabel[modificador.tipo]}:</b> ${modificador.valor > 0 ? '+' : '-'}${modificador.valor.toString()}</p>`
+                    )
+                );
+            }
+
+            conteudo.push(`<p><b>Bônus Total Dano:</b> ${ataque.bonusDano.valorTotal}</p> ${bonusDanoDescricao.join('')}`);
+        }
+
+        const detalhesFicha: DetalhesFicha = {
+            conteudo,
+            icone: this.getTipoAtaqueIcon(ataque.tipo!),
+            titulo: ataque.descricao,
+            subtitulo: TipoAtaqueLabel[ataque.tipo!],
+        };
+
+        this.fichaDePersonagemService.detalhesFicha$.next(detalhesFicha);
     }
 
     // -----------------------------------------------------------------------------------------------------

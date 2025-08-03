@@ -1,4 +1,4 @@
-<div class="atributo-card" [matTooltip]="detalhesAtributo" matTooltipPosition="below" matTooltipClass="mattooltip-atributo">
+<div class="atributo-card" (click)="atualizarDetalhesFichaComponent()">
     <h3 class="nome-atributo">{{ nome }}</h3>
     <div class="valor-atributo">{{ valorTotal }}</div>
 </div>

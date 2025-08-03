@@ -115,7 +115,7 @@
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-            <mat-row *matRowDef="let element; columns: displayedColumns" class="element" matRipple></mat-row>
+            <mat-row *matRowDef="let element; columns: displayedColumns" class="element" matRipple (click)="atualizarDetalhesFichaComponent(element)"></mat-row>
         </mat-table>
     </ng-scrollbar>
 </div>

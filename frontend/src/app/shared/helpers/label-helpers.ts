@@ -1,7 +1,7 @@
 import { AlcanceAtaque, TipoAtaque, TipoDano } from '../models/entities/ataque';
 import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, ExecucaoMagia, TipoMagia, TipoResistencia } from '../models/entities/magia';
 import { ClassePersonagem, Pericia, Pericias } from '../models/entities/personagem';
-import { TipoModificador } from '../models/entities/quantificador';
+import { AtributoAbreviado, TipoModificador } from '../models/entities/quantificador';
 
 export const AlcanceAtaqueLabel: Record<AlcanceAtaque, string> = {
     [AlcanceAtaque.TOQUE]: 'Toque',
@@ -19,13 +19,22 @@ export const AlcanceMagiaLabel: Record<AlcanceMagia, string> = {
     [AlcanceMagia.ILIMITADO]: 'Ilimitado',
 };
 
+export const AtributoAbreviadoLabel: Record<AtributoAbreviado, string> = {
+    [AtributoAbreviado.CAR]: 'Carisma',
+    [AtributoAbreviado.CON]: 'Constituição',
+    [AtributoAbreviado.DES]: 'Destreza',
+    [AtributoAbreviado.FOR]: 'Força',
+    [AtributoAbreviado.INT]: 'Inteligência',
+    [AtributoAbreviado.SAB]: 'Sabedoria',
+};
+
 export const CirculoMagiaLabel: Record<CirculoMagia, string> = {
-  [CirculoMagia.PRIMEIRO_CIRCULO]: '1º Círculo',
-  [CirculoMagia.SEGUNDO_CIRCULO]: '2º Círculo',
-  [CirculoMagia.TERCEIRO_CIRCULO]: '3º Círculo',
-  [CirculoMagia.QUARTO_CIRCULO]: '4º Círculo',
-  [CirculoMagia.QUINTO_CIRCULO]: '5º Círculo'
-}
+    [CirculoMagia.PRIMEIRO_CIRCULO]: '1º Círculo',
+    [CirculoMagia.SEGUNDO_CIRCULO]: '2º Círculo',
+    [CirculoMagia.TERCEIRO_CIRCULO]: '3º Círculo',
+    [CirculoMagia.QUARTO_CIRCULO]: '4º Círculo',
+    [CirculoMagia.QUINTO_CIRCULO]: '5º Círculo',
+};
 
 export const ClassePersonagemLabel: Record<ClassePersonagem, string> = {
     [ClassePersonagem.BARBARO]: 'Bárbaro',
@@ -50,7 +59,7 @@ export const DuracaoMagiaLabel: Record<DuracaoMagia, string> = {
     [DuracaoMagia.CENA]: 'Cena',
     [DuracaoMagia.SUSTENTADA]: 'Sustentada',
     [DuracaoMagia.DEFINIDA]: 'Definida',
-    [DuracaoMagia.PERMANENTE]: 'Permanente'
+    [DuracaoMagia.PERMANENTE]: 'Permanente',
 };
 
 export const EscolaMagiaLabel: Record<EscolaMagia, string> = {
@@ -154,9 +163,9 @@ export const TipoDanoLabel: Record<TipoDano, string> = {
 };
 
 export const TipoMagiaLabel: Record<TipoMagia, string> = {
-  [TipoMagia.MAGIA_ARCANA]: 'Magia Arcana',
-  [TipoMagia.MAGIA_DIVINA]: 'Magia Divina'
-}
+    [TipoMagia.MAGIA_ARCANA]: 'Magia Arcana',
+    [TipoMagia.MAGIA_DIVINA]: 'Magia Divina',
+};
 
 export const TipoModificadorLabel: Record<TipoModificador, string> = {
     [TipoModificador.BONUS_LINHAGEM]: 'Linhagem',
@@ -195,8 +204,8 @@ export const TipoModificadorLabel: Record<TipoModificador, string> = {
 };
 
 export const TipoResistenciaLabel: Record<TipoResistencia, string> = {
-  [TipoResistencia.ANULA]: 'anula',
-  [TipoResistencia.PARCIAL]: 'parcial',
-  [TipoResistencia.REDUZ_A_METADE]: 'reduz à metade',
-  [TipoResistencia.DESACREDITA]: 'desacredita'
-}
+    [TipoResistencia.ANULA]: 'anula',
+    [TipoResistencia.PARCIAL]: 'parcial',
+    [TipoResistencia.REDUZ_A_METADE]: 'reduz à metade',
+    [TipoResistencia.DESACREDITA]: 'desacredita',
+};
