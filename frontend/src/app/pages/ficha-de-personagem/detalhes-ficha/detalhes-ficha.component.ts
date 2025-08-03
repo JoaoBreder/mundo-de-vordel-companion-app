@@ -36,14 +36,31 @@ export class DetalhesFichaComponent implements OnInit {
     // @ Métodos privados
     // -----------------------------------------------------------------------------------------------------
 
-    observarAtualizacaoDetalhesFicha(): void {
+    private observarAtualizacaoDetalhesFicha(): void {
+        const pageLayoutElement = document.querySelector('div.detalhes-ficha-card');
+
         const sub = this.fichaDePersonagemService.detalhesFicha$.subscribe(detalhesFicha => {
             if (detalhesFicha) {
+                if (pageLayoutElement && !this.detalhesFicha) {
+                    pageLayoutElement.classList.toggle('detalhes-ficha-card-ativado');
+                }
+
                 this.detalhesFicha = detalhesFicha;
                 this.conteudoDataSource.data = detalhesFicha.conteudo;
             }
         });
 
         this.subscriptionManager.add({ ref: 'observarAtualizacaoDetalhesFicha', sub });
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Métodos públicos
+    // -----------------------------------------------------------------------------------------------------
+
+    fecharDetalhesFicha() {
+        this.detalhesFicha = null;
+
+        const pageLayoutElement = document.querySelector('div.detalhes-ficha-card');
+        pageLayoutElement?.classList.remove('detalhes-ficha-card-ativado');
     }
 }

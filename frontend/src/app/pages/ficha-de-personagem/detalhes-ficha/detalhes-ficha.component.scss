@@ -1,4 +1,14 @@
 detalhes-ficha-component {
+    .detalhes-ficha-card {
+        height: 100%;
+    }
+
+    .detalhes-ficha-card-ativado {
+        width: 18vw;
+        margin-left: 2rem;
+        animation: slideInFromRight 0.4s ease-out forwards;
+    }
+
     .detalhes-ficha {
         display: flex;
         flex-direction: column;
@@ -10,6 +20,9 @@ detalhes-ficha-component {
         border-radius: 0.5rem;
 
         .detalhes-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             font-size: 1.4rem;
 
             .detalhes-header {
@@ -67,9 +80,20 @@ detalhes-ficha-component {
                 padding: 1rem 0;
 
                 p {
-                  margin-bottom: 0.5rem !important;
+                    margin-bottom: 0.5rem !important;
                 }
             }
         }
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(10%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
     }
 }
